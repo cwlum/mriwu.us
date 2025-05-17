@@ -18,7 +18,7 @@ The website is built using fundamental web technologies:
 
 *   **HTML5:** For the structure and content of the web pages.
 *   **CSS3:** For styling and layout, including responsive design techniques.
-*   **JavaScript (ES6+):** For interactive elements and dynamic content, such as the contact form and the dinosaur game.
+*   **JavaScript (ES6+):** For interactive elements and dynamic content, such as the contact form.
 
 ## Project Structure
 
@@ -30,10 +30,6 @@ The repository is organized as follows:
 │   ├── header.css
 │   ├── main.css
 │   └── ...
-├── dinosaur-game/        # HTML, CSS, and JS for the Dinosaur Game
-│   ├── index.html
-│   ├── style.css
-│   └── js/
 ├── js/                   # JavaScript files for general site functionality
 │   ├── patreon-button.js
 │   └── ...
