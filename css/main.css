@@ -62,6 +62,7 @@
 
 .privacy-section summary {
     padding: 15px;
+    padding-left: 30px; /* Adjusted for new marker */
     font-size: 1.2em;
     font-weight: 600; /* Corresponds to font-variation-settings: 'wght' 600 */
     color: #e87722; /* Theme accent color for summary */
@@ -69,6 +70,7 @@
     outline: none; /* Remove focus outline from summary */
     position: relative;
     transition: background-color 0.2s ease-in-out;
+    list-style: none; /* Remove default browser marker */
 }
 
 .privacy-section summary:hover,
@@ -76,28 +78,28 @@
     background-color: #333333; /* Darker background on hover/focus */
 }
 
-/* Custom marker for summary */
-.privacy-section summary::marker {
-    content: ""; /* Remove default marker if any */
-}
-.privacy-section summary::-webkit-details-marker {
-    display: none; /* Remove default marker for WebKit browsers */
+/* Custom marker for summary using span.details-marker */
+.privacy-section summary::-webkit-details-marker { /* Still useful for some browsers */
+    display: none;
 }
 
-.privacy-section summary::before {
+.privacy-section summary .details-marker::before {
     content: '+'; /* Plus sign for closed state */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #e87722;
-    margin-right: 10px;
-    display: inline-block;
-    font-weight: bold; /* Make plus/minus bolder */
-    width: 1em; /* Ensure consistent spacing */
-    text-align: center;
-    /* No transition needed for content change */
+    font-weight: bold;
+    font-size: 1em; /* Adjust as needed, relative to summary font-size */
+    transition: transform 0.3s ease-in-out; /* For rotating the marker */
+    /* width: 1em; /* Optional: for consistent spacing */
+    /* text-align: center; /* Optional: for consistent spacing */
 }
 
-.privacy-section[open] summary::before {
-    content: '\\2013'; /* Minus sign (en-dash often used for visual balance) for open state */
-    /* transform: none; Remove rotation */
+.privacy-section[open] summary .details-marker::before {
+    content: '+'; /* Keep content as '+', rotate it */
+    transform: translateY(-50%) rotate(45deg); /* Rotate to form an 'x' */
 }
 
 .privacy-section div { /* Styling for the content inside <details> */
@@ -108,7 +110,7 @@
     /* margin-top: 10px; /* Replaced by padding-top on div and summary padding */
     max-height: 1000px; /* Large enough for content */
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    transition: max-height 0.6s ease-in-out, padding 0.6s ease-in-out, opacity 0.5s ease-in-out; /* Slower transition */
     opacity: 1;
     box-sizing: border-box;
 }
@@ -122,16 +124,7 @@
     /* margin-top: 0; /* No margin when collapsed */
 }
 
-/* Reveal content on hover of the details element if it's not already open by click */
-.privacy-section:not([open]):hover div {
-    max-height: 1000px; /* Expand to show content */
-    opacity: 1;
-    padding-top: 10px; /* Restore padding */
-    padding-bottom: 15px;
-    border-top-color: #444; /* Restore border color */
-    /* margin-top: 10px; /* Restore margin */
-}
-
+/* CSS hover for div expansion removed, JS will handle opening via 'open' attribute */
 
 .privacy-section div p,
 .privacy-section div ul {

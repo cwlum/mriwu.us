@@ -38,7 +38,7 @@
             <p>Welcome to Cervantes Wu's personal website (cwlum.github.io). This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website.</p>
 
             <details class="privacy-section">
-                <summary>Information We Collect</summary>
+                <summary><span class="details-marker"></span>Information We Collect</summary>
                 <div>
                     <p>We may collect personal information that you voluntarily provide to us, such as:</p>
                     <ul>
@@ -49,7 +49,7 @@
             </details>
 
             <details class="privacy-section">
-                <summary>How We Use Your Information</summary>
+                <summary><span class="details-marker"></span>How We Use Your Information</summary>
                 <div>
                     <p>We use the information we collect for the following purposes:</p>
                     <ul>
@@ -61,7 +61,7 @@
             </details>
 
             <details class="privacy-section">
-                <summary>Information Sharing and Disclosure</summary>
+                <summary><span class="details-marker"></span>Information Sharing and Disclosure</summary>
                 <div>
                     <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties, except as described below:</p>
                     <ul>
@@ -72,14 +72,14 @@
             </details>
 
             <details class="privacy-section">
-                <summary>Data Security</summary>
+                <summary><span class="details-marker"></span>Data Security</summary>
                 <div>
                     <p>We take reasonable precautions to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security.</p>
                 </div>
             </details>
 
             <details class="privacy-section">
-                <summary>Cookies</summary>
+                <summary><span class="details-marker"></span>Cookies</summary>
                 <div>
                     <p>This website may use cookies to enhance user experience. Cookies are small files placed on your device. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, some portions of our site may not function properly.</p>
                     <p>Specifically, we use Google Fonts, which may use cookies. For more information, please review <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener noreferrer">Google's cookie policy</a>.</p>
@@ -87,28 +87,28 @@
             </details>
 
             <details class="privacy-section">
-                <summary>Third-Party Links</summary>
+                <summary><span class="details-marker"></span>Third-Party Links</summary>
                 <div>
                     <p>Our website may contain links to other websites that are not operated by us (e.g., social media links, Formspree, Google Fonts). If you click on a third-party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
                 </div>
             </details>
 
             <details class="privacy-section">
-                <summary>Children's Privacy</summary>
+                <summary><span class="details-marker"></span>Children's Privacy</summary>
                 <div>
                     <p>Our website is not intended for individuals under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us. If we become aware that we have collected personal information from children without verification of parental consent, we take steps to remove that information from our servers.</p>
                 </div>
             </details>
 
             <details class="privacy-section">
-                <summary>Changes to This Privacy Policy</summary>
+                <summary><span class="details-marker"></span>Changes to This Privacy Policy</summary>
                 <div>
                     <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Effective Date" at the top. You are advised to review this Privacy Policy periodically for any changes.</p>
                 </div>
             </details>
 
             <details class="privacy-section">
-                <summary>Contact Us</summary>
+                <summary><span class="details-marker"></span>Contact Us</summary>
                 <div>
                     <p>If you have any questions about this Privacy Policy, please contact us through the <a href="contact.html">contact form</a> on our website.</p>
                 </div>
@@ -120,5 +120,21 @@
         </footer>
     </div>
     <!-- Scripts can be added here if needed for this page -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const detailsElements = document.querySelectorAll('.privacy-section');
+
+        // detailsElements.forEach(details => {
+        //     details.addEventListener('mouseenter', () => {
+        //         details.open = true;
+        //     });
+
+        //     // Optional: To close on mouseleave, uncomment the following:
+        //     // details.addEventListener('mouseleave', () => {
+        //     //     details.open = false;
+        //     // });
+        // });
+    });
+    </script>
 </body>
 </html>
