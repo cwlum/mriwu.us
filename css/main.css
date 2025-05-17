@@ -101,10 +101,37 @@
 }
 
 .privacy-section div { /* Styling for the content inside <details> */
-    padding: 0 15px 15px 15px;
+    /* Default state (when open via click or hover) */
+    padding: 15px; /* Uniform padding */
+    padding-top: 10px; /* Slightly less top padding as summary has bottom padding */
     border-top: 1px solid #444; /* Separator line */
-    margin-top: 10px;
+    /* margin-top: 10px; /* Replaced by padding-top on div and summary padding */
+    max-height: 1000px; /* Large enough for content */
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 1;
+    box-sizing: border-box;
 }
+
+.privacy-section:not([open]) div {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-color: transparent; /* Hide border by making it transparent */
+    /* margin-top: 0; /* No margin when collapsed */
+}
+
+/* Reveal content on hover of the details element if it's not already open by click */
+.privacy-section:not([open]):hover div {
+    max-height: 1000px; /* Expand to show content */
+    opacity: 1;
+    padding-top: 10px; /* Restore padding */
+    padding-bottom: 15px;
+    border-top-color: #444; /* Restore border color */
+    /* margin-top: 10px; /* Restore margin */
+}
+
 
 .privacy-section div p,
 .privacy-section div ul {
