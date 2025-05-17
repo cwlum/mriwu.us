@@ -11,7 +11,6 @@ This website serves as a central hub to showcase projects, share information, an
 *   **Portfolio Showcase:** Displays various projects and works.
 *   **Contact Form:** Allows visitors to get in touch easily.
 *   **Responsive Design:** Adapts to different screen sizes for optimal viewing on desktops, tablets, and mobile devices.
-*   **Dinosaur Game:** Includes a fun, interactive dinosaur game.
 
 ## Technologies Used
 
