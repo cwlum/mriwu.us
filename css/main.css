@@ -86,7 +86,7 @@
 }
 
 .privacy-section summary .details-marker::before {
-    content: '+'; /* Plus sign for closed state */
+    content: '\002B'; /* Plus sign for closed state (Unicode escape) */
     position: absolute;
     left: 10px;
     top: 50%;
@@ -100,7 +100,7 @@
 }
 
 .privacy-section[open] summary .details-marker::before {
-    content: '+'; /* Keep content as '+', rotate it */
+    content: '\002B'; /* Keep content as '+', rotate it (Unicode escape) */
     transform: translateY(-50%) rotate(45deg); /* Rotate to form an 'x' */
 }
 
