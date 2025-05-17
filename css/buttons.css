@@ -27,14 +27,14 @@
 }
 
 /* Primary Button Style */
-.button-primary {
+div.action-buttons a.button.button-primary {
     background-color: #e87722; /* Theme accent color */
     color: #ffffff;
     border-color: #e87722; /* Match background */
     /* font-variation-settings: 'wght' 600; /* Optional: if primary buttons should be bolder by default */
 }
 
-.button-primary:hover {
+div.action-buttons a.button.button-primary:hover {
     background-color: #d46a1f; /* Darker shade of accent for hover */
     border-color: #d46a1f;
     color: #ffffff; /* Ensure text color remains white */
