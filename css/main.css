@@ -85,15 +85,19 @@
 }
 
 .privacy-section summary::before {
-    content: '\\25B6'; /* Right-pointing triangle (▶) */
+    content: '+'; /* Plus sign for closed state */
     color: #e87722;
     margin-right: 10px;
     display: inline-block;
-    transition: transform 0.2s ease-in-out;
+    font-weight: bold; /* Make plus/minus bolder */
+    width: 1em; /* Ensure consistent spacing */
+    text-align: center;
+    /* No transition needed for content change */
 }
 
 .privacy-section[open] summary::before {
-    transform: rotate(90deg); /* Rotate triangle when open */
+    content: '\\2013'; /* Minus sign (en-dash often used for visual balance) for open state */
+    /* transform: none; Remove rotation */
 }
 
 .privacy-section div { /* Styling for the content inside <details> */
