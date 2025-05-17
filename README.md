@@ -1,6 +1,6 @@
 # cwlum.github.io
 
-[![License: All Rights Reserved](https://img.shields.io/badge/license-All%20Rights%20Reserved-lightgrey)](LICENSE)
+[![License: All Rights Reserved](https://img.shields.io/badge/license-All%20Rights%20Reserved-lightgrey)](LICENSE) [![Build Status](https://img.shields.io/badge/build-N%2FA-lightgrey)](.) [![Coverage Status](https://img.shields.io/badge/coverage-N%2FA-lightgrey)](.)
 
 This is the personal website and portfolio of cwlum.
 
