@@ -9,8 +9,9 @@
 .button {
     display: inline-block;
     padding: 8px 18px;
-    border: 1px solid #737373; /* Button border color */
-    color: #f0f0f0;
+    border: 1px solid #e87722; /* Orange border for transparent background */
+    color: #e87722; /* Orange text for transparent background */
+    background-color: transparent; /* Explicitly transparent */
     text-decoration: none;
     border-radius: 5px;
     font-size: 0.85em;
@@ -102,6 +103,7 @@ div.action-buttons a.button.button-primary:hover {
 
 .vgen-button span {
     letter-spacing: 0.5px;
+    color: #ffffff; /* Explicitly set text color to white */
 }
 
 @keyframes refined-swing-pop {
