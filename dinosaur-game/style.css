@@ -34,7 +34,7 @@ canvas {
 	border: 2px solid #e87722; /* Theme orange border */
 	width: 100%; 
 	height: auto; 
-	max-height: 300px; /* Increased max-height */
+	max-height: 300px; /* Control max display height, maintain aspect ratio via auto */
 	background-color: #2a2a2a; /* Slightly lighter dark for canvas itself */
 	border-radius: 8px; /* Rounded corners */
 	box-shadow: 0 0 15px rgba(232, 119, 34, 0.3); /* Subtle glow */

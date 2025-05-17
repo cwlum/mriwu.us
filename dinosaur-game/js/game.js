@@ -45,8 +45,8 @@
 		this.gameOverCallback = options.gameOverCallback || function() {};
 		this.gameStartCallback = options.gameStartCallback || function() {};
 		// Set canvas base dimensions - will be scaled by CSS
-		this.canvas.width = 800;
-		this.canvas.height = 300; // Increased height
+		this.canvas.width = 1600;
+		this.canvas.height = 600; // Increased height
 
 		this.cacti = [];
 		this.birds = []; 
