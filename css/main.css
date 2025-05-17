@@ -76,6 +76,8 @@
 .privacy-section summary:hover,
 .privacy-section summary:focus {
     background-color: #333333; /* Darker background on hover/focus */
+    font-size: 1.2em; /* Ensure font-size remains constant */
+    font-variation-settings: 'wght' 600; /* Ensure font weight remains constant */
 }
 
 /* Custom marker for summary using span.details-marker */
