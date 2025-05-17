@@ -26,6 +26,21 @@
     font-variation-settings: 'wght' 700; /* Bolder on hover */
 }
 
+/* Primary Button Style */
+.button-primary {
+    background-color: #e87722; /* Theme accent color */
+    color: #ffffff;
+    border-color: #e87722; /* Match background */
+    /* font-variation-settings: 'wght' 600; /* Optional: if primary buttons should be bolder by default */
+}
+
+.button-primary:hover {
+    background-color: #d46a1f; /* Darker shade of accent for hover */
+    border-color: #d46a1f;
+    color: #ffffff; /* Ensure text color remains white */
+    /* font-variation-settings: 'wght' 700; /* This will be inherited from .button:hover if not overridden */
+}
+
 /* VGen Button Styling */
 .vgen-button-container { /* Renamed from .button-container to avoid conflict */
     display: flex;
