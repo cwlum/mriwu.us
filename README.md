@@ -81,7 +81,7 @@ Contributions, issues, and feature requests are welcome. If you have any suggest
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the AGPLv3 License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
