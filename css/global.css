@@ -23,6 +23,26 @@ body {
     box-sizing: border-box;
 }
 
+/* Link Styles */
+a {
+    color: #e87722; /* Theme accent color for links */
+    text-decoration: none; /* Remove default underline */
+    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    color: #f0f0f0; /* Lighter color on hover/focus - or could be a brighter orange */
+    text-decoration: underline; /* Add underline on hover/focus */
+}
+
+/* Visited links can be styled differently if desired, but for theme consistency, often kept same or similar */
+a:visited {
+    /* color: #d46a1f; */ /* Example: slightly darker orange for visited, or keep as #e87722 */
+    color: #e87722; /* Keeping visited links same as unvisited for theme consistency */
+}
+
+
 /* General hover effect for variable font weight, applies to many elements */
 .site-title a:hover,
 .site-heading:hover,
