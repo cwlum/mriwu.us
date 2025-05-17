@@ -1,0 +1,52 @@
+.site-main {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.profile-image-container {
+    margin-bottom: 15px;
+}
+
+.profile-image {
+    width: 112px;
+    height: 112px;
+    border-radius: 100px; /* Circular image */
+    object-fit: cover;
+    border: 2px solid #424242; /* Subtle border around image */
+}
+
+.site-heading {
+    font-size: 2.2em; /* Cervantes Wu heading size */
+    margin-bottom: 5px;
+    font-weight: 600; /* Fixed weight, hover for variable is in global.css */
+}
+
+.site-subheading {
+    font-size: 1em;
+    color: #ababab; /* Lighter gray for subheading */
+    margin-top: 0;
+    margin-bottom: 20px;
+    /* Hover for variable font weight is in global.css */
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Space between icons */
+}
+
+.social-links svg {
+    fill: #ababab; /* Default icon color */
+    transition: fill 0.3s ease;
+    width: 20px; /* Slightly smaller icons */
+    height: 20px;
+}
+
+.social-links a:hover svg {
+    fill: #e87722; /* Accent color on hover */
+}
+
+/* Placeholder for .site-main p:hover if specific p tags need this, handled by global.css for now */

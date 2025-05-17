@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RAWRRRR!</title>
+		<link rel="stylesheet" href="style.css"> 
+	</head>
+	<body>
+		<!-- 
+			Boilerplate to start the basic layout. 
+
+			Making the canvas white will make our work space really obvious.
+		-->
+		<h1>Dinosaur Game!</h1>
+		<div id="game-area">
+			<canvas id="game" width="800" height="300"></canvas> <!-- Increased height -->
+			<div id="game-over-message" style="display: none;">
+				<h2>Game Over!</h2>
+				<p>Your Score: <span id="final-score">0</span></p>
+			</div>
+		</div>
+		<p class="controls">Press SPACE to Start / Jump / Double Jump</p>
+		<div class="game-buttons">
+			<button id="restart-button" class="game-button exit-button">Restart Game</button> <!-- Changed class -->
+			<a href="../index.html" class="game-button exit-button">Exit to Main Site</a>
+		</div>
+
+        <script src="js/helpers.js"></script>
+        <script src="js/objects/game-object.js"></script>
+        <script src="js/objects/cactus.js"></script>
+        <script src="js/objects/bird.js"></script> <!-- Added Bird script -->
+        <script src="js/objects/dinosaur.js"></script>
+        <script src="js/objects/background.js"></script>
+        <script src="js/objects/score.js"></script>
+        <script src="js/game.js"></script>
+        <script>
+			var gameInstance;
+			document.addEventListener('DOMContentLoaded', function() {
+				gameInstance = new Game({
+					el: document.getElementById("game"),
+					gameOverCallback: function(score) {
+						document.getElementById('final-score').textContent = score;
+						document.getElementById('game-over-message').style.display = 'block';
+					},
+					gameStartCallback: function() {
+						document.getElementById('game-over-message').style.display = 'none';
+					}
+				});
+
+				document.getElementById('restart-button').addEventListener('click', function() {
+					if (gameInstance && gameInstance.finished) {
+						gameInstance.restart();
+					}
+				});
+			});
+        </script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', Arial, sans-serif; /* Updated to Open Sans variable font */
+    /* Apply variable font settings */
+    font-variation-settings: 'wght' 400; /* Default weight */
+    background-color: #232323; /* Dark background */
+    color: #f0f0f0; /* Light text */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 15px; /* Add some padding for smaller screens */
+    box-sizing: border-box;
+}
+
+.site-container {
+    width: 100%;
+    max-width: 1000px; /* Max width for content */
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+/* General hover effect for variable font weight, applies to many elements */
+.site-title a:hover,
+.site-heading:hover,
+.site-subheading:hover,
+/* .button:hover, */ /* Button hover is more specific and handled in buttons.css */
+.site-main p:hover, /* Paragraphs within site-main */
+.copyright:hover,
+.site-navigation li:hover > a { /* Target the 'a' inside hovered 'li' for nav */
+    font-variation-settings: 'wght' 700;
+    transition: font-variation-settings 0.2s ease-in-out;
+}

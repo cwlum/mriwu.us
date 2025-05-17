@@ -1,0 +1,112 @@
+html, body {
+	background: #232323; /* Website background color */
+	font-size: 15px;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh; /* Ensure body takes full viewport height */
+}
+
+body {
+	/* width: 800px; Remove fixed width */
+	width: 90%; /* Use percentage for responsiveness */
+	max-width: 800px; /* Keep a max width */
+	margin: 20px auto; /* Add some margin */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 20px; /* Space for buttons */
+}
+
+#game-area {
+	position: relative; /* For positioning game over message */
+	width: 100%;
+	max-width: 800px; /* Match canvas intended base width */
+	margin-bottom: 10px;
+}
+
+canvas {
+	display: block; /* Remove extra space below canvas */
+	border: 2px solid #e87722; /* Theme orange border */
+	width: 100%; 
+	height: auto; 
+	max-height: 300px; /* Increased max-height */
+	background-color: #2a2a2a; /* Slightly lighter dark for canvas itself */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 0 15px rgba(232, 119, 34, 0.3); /* Subtle glow */
+}
+
+#game-over-message {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(35, 35, 35, 0.85); /* Dark semi-transparent background */
+	color: #f0f0f0;
+	padding: 20px 30px;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+	z-index: 10; /* Ensure it's above canvas */
+}
+#game-over-message h2 {
+	margin-top: 0;
+	color: #e87722; /* Theme orange for "Game Over!" */
+}
+
+.controls {
+	text-align: center; 
+	color: #f0f0f0; 
+	margin-top: 10px;
+	font-size: 0.9em;
+}
+
+h1 {
+    color: #e87722; /* Theme orange for main title */
+    text-align: center;
+	margin-bottom: 15px;
+	font-family: 'Quicksand', sans-serif; /* Match site title font if desired */
+	font-weight: 700;
+}
+
+.game-buttons {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	flex-wrap: wrap;
+}
+
+.game-button {
+	display: inline-block;
+	padding: 10px 20px;
+	border: 1px solid #737373; 
+	color: #f0f0f0;
+	background-color: #333; /* Darker button background */
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 0.9em;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+	cursor: pointer;
+	font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.game-button:hover {
+	background-color: #e87722;
+	color: #ffffff;
+	border-color: #e87722;
+	transform: translateY(-2px);
+}
+
+.exit-button {
+	border-color: #e87722; /* Make exit button stand out a bit */
+	color: #e87722;
+}
+.exit-button:hover {
+	background-color: #e87722;
+	color: #ffffff;
+}

@@ -1,0 +1,47 @@
+.site-header {
+    padding: 15px 0;
+    border-bottom: 1px solid #424242; /* Subtle border */
+    margin-bottom: 25px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.site-title a {
+    font-size: 1.4em; /* LUM title size */
+    font-weight: 600; /* Fixed weight for title, not variable for now */
+    color: #f0f0f0;
+    text-decoration: none;
+}
+/* Hover for site-title a is in global.css for font-variation-settings */
+
+.site-navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.site-navigation li {
+    margin-left: 20px;
+}
+
+.site-navigation a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: font-variation-settings 0.3s ease; /* Smooth transition for font weight */
+}
+
+/* Combined hover for site-navigation a */
+.site-navigation a:hover {
+    text-decoration: underline;
+    color: #e87722; /* Accent color on hover */
+    /* font-variation-settings: 'wght' 700;  This part is handled by the general rule in global.css */
+}
+/* The rule '.site-navigation li:hover > a' in global.css handles the font weight change */

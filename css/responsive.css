@@ -1,0 +1,72 @@
+/* Responsive adjustments for Twitter Follow Button */
+@media (max-width: 480px) {
+    .twitter-follow-button {
+        font-size: calc(0.9rem + 1vw); /* Adjusted for smaller screens */
+        padding: calc(0.4em + 0.2vw) calc(0.8em + 0.4vw);
+        border-radius: calc(1.8em + 0.5vw);
+    }
+}
+
+@media (min-width: 1200px) {
+    .twitter-follow-button {
+        font-size: calc(0.9rem + 0.3vw); /* Adjusted for larger screens */
+        padding: calc(0.5em + 0.1vw) calc(1em + 0.3vw);
+    }
+}
+
+/* General Responsive adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .site-navigation ul {
+        justify-content: center;
+        flex-wrap: wrap; /* Allow nav items to wrap */
+    }
+    .site-navigation li {
+        margin: 5px 10px; /* Adjust spacing for wrapped items */
+    }
+    .site-heading {
+        font-size: 2em;
+    }
+    .site-subheading {
+        font-size: 0.95em;
+    }
+    .action-buttons {
+        flex-direction: column; /* Stack buttons on smaller screens */
+        align-items: center;
+    }
+    .button { /* General button stacking */
+        width: 80%;
+        max-width: 300px; /* Max width for stacked buttons */
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title a {
+        font-size: 1.2em;
+    }
+    .site-navigation a {
+        font-size: 0.85em;
+    }
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+    .site-heading {
+        font-size: 1.8em;
+    }
+    .site-subheading {
+        font-size: 0.9em;
+    }
+    .social-links svg {
+        width: 18px;
+        height: 18px;
+    }
+    .button { /* Further adjustment for general buttons on very small screens */
+        padding: 8px 15px;
+        font-size: 0.8em;
+    }
+}
