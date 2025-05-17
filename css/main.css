@@ -50,3 +50,68 @@
 }
 
 /* Placeholder for .site-main p:hover if specific p tags need this, handled by global.css for now */
+
+/* Styles for Privacy Policy page collapsible sections */
+.privacy-section {
+    background-color: #2a2a2a; /* Slightly different background for the section */
+    border: 1px solid #444;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: left; /* Align text to left for readability */
+}
+
+.privacy-section summary {
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: 600; /* Corresponds to font-variation-settings: 'wght' 600 */
+    color: #e87722; /* Theme accent color for summary */
+    cursor: pointer;
+    outline: none; /* Remove focus outline from summary */
+    position: relative;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.privacy-section summary:hover,
+.privacy-section summary:focus {
+    background-color: #333333; /* Darker background on hover/focus */
+}
+
+/* Custom marker for summary */
+.privacy-section summary::marker {
+    content: ""; /* Remove default marker if any */
+}
+.privacy-section summary::-webkit-details-marker {
+    display: none; /* Remove default marker for WebKit browsers */
+}
+
+.privacy-section summary::before {
+    content: '\\25B6'; /* Right-pointing triangle (▶) */
+    color: #e87722;
+    margin-right: 10px;
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+}
+
+.privacy-section[open] summary::before {
+    transform: rotate(90deg); /* Rotate triangle when open */
+}
+
+.privacy-section div { /* Styling for the content inside <details> */
+    padding: 0 15px 15px 15px;
+    border-top: 1px solid #444; /* Separator line */
+    margin-top: 10px;
+}
+
+.privacy-section div p,
+.privacy-section div ul {
+    margin-bottom: 10px;
+    line-height: 1.7; /* Slightly more line height for readability */
+}
+
+.privacy-section div ul {
+    padding-left: 20px; /* Indent lists */
+}
+
+.privacy-section div li {
+    margin-bottom: 5px;
+}
