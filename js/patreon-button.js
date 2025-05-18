@@ -1,8 +1,8 @@
 // Patreon Button JavaScript
 document.querySelectorAll('.patreon-button').forEach(btn => {
   btn.addEventListener('click', function(e) {
-    // Allow default link behavior unless it's a direct left click on the button itself
-    if (e.target !== btn || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
+    // Allow default link behavior unless it's a left click on the button or its children
+    if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
         return;
     }
     // e.preventDefault(); // Allow link navigation

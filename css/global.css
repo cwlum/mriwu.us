@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap');
+/* Open Sans import removed */
 
 body {
     margin: 0;
-    font-family: 'Open Sans', Arial, sans-serif; /* Updated to Open Sans variable font */
+    font-family: 'Inter', Arial, sans-serif; /* Changed from Open Sans to Inter */
     /* Apply variable font settings */
-    font-variation-settings: 'wght' 400; /* Default weight */
+    /* font-variation-settings: 'wght' 400; */ /* Removed as Inter is not used as a variable font here */
     background-color: #232323; /* Dark background */
     color: #f0f0f0; /* Light text */
     line-height: 1.6;
@@ -14,6 +14,7 @@ body {
     min-height: 100vh;
     padding: 0 15px; /* Add some padding for smaller screens */
     box-sizing: border-box;
+    /* overflow: hidden; /* This was removed, scrolling is default */
 }
 
 .site-container {
@@ -44,13 +45,10 @@ a:visited {
 
 
 /* General hover effect for variable font weight, applies to many elements */
-.site-title a:hover,
-.site-heading:hover,
-.site-subheading:hover,
-/* .button:hover, */ /* Button hover is more specific and handled in buttons.css */
-.site-main p:hover, /* Paragraphs within site-main */
-.copyright:hover,
-.site-navigation li:hover > a { /* Target the 'a' inside hovered 'li' for nav */
-    font-variation-settings: 'wght' 700;
-    transition: font-variation-settings 0.2s ease-in-out;
+/* Removed hover rule for font-variation-settings as Open Sans variable font is no longer used.
+   Specific font-weight changes on hover for Inter can be added if needed. */
+
+/* Class to prevent body scroll when mobile menu is open */
+.body-no-scroll {
+    overflow: hidden;
 }

@@ -18,12 +18,17 @@
         <header class="site-header">
             <div class="header-content">
                 <div class="site-title"><a href="index.html">LUM</a></div>
-                <nav class="site-navigation">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav-list">
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                </button>
+                <nav class="site-navigation" aria-label="Main navigation">
+                    <ul role="menubar" id="main-nav-list">
+                        <li role="presentation"><a href="index.html" role="menuitem">Home</a></li>
+                        <li role="presentation"><a href="portfolio.html" role="menuitem">Portfolio</a></li>
+                        <li role="presentation"><a href="contact.html" role="menuitem">Contact</a></li>
+                        <li role="presentation"><a href="privacy.html" role="menuitem">Privacy Policy</a></li>
                     </ul>
                 </nav>
             </div>
@@ -37,9 +42,11 @@
         </main>
 
         <footer class="site-footer-bottom">
-            <p class="copyright">Copyright &copy; 2025 | Cervantes Wu</p>
+            <p class="copyright">Copyright &copy; <span id="copyright-year"></span> | Cervantes Wu</p>
         </footer>
     </div>
     <!-- Scripts can be added here if needed for this page -->
+    <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+    <script src="js/nav-toggle.js"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 // Twitter Follow Button JavaScript Ripple Effect
 document.querySelectorAll('.twitter-follow-button').forEach(btn => {
   btn.addEventListener('click', function(e) {
-    // Allow default link behavior unless it's a direct left click on the button itself
+    // Allow default link behavior unless it's a left click on the button or its children
     // and not a modifier key click
-    if (e.target !== btn || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
+    if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
         // Allow default link behavior to proceed
         return;
     }

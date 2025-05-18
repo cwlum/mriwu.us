@@ -17,16 +17,77 @@
 /* General Responsive adjustments */
 @media (max-width: 768px) {
     .header-content {
+        justify-content: space-between; /* Title will be on left, nav items (if in flow) on right */
+        align-items: center;
+        position: relative; 
+    }
+
+    .nav-toggle {
+        display: block; /* Show hamburger button */
+        position: absolute; /* Position it on the right */
+        right: 0; /* Align with the content edge (defined by body padding) */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1002; /* Above .site-navigation's z-index if it also becomes an overlay */
+    }
+
+    .site-navigation {
+        /* The <nav> element itself. Its child <ul> is the one being absolutely positioned for the dropdown.
+           On mobile, the <nav> element should not take up space in the header bar
+           if the toggle is to be properly positioned by space-between on header-content.
+           However, since toggle is now absolute, site-navigation can be display:block (default)
+           and its ul will be positioned relative to header-content.
+        */
+    }
+
+    /* Styles for the navigation list itself (the UL) */
+    .site-navigation ul#main-nav-list {
+        display: none; /* Hidden by default */
         flex-direction: column;
-        gap: 10px;
+        position: absolute;
+        top: 100%; /* Position below the .header-content */
+        left: 0;
+        right: 0;
+        background-color: rgba(58, 58, 58, 0.85); /* Semi-transparent for frosted glass */
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px); /* For Safari */
+        z-index: 1000;
+        padding: 0; /* No padding when closed */
+        border-top: 1px solid #424242;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease-out, padding 0.35s ease-out, background-color 0.35s ease-out;
     }
-    .site-navigation ul {
-        justify-content: center;
-        flex-wrap: wrap; /* Allow nav items to wrap */
+
+    /* When the parent .site-navigation has .nav-open, style the ul#main-nav-list */
+    .site-navigation.nav-open ul#main-nav-list {
+        display: flex; /* Show the list */
+        max-height: 500px; /* Adjust as needed */
+        padding: 10px 0; /* Add padding when open */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
     }
+
     .site-navigation li {
-        margin: 5px 10px; /* Adjust spacing for wrapped items */
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
     }
+    .site-navigation li a {
+        display: block;
+        padding: 12px 20px;
+        border-bottom: 1px solid #4f4f4f; /* Separator for nav items */
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Add transform to transition */
+    }
+    .site-navigation li a:hover,
+    .site-navigation li a:focus {
+        background-color: rgba(255, 255, 255, 0.05); /* Subtle hover/focus highlight */
+        color: #e87722; /* Ensure accent color on hover, might be overridden by specificity otherwise */
+        transform: scale(1.05); /* Slightly enlarge on hover/focus */
+    }
+    .site-navigation li:last-child a {
+        border-bottom: none;
+    }
+
     .site-heading {
         font-size: 2em;
     }

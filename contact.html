@@ -19,12 +19,17 @@
         <header class="site-header">
             <div class="header-content">
                 <div class="site-title"><a href="index.html">LUM</a></div>
-                <nav class="site-navigation">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav-list">
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                </button>
+                <nav class="site-navigation" aria-label="Main navigation">
+                    <ul role="menubar" id="main-nav-list">
+                        <li role="presentation"><a href="index.html" role="menuitem">Home</a></li>
+                        <li role="presentation"><a href="portfolio.html" role="menuitem">Portfolio</a></li>
+                        <li role="presentation"><a href="contact.html" role="menuitem">Contact</a></li>
+                        <li role="presentation"><a href="privacy.html" role="menuitem">Privacy Policy</a></li>
                     </ul>
                 </nav>
             </div>
@@ -37,11 +42,11 @@
             <form id="contact-form" action="https://formspree.io/f/movdrpzp" method="POST">
                 <div class="form-group">
                     <label for="name">Name <span class="required">*</span></label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" required aria-required="true">
                 </div>
                 <div class="form-group">
                     <label for="email">Email <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required aria-required="true">
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject</label>
@@ -49,19 +54,21 @@
                 </div>
                 <div class="form-group">
                     <label for="message">Message <span class="required">*</span></label>
-                    <textarea id="message" name="message" rows="6" required></textarea>
+                    <textarea id="message" name="message" rows="6" required aria-required="true"></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="button">Send Message</button>
+                    <button type="submit" class="button" aria-label="Send contact message">Send Message</button>
                 </div>
             </form>
             <p style="margin-top: 20px;">Alternatively, you can reach out via the social links on the homepage.</p>
         </main>
 
         <footer class="site-footer-bottom">
-            <p class="copyright">Copyright &copy; 2025 | Cervantes Wu</p>
+            <p class="copyright">Copyright &copy; <span id="copyright-year"></span> | Cervantes Wu</p>
         </footer>
     </div>
     <!-- Scripts can be added here if needed for this page -->
+    <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+    <script src="js/nav-toggle.js"></script>
 </body>
 </html>

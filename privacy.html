@@ -18,12 +18,17 @@
         <header class="site-header">
             <div class="header-content">
                 <div class="site-title"><a href="index.html">LUM</a></div>
-                <nav class="site-navigation">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav-list">
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                </button>
+                <nav class="site-navigation" aria-label="Main navigation">
+                    <ul role="menubar" id="main-nav-list">
+                        <li role="presentation"><a href="index.html" role="menuitem">Home</a></li>
+                        <li role="presentation"><a href="portfolio.html" role="menuitem">Portfolio</a></li>
+                        <li role="presentation"><a href="contact.html" role="menuitem">Contact</a></li>
+                        <li role="presentation"><a href="privacy.html" role="menuitem">Privacy Policy</a></li>
                     </ul>
                 </nav>
             </div>
@@ -43,7 +48,7 @@
                     <p>We may collect personal information that you voluntarily provide to us, such as:</p>
                     <ul>
                         <li><strong>Contact Information:</strong> When you use our contact form (powered by Formspree), we collect your name, email address, and any message or subject you provide. Please refer to <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree's Privacy Policy</a> for details on how they handle your data.</li>
-                        <li><strong>Usage Data:</strong> Like many websites, we may collect information that your browser sends whenever you visit our site. This may include information such as your computer's Internet Protocol (IP) address, browser type, browser version, the pages of our site that you visit, the time and date of your visit, the time spent on those pages, and other statistics. This data is typically collected anonymously and used for analytical purposes to improve our website. (Note: Currently, this site does not actively use analytics tools like Google Analytics, but this clause is included for general practice).</li>
+                        <li><strong>Usage Data:</strong> Like many websites, we may collect information that your browser sends whenever you visit our site. This may include information such as your computer's Internet Protocol (IP) address, browser type, browser version, the pages of our site that you visit, the time and date of your visit, the time spent on those pages, and other statistics. This data is typically collected anonymously and used for analytical purposes to improve our website.</li>
                     </ul>
                 </div>
             </details>
@@ -116,10 +121,12 @@
         </main>
 
         <footer class="site-footer-bottom">
-            <p class="copyright">Copyright &copy; 2025 | Cervantes Wu</p>
+            <p class="copyright">Copyright &copy; <span id="copyright-year"></span> | Cervantes Wu</p>
         </footer>
     </div>
     <!-- Scripts can be added here if needed for this page -->
+    <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+    <script src="js/nav-toggle.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         const detailsElements = document.querySelectorAll('.privacy-section');

@@ -1,9 +1,9 @@
 // VGen Button JavaScript
 document.querySelectorAll('.vgen-button').forEach(btn => {
   btn.addEventListener('click', function(e) {
-    // Don't create ripple if the click is not directly on the button (e.g., on the image or text)
+    // Don't create ripple if the click is not on the button or its children,
     // or if it's a middle/right click or ctrl/meta/shift click
-    if (e.target !== btn || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
+    if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
         // Allow default link behavior
         return;
     }

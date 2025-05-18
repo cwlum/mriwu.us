@@ -15,16 +15,15 @@
     text-decoration: none;
     border-radius: 5px;
     font-size: 0.85em;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, font-variation-settings 0.2s ease-in-out;
-    /* Base font-variation-settings can be inherited from body or set here if needed */
-    /* font-variation-settings: 'wght' 400; */ /* Example if needed */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, font-weight 0.2s ease-in-out;
+    /* font-weight: 400; */ /* Inter's default normal weight */
 }
 
 .button:hover {
     background-color: #e87722;
     color: #ffffff;
     border-color: #e87722;
-    font-variation-settings: 'wght' 700; /* Bolder on hover */
+    font-weight: 700; /* Bolder on hover */
 }
 
 /* Primary Button Style */
@@ -32,14 +31,14 @@ div.action-buttons a.button.button-primary {
     background-color: #e87722; /* Theme accent color */
     color: #ffffff;
     border-color: #e87722; /* Match background */
-    /* font-variation-settings: 'wght' 600; /* Optional: if primary buttons should be bolder by default */
+    /* font-weight: 600; /* Optional: if primary buttons should be bolder by default */
 }
 
 div.action-buttons a.button.button-primary:hover {
     background-color: #d46a1f; /* Darker shade of accent for hover */
     border-color: #d46a1f;
     color: #ffffff; /* Ensure text color remains white */
-    /* font-variation-settings: 'wght' 700; /* This will be inherited from .button:hover if not overridden */
+    /* font-weight: 700; /* This will be inherited from .button:hover if not overridden */
 }
 
 /* VGen Button Styling */
@@ -59,16 +58,15 @@ div.action-buttons a.button.button-primary:hover {
     border-radius: 8px;
     color: white;
     font-size: 16px;
-    /* font-weight: 700; Replaced by font-variation-settings */
-    font-variation-settings: 'wght' 700;
+    font-weight: 700; /* Inter bold */
     text-decoration: none;
-    transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease, font-variation-settings 0.3s ease;
+    transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease, font-weight 0.3s ease;
     border: 0;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(232, 119, 34, 0.3);
     position: relative;
     overflow: hidden;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     animation: refined-swing-pop 3.5s infinite ease-in-out;
 }
 
@@ -163,21 +161,20 @@ div.action-buttons a.button.button-primary:hover {
     border-radius: 50px;
     color: white;
     font-size: 16px;
-    /* font-weight: bold; Replaced by font-variation-settings */
-    font-variation-settings: 'wght' 700; /* Bold */
+    font-weight: 700; /* Inter bold */
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(232, 119, 34, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, font-variation-settings 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, font-weight 0.3s ease;
     animation: glow-pulse 2.5s infinite ease-in-out; /* Made glow-pulse faster */
     overflow: hidden;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .patreon-button:hover {
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 15px rgba(232, 119, 34, 0.5);
     animation: none;
-    /* font-variation-settings: 'wght' 750; Example if needed for bolder hover */
+    /* font-weight: 700; Example if needed for bolder hover, Inter already 700 */
 }
 
 .patreon-logo svg {
@@ -289,14 +286,14 @@ div.action-buttons a.button.button-primary:hover {
     z-index: 1;
     overflow: hidden;
     text-decoration: none;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-variation-settings: 'wght' 600; /* Using variable font weight */
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 600; /* Inter semi-bold */
     font-size: calc(1rem + 0.5vw);
     padding: calc(0.5em + 0.2vw) calc(1em + 0.5vw);
     color: #e87722;
     border: 0.12em solid #e87722;
     border-radius: 2em;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease, font-variation-settings 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease, font-weight 0.3s ease;
     /* Ensure overflow hidden for ripple containment if not already */
     overflow: hidden; 
 }
@@ -313,7 +310,7 @@ div.action-buttons a.button.button-primary:hover {
     background-color: #e87722; /* Keep background color change on hover */
     transform: scale(1.05);
     box-shadow: 0 0 calc(8px + 0.8vw) rgba(232, 119, 34, 0.7);
-    font-variation-settings: 'wght' 750; /* Make it slightly bolder on hover */
+    font-weight: 700; /* Inter bold */
 }
 
 /* JS Ripple Effect for Twitter Button */
