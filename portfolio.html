@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/portfolio-masonry.css">
+    <link rel="stylesheet" href="css/modal.css">
     <!-- <link rel="stylesheet" href="css/buttons.css"> Optional: if buttons are needed on this page -->
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -35,18 +37,41 @@
         </header>
 
         <main class="site-main">
-            <h1 class="site-heading">Portfolio</h1>
-            <p class="site-subheading">Details about my work and projects will be here.</p>
-            <!-- Placeholder content -->
-            <p>Portfolio content coming soon.</p>
+            <h1 class="site-heading">Portfolio Showcase</h1>
+            <p class="site-subheading">A visual collection of my work and projects.</p>
+
+            <div class="portfolio-controls">
+                <div id="category-filters" class="category-filters">
+                    <!-- Filter buttons will be dynamically inserted here -->
+                </div>
+                <div class="search-bar-container">
+                    <input type="search" id="portfolio-search" placeholder="Search portfolio...">
+                </div>
+            </div>
+            
+            <div class="masonry-grid">
+                <!-- Portfolio items will be dynamically inserted here by JavaScript -->
+            </div>
         </main>
 
         <footer class="site-footer-bottom">
             <p class="copyright">Copyright &copy; <span id="copyright-year"></span> | Cervantes Wu</p>
         </footer>
     </div>
-    <!-- Scripts can be added here if needed for this page -->
+    
     <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
     <script src="js/nav-toggle.js"></script>
+    <script src="js/portfolio-data.js" defer></script>
+    <script src="js/render-portfolio.js" defer></script>
+    <!-- Flexbox is now used for masonry; JS for true masonry (reordering for height) could be a future step -->
+
+    <!-- Image Modal Structure -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal-btn">&times;</span>
+        <span class="prev-modal-btn modal-nav-btn">&#10094;</span>
+        <span class="next-modal-btn modal-nav-btn">&#10095;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption"></div>
+    </div>
 </body>
 </html>

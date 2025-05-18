@@ -1,0 +1,137 @@
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1050; /* Sit on top, above header nav-toggle */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    padding-top: 60px; /* Location of the box */
+}
+
+.modal-content { /* This is the <img> tag */
+    margin: auto;
+    display: block;
+    max-width: 90vw; /* Max width relative to viewport width */
+    max-height: 80vh; /* Max height relative to viewport height */
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+    border: 2px solid #ddd; /* Subtle border around the image */
+    background-color: #111; /* Fallback if image is transparent/fails to load */
+}
+
+#modalCaption {
+    margin: 20px auto 10px auto; /* Increased top margin */
+    display: block;
+    width: 80%;
+    max-width: 700px; /* Keep caption width manageable */
+    text-align: center;
+    color: #ddd; /* Slightly brighter caption color */
+    padding: 10px 0;
+    font-size: 1.15em; /* Slightly larger caption font */
+    line-height: 1.4;
+}
+
+/* Close Button */
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close-modal-btn:hover,
+.close-modal-btn:focus {
+    color: #e87722; /* Accent color on hover/focus */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Add Animation (optional) */
+.modal { /* Added animation for the modal overlay itself */
+    animation-name: fadeInOverlay;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+}
+
+.modal-content, #modalCaption {
+    animation-name: zoomInContent;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out; /* Ensure content zoom feels smooth */
+}
+
+@keyframes fadeInOverlay {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+@keyframes zoomInContent { /* Renamed for clarity */
+    from {transform:scale(0.8); opacity: 0.5;} /* Start slightly transparent too */
+    to {transform:scale(1); opacity: 1;}
+}
+
+/* Modal Navigation Buttons */
+.modal-nav-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -30px; /* Adjust to vertically center with padding */
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.4s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.3); /* Semi-transparent background */
+}
+
+.prev-modal-btn {
+    left: 0;
+    border-radius: 3px 0 0 3px; /* Adjust for left side */
+}
+
+.next-modal-btn {
+    right: 0;
+    border-radius: 0 3px 3px 0; /* Default is fine */
+}
+
+.modal-nav-btn:hover {
+    background-color: rgba(0,0,0,0.6); /* Darker on hover */
+    color: #e87722; /* Accent color on hover */
+}
+
+.modal-nav-btn.hidden { /* Class to hide buttons */
+    display: none;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+    .modal-content {
+        /* max-width and max-height from above should handle responsiveness well */
+        /* If specific overrides are needed for small screens, they go here */
+    }
+    #modalCaption {
+        width: 90%; /* Allow caption to use more width on small screens */
+        font-size: 1em;
+    }
+    .close-modal-btn {
+        top: 10px;
+        right: 25px;
+        font-size: 30px;
+    }
+    .modal-nav-btn {
+        font-size: 18px;
+        padding: 12px;
+        margin-top: -25px;
+    }
+}
