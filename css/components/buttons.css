@@ -300,7 +300,7 @@ div.action-buttons a.button:hover {
     font-weight: 600; /* Inter semi-bold */
     font-size: calc(1rem + 0.5vw);
     padding: calc(0.5em + 0.2vw) calc(1em + 0.5vw);
-    color: #e87722;
+    color: #ffffff;/* White text */
     border: 0.12em solid #e87722;
     border-radius: 2em;
     transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease, font-weight 0.3s ease;
