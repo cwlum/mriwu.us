@@ -8,7 +8,10 @@ This website serves as a central hub to showcase projects, share information, an
 
 ## Features
 
-*   **Portfolio Showcase:** Displays various projects and works.
+*   **Portfolio Showcase:** Displays various projects and works with features such as:
+    *   Category filtering
+    *   Text-based search
+    *   Enhanced image modal with larger view, captions, and next/previous navigation (including keyboard controls).
 *   **Contact Form:** Allows visitors to get in touch easily.
 *   **Responsive Design:** Adapts to different screen sizes for optimal viewing on desktops, tablets, and mobile devices.
 
@@ -25,16 +28,33 @@ The website is built using fundamental web technologies:
 The repository is organized as follows:
 
 ```
-├── css/                  # Stylesheets
+├── css/                  # General stylesheets
 │   ├── global.css
 │   ├── header.css
+│   ├── footer.css
 │   ├── main.css
-│   └── ...
-├── js/                   # JavaScript files for general site functionality
-│   ├── patreon-button.js
-│   └── ...
-├── media/                # Images and other media assets
-│   └── profile-picture.JPG
+│   ├── responsive.css
+│   ├── contact-form.css
+│   └── components/         # Component-specific styles
+│       └── buttons.css
+│   └── portfolio/          # Portfolio-specific styles
+│       ├── grid.css
+│       └── modal.css
+├── js/                   # General JavaScript files
+│   ├── nav-toggle.js
+│   └── buttons/            # Button-specific scripts
+│       ├── patreon-button.js
+│       ├── twitter-button.js
+│       └── vgen-button.js
+│   └── portfolio/          # Portfolio-specific scripts
+│       ├── data.js
+│       ├── page.js
+│       └── modal.js
+├── asset/                # Images, logos, and other media assets
+│   ├── logo.PNG
+│   ├── profile-picture.JPG
+│   └── portfolio/          # Portfolio images
+│       └── ... 
 ├── contact.html          # Contact page
 ├── index.html            # Main landing page (Homepage)
 ├── portfolio.html        # Portfolio page

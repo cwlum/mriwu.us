@@ -10,7 +10,7 @@
     display: inline-block;
     padding: 8px 18px;
     border: 1px solid #e87722; /* Orange border for transparent background */
-    color: #e87722; /* Orange text for transparent background */
+    color:#e87722; /* Orange text for transparent background */
     background-color: transparent; /* Explicitly transparent */
     text-decoration: none;
     border-radius: 5px;
