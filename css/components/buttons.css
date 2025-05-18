@@ -10,7 +10,7 @@
     display: inline-block;
     padding: 8px 18px;
     border: 1px solid #e87722; /* Orange border for transparent background */
-    color:#e87722; /* Orange text for transparent background */
+    color: #ffffff; /* White text by default */
     background-color: transparent; /* Explicitly transparent */
     text-decoration: none;
     border-radius: 5px;
@@ -21,15 +21,16 @@
 
 .button:hover {
     background-color: #e87722;
-    color: #ffffff;
+    color: #ffffff; /* Text remains white on hover */
     border-color: #e87722;
     font-weight: 700; /* Bolder on hover */
 }
 
 /* Primary Button Style */
+/* This style is for buttons that should have a solid background by default */
 div.action-buttons a.button.button-primary {
     background-color: #e87722; /* Theme accent color */
-    color: #ffffff;
+    color: #ffffff; /* White text */
     border-color: #e87722; /* Match background */
     /* font-weight: 600; /* Optional: if primary buttons should be bolder by default */
 }
@@ -39,6 +40,15 @@ div.action-buttons a.button.button-primary:hover {
     border-color: #d46a1f;
     color: #ffffff; /* Ensure text color remains white */
     /* font-weight: 700; /* This will be inherited from .button:hover if not overridden */
+}
+
+/* Ensure that if a non-primary .button is used within .action-buttons, it also gets white text */
+/* This might be redundant if .button already has color: #ffffff, but good for clarity */
+div.action-buttons a.button {
+    color: #ffffff; /* Ensure white text for these specific action buttons if not primary */
+}
+div.action-buttons a.button:hover {
+    color: #ffffff; /* Ensure white text on hover as well */
 }
 
 /* VGen Button Styling */
