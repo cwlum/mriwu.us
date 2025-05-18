@@ -65,6 +65,9 @@
         max-height: 500px; /* Adjust as needed */
         padding: 10px 0; /* Add padding when open */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+        border-bottom-left-radius: 10px; /* Rounded bottom corners for open menu */
+        border-bottom-right-radius: 10px; /* Rounded bottom corners for open menu */
+        /* overflow: hidden; is already on the base style, should be fine */
     }
 
     .site-navigation li {
