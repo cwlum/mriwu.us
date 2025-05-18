@@ -15,7 +15,7 @@
     text-decoration: none;
     border-radius: 5px;
     font-size: 0.85em;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, font-weight 0.2s ease-in-out;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, font-weight 0.2s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
     /* font-weight: 400; */ /* Inter's default normal weight */
 }
 
@@ -24,6 +24,8 @@
     color: #ffffff; /* Text remains white on hover */
     border-color: #e87722;
     font-weight: 700; /* Bolder on hover */
+    transform: translateY(-2px) scale(1.05); /* Lift and slightly enlarge */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 /* Primary Button Style */

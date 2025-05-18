@@ -19,7 +19,7 @@ body {
 
 .site-container {
     width: 100%;
-    max-width: 1000px; /* Max width for content */
+    max-width: 1200px; /* Max width for content - Increased from 1000px */
     padding: 20px 0;
     box-sizing: border-box;
 }

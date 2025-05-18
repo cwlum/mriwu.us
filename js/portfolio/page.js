@@ -29,7 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentCategoryFilter = 'all'; 
     let currentSearchTerm = ''; 
 
+    // Function to get URL parameters
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
     function setupControls() {
+        // Pre-fill search from URL if present
+        const initialSearchTerm = getQueryParam('search');
+        if (searchInput && initialSearchTerm) {
+            searchInput.value = initialSearchTerm;
+            currentSearchTerm = initialSearchTerm.toLowerCase();
+            // applyFilters will be called after items are rendered
+        }
+
         if (categoryFiltersContainer) {
             const categories = ['All', ...new Set(portfolioItems.map(item => item.category).filter(Boolean))];
             categories.forEach(category => {
@@ -123,5 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (portfolioItems.length > 0) {
         setupControls();
+        // If there was an initial search term from URL, apply filters now that items are rendered
+        if (currentSearchTerm) {
+            applyFilters();
+        }
     }
 });

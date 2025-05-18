@@ -79,3 +79,4 @@
 .nav-toggle.active .hamburger-icon-bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
+/* Styles for .sidebar-toggle-button removed as it's no longer in the header */

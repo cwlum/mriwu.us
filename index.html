@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components/buttons.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css"> <!-- Added sidebar CSS -->
+    <link rel="stylesheet" href="css/contact-form.css"> <!-- Added for sidebar contact form -->
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +19,10 @@
     <link rel="icon" href="asset/logo.PNG" sizes="32x32" /> <!-- Updated favicon path -->
 </head>
 <body>
+    <button id="sidebar-toggle" class="sidebar-toggle-button" aria-label="Toggle sidebar" aria-expanded="false" aria-controls="sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6L8.59 16.34z"/></svg>
+        <!-- SIDEBAR text removed -->
+    </button>
     <div class="site-container">
         <header class="site-header">
             <div class="header-content">
@@ -37,7 +43,8 @@
             </div>
         </header>
 
-        <main class="site-main">
+        <div class="main-content-area-wrapper"> <!-- Wrapper for main content and sidebar -->
+            <main class="site-main">
             <figure class="profile-image-container">
                 <img src="asset/profile-picture.JPG" alt="Cervantes Wu Profile Picture" class="profile-image">
             </figure>
@@ -65,8 +72,42 @@
                 <a class="button" href="portfolio.html" aria-label="See my portfolio">See my portfolio</a> <!-- Updated link -->
             </div>
         </main>
-
-        <footer class="site-footer-bottom">
+        <aside class="sidebar" id="sidebar"> <!-- Added id for easier JS targeting if needed -->
+            <div class="sidebar-section">
+                <h4>Commission Status</h4>
+                <p class="commission-status-text">Commissions: <span class="status-open">Open</span></p>
+                <form id="sidebar-contact-form" action="https://formspree.io/f/movdrpzp" method="POST">
+                    <div class="form-group">
+                        <label for="sidebar-name">Name <span class="required">*</span></label>
+                        <input type="text" id="sidebar-name" name="name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="sidebar-email">Email <span class="required">*</span></label>
+                        <input type="email" id="sidebar-email" name="email" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="sidebar-subject">Subject</label>
+                        <input type="text" id="sidebar-subject" name="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="sidebar-message">Message <span class="required">*</span></label>
+                        <textarea id="sidebar-message" name="message" rows="4" required aria-required="true"></textarea> <!-- Reduced rows for sidebar -->
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="button" aria-label="Send contact message">Send Message</button>
+                    </div>
+                </form>
+                <div class="button-container vgen-button-container sidebar-vgen-button-container" style="margin-top: 15px; text-align: center;">
+                  <a href="https://vgen.co/mriwu_u/" class="vgen-button" aria-label="Commission me on VGen">
+                    <img src="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z' fill='white'/%3E%3Cpath d='M17.5 8.5L12 14L6.5 8.5' stroke='%23e87722' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="VGen Logo">
+                    <span>VGen</span>
+                  </a>
+                </div>
+            </div>
+            <!-- Interactive Art Section Removed -->
+        </aside>
+    </div> <!-- End of .main-content-area-wrapper -->
+    <footer class="site-footer-bottom">
             <div class="button-container patreon-button-container">
               <a href="https://patreon.com/mriwu_u" class="patreon-button" data-tooltip="加入 Patreon，獲得獨家福利！" aria-label="Support me on Patreon">
                 <span class="patreon-logo">
@@ -92,5 +133,6 @@
     <script src="js/buttons/patreon-button.js"></script>
     <script src="js/buttons/twitter-button.js"></script>
     <script src="js/nav-toggle.js"></script>
+    <script src="js/sidebar-toggle.js"></script> <!-- Added sidebar toggle script -->
 </body>
 </html>
