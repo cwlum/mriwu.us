@@ -6,15 +6,6 @@ This repository contains the source code for the personal website and portfolio 
 
 This website serves as a central hub to showcase projects, share information, and provide contact details. It is designed to be a clean, responsive, and easily navigable platform.
 
-## Features
-
-*   **Portfolio Showcase:** Displays various projects and works with features such as:
-    *   Category filtering
-    *   Text-based search
-    *   Enhanced image modal with larger view, captions, and next/previous navigation (including keyboard controls).
-*   **Contact Form:** Allows visitors to get in touch easily.
-*   **Responsive Design:** Adapts to different screen sizes for optimal viewing on desktops, tablets, and mobile devices.
-
 ## Technologies Used
 
 The website is built using fundamental web technologies:
