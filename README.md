@@ -28,39 +28,54 @@ The website is built using fundamental web technologies:
 The repository is organized as follows:
 
 ```
-├── css/                  # General stylesheets
-│   ├── global.css
-│   ├── header.css
-│   ├── footer.css
-│   ├── main.css
-│   ├── responsive.css
-│   ├── contact-form.css
-│   └── components/         # Component-specific styles
-│       └── buttons.css
-│   └── portfolio/          # Portfolio-specific styles
+├── css/
+│   ├── base/
+│   │   ├── global.css
+│   │   ├── main.css
+│   │   └── responsive.css
+│   ├── layout/
+│   │   ├── footer.css
+│   │   ├── header.css
+│   │   └── sidebar.css
+│   ├── pages/
+│   │   ├── academic.css
+│   │   └── contact-form.css
+│   ├── components/
+│   │   └── buttons.css
+│   └── portfolio/
 │       ├── grid.css
 │       └── modal.css
-├── js/                   # General JavaScript files
-│   ├── nav-toggle.js
-│   └── buttons/            # Button-specific scripts
-│       ├── patreon-button.js
-│       ├── twitter-button.js
-│       └── vgen-button.js
-│   └── portfolio/          # Portfolio-specific scripts
+├── js/
+│   ├── utils/
+│   │   └── page-animations.js
+│   ├── components/
+│   │   └── navigation/
+│   │       ├── nav-toggle.js
+│   │       └── sidebar-toggle.js
+│   ├── features/
+│   │   └── password-protect.js
+│   ├── buttons/
+│   │   ├── patreon-button.js
+│   │   ├── twitter-button.js
+│   │   └── vgen-button.js
+│   └── portfolio/
 │       ├── data.js
 │       ├── page.js
 │       └── modal.js
-├── asset/                # Images, logos, and other media assets
-│   ├── logo.PNG
-│   ├── profile-picture.JPG
-│   └── portfolio/          # Portfolio images
-│       └── ... 
-├── contact.html          # Contact page
-├── index.html            # Main landing page (Homepage)
-├── portfolio.html        # Portfolio page
-├── privacy.html          # Privacy policy page
-├── LICENSE               # Project license information
-└── README.md             # This file
+├── asset/
+│   ├── images/
+│   │   ├── logo.PNG
+│   │   └── profile-picture.JPG
+│   └── portfolio/
+│       └── ...
+├── academic.html
+├── CNAME
+├── contact.html
+├── index.html
+├── LICENSE
+├── portfolio.html
+├── privacy.html
+└── README.md
 ```
 
 ## Getting Started
