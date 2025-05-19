@@ -172,18 +172,67 @@
     <script src="js/page-animations.js" defer></script> <!-- Added page load animations -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const detailsElements = document.querySelectorAll('.privacy-section');
+        const detailsElements = document.querySelectorAll('details.privacy-section');
 
-        // detailsElements.forEach(details => {
-        //     details.addEventListener('mouseenter', () => {
-        //         details.open = true;
-        //     });
+        if (typeof anime === 'undefined') {
+            console.warn('anime.js not loaded, details animations will not run.');
+            return;
+        }
 
-        //     // Optional: To close on mouseleave, uncomment the following:
-        //     // details.addEventListener('mouseleave', () => {
-        //     //     details.open = false;
-        //     // });
-        // });
+        detailsElements.forEach(details => {
+            const summary = details.querySelector('summary');
+            const content = details.querySelector('div');
+            let isDetailsAnimating = false;
+
+            // Ensure content div has overflow hidden and initial animated styles set by CSS
+            // CSS should handle: height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0
+
+            if (summary && content) {
+                summary.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (isDetailsAnimating) return;
+                    isDetailsAnimating = true;
+
+                    if (details.open) { // If currently open, animate to close
+                        anime({
+                            targets: content,
+                            height: 0,
+                            opacity: 0,
+                            paddingTop: 0,
+                            paddingBottom: 0,
+                            duration: 400,
+                            easing: 'easeOutQuad',
+                            complete: () => {
+                                details.open = false; // Set after animation
+                                isDetailsAnimating = false;
+                            }
+                        });
+                    } else { // If currently closed, animate to open
+                        details.open = true; // Set before animation to calculate scrollHeight
+                        // Temporarily set display to calculate scrollHeight correctly if it was none
+                        // const originalDisplay = content.style.display;
+                        // content.style.display = 'block'; // Or 'flex' etc.
+                        
+                        anime({
+                            targets: content,
+                            height: [0, content.scrollHeight],
+                            opacity: [0, 1],
+                            paddingTop: [0, '10px'], // From CSS: padding-top: 10px
+                            paddingBottom: [0, '15px'], // From CSS: padding: 15px (implies bottom 15px)
+                            duration: 400,
+                            easing: 'easeOutQuad',
+                            begin: () => {
+                                // content.style.display = originalDisplay || ''; // Restore if changed
+                            },
+                            complete: () => {
+                                content.style.height = ''; // Set to auto after animation for responsiveness
+                                isDetailsAnimating = false;
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
     </script>
 </body>

@@ -4,6 +4,7 @@
     gap: 1.5em; /* Unified gap for rows and columns */
     padding: 1em 0; /* Keep vertical padding */
     align-items: flex-start; /* Prevent items from stretching to fill row height */
+    justify-content: center; /* Center items if they don't fill the row */
 }
 
 .masonry-item {
@@ -14,17 +15,25 @@
     /* margin-bottom is now handled by the 'gap' property in .masonry-grid */
     box-sizing: border-box;
     /* Flex properties */
-    flex-grow: 1; /* Allow items to grow to fill space */
+    flex-grow: 0; /* Do not allow items to grow beyond their basis */
     flex-shrink: 1; /* Allow items to shrink if necessary */
-    flex-basis: 300px; /* Base width for items, they will wrap accordingly */
+    /* flex-basis: 300px; */ /* Replaced by width with clamp */
+    flex-basis: auto; /* Allow width property to dictate size */
+    width: clamp(300px, 60%, 600px); /* Responsive width: min 300px, ideal 60%, max 600px */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */ /* Removed for anime.js control */
+    transition: border-color 0.3s ease; /* Keep other transitions if needed */
+    overflow: hidden; /* Added to contain image zoom on hover */
+    position: relative; /* For absolute positioning of caption overlay */
+    opacity: 0; /* Initial state for entrance animation */
+    transform: scale(0.8); /* Initial state for entrance animation */
+    visibility: hidden; /* Initial state for entrance animation */
 }
 
 .masonry-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    border-color: #e87722; /* Accent color on hover */
+    /* transform: translateY(-5px); */ /* Controlled by anime.js */
+    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); */ /* Controlled by anime.js */
+    border-color: #e87722; /* Accent color on hover - can keep or also move to anime.js */
 }
 
 .masonry-item img {
@@ -35,10 +44,20 @@
 }
 
 .masonry-item .caption {
-    font-size: 0.9rem;
-    color: #cccccc;
-    padding-top: 0.5em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent overlay */
+    color: #ffffff;
+    padding: 0.75em; /* Adjust padding for overlay */
+    box-sizing: border-box;
     text-align: center;
+    font-size: 0.9rem;
+    opacity: 0; /* Initially hidden for hover effect */
+    transform: translateY(100%); /* Initially positioned below the item for slide-up */
+    /* transition for anime.js control, or can be CSS transition if preferred for simple cases */
+    /* transition: opacity 0.3s ease, transform 0.3s ease; */
 }
 
 /* Responsive adjustments for masonry using Flexbox */

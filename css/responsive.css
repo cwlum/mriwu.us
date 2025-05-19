@@ -28,7 +28,7 @@
         right: 0; /* Align with the content edge (defined by body padding) */
         top: 50%;
         transform: translateY(-50%);
-        z-index: 1010; /* Ensure toggle is above its menu, and matches sidebar level */
+        z-index: 1010; /* To be above its menu (1009) and align with sidebar level */
     }
 
     .site-navigation {
@@ -48,15 +48,17 @@
         top: 100%; /* Position below the .header-content */
         left: 0;
         right: 0;
-        background-color: rgba(40, 40, 40, 0.75); /* Match sidebar panel: More transparent */
-        backdrop-filter: blur(12px); /* Match sidebar panel: Slightly more blur */
-        -webkit-backdrop-filter: blur(12px); /* For Safari */
-        z-index: 1009; /* Below sidebar (1010), but above general content */
-        padding: 0; /* No padding when closed */
+        background-color: rgba(40, 40, 40, 0.75); 
+        backdrop-filter: blur(12px); 
+        -webkit-backdrop-filter: blur(12px); 
+        z-index: 1009; /* Below sidebar (1010), above header (1008) and general content */
+        padding: 0; 
         border-top: 1px solid #424242;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.35s ease-out, padding 0.35s ease-out, background-color 0.35s ease-out;
+        transition: max-height 0.35s ease-out, padding 0.35s ease-out, background-color 0.35s ease-out; /* Restored CSS transition */
+        /* Removed anime.js specific styles: height, opacity, transform */
+        /* box-shadow and border-radius are applied on .nav-open state */
     }
 
     /* When the parent .site-navigation has .nav-open, style the ul#main-nav-list */
@@ -64,10 +66,10 @@
         display: flex; /* Show the list */
         max-height: 500px; /* Adjust as needed */
         padding: 10px 0; /* Add padding when open */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
-        border-bottom-left-radius: 10px; /* Rounded bottom corners for open menu */
-        border-bottom-right-radius: 10px; /* Rounded bottom corners for open menu */
-        /* overflow: hidden; is already on the base style, should be fine */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+        border-bottom-left-radius: 10px; 
+        border-bottom-right-radius: 10px; 
+        /* Restored original open state styles */
     }
 
     .site-navigation li {

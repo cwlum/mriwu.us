@@ -125,25 +125,41 @@
 
 .privacy-section div { /* Styling for the content inside <details> */
     /* Default state (when open via click or hover) */
-    padding: 15px; /* Uniform padding */
-    padding-top: 10px; /* Slightly less top padding as summary has bottom padding */
-    border-top: 1px solid #444; /* Separator line */
-    /* margin-top: 10px; /* Replaced by padding-top on div and summary padding */
-    max-height: 1000px; /* Large enough for content */
-    overflow: hidden;
-    transition: max-height 0.6s ease-in-out, padding 0.6s ease-in-out, opacity 0.5s ease-in-out; /* Slower transition */
-    opacity: 1;
+    /* These will be target values for anime.js when opening */
+    padding: 15px; 
+    padding-top: 10px; 
+    border-top: 1px solid #444; 
+    overflow: hidden; /* Important for height animation */
+    /* transition: max-height 0.6s ease-in-out, padding 0.6s ease-in-out, opacity 0.5s ease-in-out; */ /* Removed for anime.js */
+    opacity: 0; /* Initial state: closed */
+    height: 0; /* Initial state: closed */
     box-sizing: border-box;
+    /* Padding will be animated by JS, so set initial padding for closed state here or ensure JS handles it */
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
+/* Styles when [open] attribute is present (JS will toggle this) */
+/* These styles are mostly for reference or if JS fails */
+.privacy-section[open] div {
+    /* opacity: 1; */ /* JS will animate to this */
+    /* height: auto; */ /* JS will animate to scrollHeight then set to auto */
+    /* padding-top: 10px; */ /* JS will animate to this */
+    /* padding-bottom: 15px; */ /* JS will animate to this */
+    /* border-top-color: #444; */ /* Ensure border is visible when open */
+}
+
+/* Remove the :not([open]) rule as JS will handle the closed state animation */
+/*
 .privacy-section:not([open]) div {
     max-height: 0;
     opacity: 0;
     padding-top: 0;
     padding-bottom: 0;
-    border-top-color: transparent; /* Hide border by making it transparent */
-    /* margin-top: 0; /* No margin when collapsed */
+    border-top-color: transparent; 
+    /* margin-top: 0; 
 }
+*/
 
 /* CSS hover for div expansion removed, JS will handle opening via 'open' attribute */
 

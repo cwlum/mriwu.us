@@ -4,13 +4,14 @@ const portfolioItems = [
         altText: "Fanart piece from 2025-01-04",
         caption: "Fanart, 2025-01-04",
         category: "Fanart"
-    },
-    {
-     imgSrc: "asset/ portfolio/2025-01-11.PNG",
-        altText: "Fanart piece from 2025-01-11",
-        caption: "Fanart, 2025-01-11",
-        category: "Fanart"
-    },
+    }
+    // Removed item:
+    // {
+    //  imgSrc: "asset/ portfolio/2025-01-11.PNG",
+    //     altText: "Fanart piece from 2025-01-11",
+    //     caption: "Fanart, 2025-01-11",
+    //     category: "Fanart"
+    // },
 ];
 
 // To make this data accessible if loaded via <script> tag,

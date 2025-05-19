@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    let allItemsDOMElements = []; 
-    let currentCategoryFilter = 'all'; 
-    let currentSearchTerm = ''; 
+    let allItemsDOMElements = [];
+    let currentCategoryFilter = 'all';
+    let currentSearchTerm = '';
 
     // Function to get URL parameters
     function getQueryParam(param) {
@@ -60,6 +60,48 @@ document.addEventListener('DOMContentLoaded', function() {
                     updateActiveCategoryButton(this);
                 });
                 categoryFiltersContainer.appendChild(button);
+
+                // Add anime.js hover/click animations if anime is available
+                if (typeof anime !== 'undefined') {
+                    button.addEventListener('mouseenter', () => {
+                        anime.remove(button);
+                        anime({
+                            targets: button,
+                            scale: 1.08,
+                            duration: 200,
+                            easing: 'easeOutQuad'
+                        });
+                    });
+                    button.addEventListener('mouseleave', () => {
+                        anime.remove(button);
+                        anime({
+                            targets: button,
+                            scale: 1.0,
+                            duration: 300,
+                            easing: 'easeOutQuad'
+                        });
+                    });
+                    button.addEventListener('mousedown', () => {
+                        anime.remove(button);
+                        anime({
+                            targets: button,
+                            scale: 0.95,
+                            duration: 100,
+                            easing: 'easeOutQuad'
+                        });
+                    });
+                    button.addEventListener('mouseup', (e) => { // Pass event to check if mouse left while pressed
+                        anime.remove(button);
+                        // Check if mouse is still over the button; if so, return to hover state
+                        const isMouseStillOver = button.matches(':hover');
+                        anime({
+                            targets: button,
+                            scale: isMouseStillOver ? 1.08 : 1.0,
+                            duration: 100,
+                            easing: 'easeOutQuad'
+                        });
+                    });
+                }
             });
         } else {
             console.error('Category filters container not found.');
@@ -76,6 +118,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function applyFilters() {
+        if (typeof anime === 'undefined') {
+            // Fallback to simple show/hide if anime.js is not loaded
+            allItemsDOMElements.forEach(itemElement => {
+                const itemCategory = itemElement.dataset.category || '';
+                const itemCaptionText = itemElement.querySelector('.caption')?.textContent.toLowerCase() || '';
+                const itemAltText = itemElement.querySelector('img')?.alt.toLowerCase() || '';
+                const categoryMatch = currentCategoryFilter === 'all' || itemCategory === currentCategoryFilter;
+                const searchTermMatch = currentSearchTerm === '' || itemCaptionText.includes(currentSearchTerm) || itemAltText.includes(currentSearchTerm);
+                itemElement.style.display = (categoryMatch && searchTermMatch) ? '' : 'none';
+            });
+            return;
+        }
+
+        const itemsToShow = [];
+        const itemsToHide = [];
+
         allItemsDOMElements.forEach(itemElement => {
             const itemCategory = itemElement.dataset.category || '';
             const itemCaptionText = itemElement.querySelector('.caption')?.textContent.toLowerCase() || '';
@@ -85,11 +143,47 @@ document.addEventListener('DOMContentLoaded', function() {
             const searchTermMatch = currentSearchTerm === '' || itemCaptionText.includes(currentSearchTerm) || itemAltText.includes(currentSearchTerm);
 
             if (categoryMatch && searchTermMatch) {
-                itemElement.style.display = ''; 
+                itemsToShow.push(itemElement);
             } else {
-                itemElement.style.display = 'none'; 
+                itemsToHide.push(itemElement);
             }
         });
+
+        // Animate hiding items
+        if (itemsToHide.length > 0) {
+            anime({
+                targets: itemsToHide,
+                opacity: 0,
+                scale: 0.8,
+                duration: 300,
+                easing: 'easeInQuad',
+                delay: anime.stagger(50),
+                complete: (anim) => {
+                    anim.animatables.forEach(animatable => {
+                        animatable.target.style.display = 'none';
+                    });
+                }
+            });
+        }
+
+        // Animate showing items
+        if (itemsToShow.length > 0) {
+            // First, make them visible and set initial state for animation if they were hidden
+            itemsToShow.forEach(item => {
+                item.style.display = ''; // Or 'block', 'flex' etc. depending on item's display type
+                item.style.opacity = '0'; // Ensure opacity is 0 before fade-in
+                item.style.transform = 'scale(0.8)'; // Ensure scale is small before scale-up
+            });
+
+            anime({
+                targets: itemsToShow,
+                opacity: 1,
+                scale: 1,
+                duration: 300,
+                easing: 'easeOutQuad',
+                delay: anime.stagger(50, { start: itemsToHide.length > 0 ? 150 : 0 }) // Delay if hiding happened
+            });
+        }
     }
 
     function updateActiveCategoryButton(activeButton) {
@@ -133,11 +227,102 @@ document.addEventListener('DOMContentLoaded', function() {
         masonryItem.appendChild(caption);
         grid.appendChild(masonryItem);
         allItemsDOMElements.push(masonryItem);
+
+        // Add hover animations if anime.js is available
+        if (typeof anime !== 'undefined') {
+            const itemImage = masonryItem.querySelector('img');
+            const itemCaption = masonryItem.querySelector('.caption');
+
+            masonryItem.addEventListener('mouseenter', () => {
+                anime.remove(masonryItem);
+                if (itemImage) anime.remove(itemImage);
+                if (itemCaption) anime.remove(itemCaption);
+
+                anime({
+                    targets: masonryItem,
+                    translateY: -5,
+                    boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
+                    duration: 200,
+                    easing: 'easeOutQuad'
+                });
+                if (itemImage) {
+                    anime({
+                        targets: itemImage,
+                        scale: 1.1,
+                        duration: 250, // Slightly longer for a smoother zoom
+                        easing: 'easeOutQuad'
+                    });
+                }
+                if (itemCaption) {
+                    anime({
+                        targets: itemCaption,
+                        translateY: ['100%', '0%'],
+                        opacity: [0, 1],
+                        duration: 250,
+                        easing: 'easeOutQuad'
+                    });
+                }
+            });
+            masonryItem.addEventListener('mouseleave', () => {
+                anime.remove(masonryItem);
+                if (itemImage) anime.remove(itemImage);
+                if (itemCaption) anime.remove(itemCaption);
+
+                anime({
+                    targets: masonryItem,
+                    translateY: 0,
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)', // Matches default shadow
+                    duration: 300,
+                    easing: 'easeOutQuad'
+                });
+                if (itemImage) {
+                    anime({
+                        targets: itemImage,
+                        scale: 1.0,
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                }
+                if (itemCaption) {
+                    anime({
+                        targets: itemCaption,
+                        translateY: ['0%', '100%'],
+                        opacity: [1, 0],
+                        duration: 300,
+                        easing: 'easeOutQuad'
+                    });
+                }
+            });
+        }
     });
 
     if (portfolioItems.length > 0) {
         setupControls();
+
+        // Initial entrance animation for all items
+        if (typeof anime !== 'undefined' && allItemsDOMElements.length > 0) {
+            allItemsDOMElements.forEach(el => el.style.visibility = 'visible'); // Make them visible for animation
+            anime({
+                targets: allItemsDOMElements,
+                opacity: [0, 1],
+                scale: [0.8, 1],
+                translateY: [20, 0], // Slight slide up
+                delay: anime.stagger(100, { grid: [Math.ceil(allItemsDOMElements.length / 3), 3], from: 'center' }), // Stagger from center
+                duration: 500,
+                easing: 'easeOutQuad',
+            });
+        } else {
+            // Fallback if anime.js is not loaded, just make them visible
+             allItemsDOMElements.forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'scale(1)';
+                el.style.visibility = 'visible';
+            });
+        }
+        
         // If there was an initial search term from URL, apply filters now that items are rendered
+        // The entrance animation might run concurrently or just before filtering.
+        // applyFilters will now also use anime.js if available.
         if (currentSearchTerm) {
             applyFilters();
         }
