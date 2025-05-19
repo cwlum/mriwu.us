@@ -210,3 +210,34 @@
 
 /* Inputs and textarea are width: 100% from contact-form.css, which is good. */
 /* The submit button within its .form-group will be centered by .sidebar-section's text-align: center. */
+
+/* Styling for links within sidebar sections, like the new Games link */
+.sidebar-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-links li {
+    margin-bottom: 8px;
+    /* text-align: center; Ensure li content (the button) is centered if button is inline-block and not full width */
+    /* The .sidebar-section already has text-align: center, so this might be redundant */
+}
+
+/* Styles for .sidebar-links li a are now removed as the .button class from buttons.css will be used. */
+/* The .button class handles display, padding, border, color, background, border-radius, font-size, transition, and hover states. */
+
+/* Ensure .button within sidebar specifically uses white text, overriding potential inheritance */
+.sidebar .button {
+    color: #ffffff !important; /* Ensure white text for buttons in the sidebar */
+}
+
+/* The .button:hover style from buttons.css should still apply for background and font-weight. */
+/* If hover color also needs override (e.g. to stay white): */
+.sidebar .button:hover {
+    color: #ffffff !important; /* Ensure white text on hover as well */
+}
+
+/* If specific overrides for .button within .sidebar-links are needed, they can be added here, */
+/* for example, to control width or margins if the default .button style isn't perfect for the sidebar context. */
+/* For now, we assume .button class is sufficient. */
