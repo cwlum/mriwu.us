@@ -1,7 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const masterPassword = 'cervanteswu';
-    const puzzlePasswords = ["F9J5K9R6C"]; // Main puzzle key
+    const masterPasswordHash = '8c27748d364214d7dfc86c14f21f13fc62c8fc1ad974ae28ff044e87fd854e2e';
+    const puzzlePasswordHashes = ["729343a10539dd4c12b0b3e5903dbbb41ca5d463c735b60acf14157f525b84f9"]; 
     
+    // Helper function to hash passwords using SHA-256
+    async function hashPassword(password) {
+        if (!password) return null;
+        try {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch (error) {
+            console.error('Error hashing password:', error);
+            return null;
+        }
+    }
+
     const pageContent = document.getElementById('page-content');
     const passwordContainer = document.getElementById('password-container');
     const passwordInput = document.getElementById('password-input');
@@ -44,9 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pageContent) pageContent.style.display = 'none'; // Hide main content
     }
 
-    const checkPassword = () => {
+    const checkPassword = async () => { // Made async to use await for hashing
         const enteredPassword = passwordInput.value;
-        if (enteredPassword === masterPassword || puzzlePasswords.includes(enteredPassword)) {
+        const enteredPasswordHash = await hashPassword(enteredPassword);
+
+        if (!enteredPasswordHash) {
+            if (passwordMessage) {
+                passwordMessage.textContent = 'Error processing password. Please try again.';
+                passwordMessage.style.color = 'red';
+            }
+            return;
+        }
+
+        if (enteredPasswordHash === masterPasswordHash || puzzlePasswordHashes.includes(enteredPasswordHash)) {
             if (passwordContainer) passwordContainer.style.display = 'none';
             if (pageContent) {
                 pageContent.style.display = 'block'; // Make content visible
