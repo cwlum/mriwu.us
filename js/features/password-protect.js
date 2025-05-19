@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const masterPasswordHash = '8c27748d364214d7dfc86c14f21f13fc62c8fc1ad974ae28ff044e87fd854e2e';
     const puzzlePasswordHashes = ["729343a10539dd4c12b0b3e5903dbbb41ca5d463c735b60acf14157f525b84f9"]; 
     
-    // Helper function to hash passwords using SHA-256
     async function hashPassword(password) {
         if (!password) return null;
         try {
