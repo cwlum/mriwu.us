@@ -60,7 +60,8 @@
 .sidebar {
     position: fixed;
     top: 0;
-    left: -280px; 
+    left: 0; /* Changed from -280px */
+    transform: translateX(-100%); /* Added for anime.js control */
     width: 280px;
     height: 100vh; 
     padding: 20px; /* Simplified padding */
@@ -71,13 +72,16 @@
     color: #f0f0f0;
     box-sizing: border-box;
     z-index: 1010; 
-    transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
+    /* transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1); */ /* Commented out for anime.js */
     overflow-y: auto; 
     display: block; 
+    visibility: hidden; /* Initially hidden, anime.js will make it visible */
 }
 
 .sidebar.active {
-    left: 0; 
+    /* left: 0; */ /* No longer needed if using transform */
+    transform: translateX(0); /* This class can be used by anime.js if needed or just as a state */
+    visibility: visible; /* Make visible when active */
     box-shadow: 5px 0 25px rgba(0,0,0,0.35); 
 }
 

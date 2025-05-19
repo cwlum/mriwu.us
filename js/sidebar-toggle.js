@@ -2,21 +2,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const openSidebarButton = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar'); // Assuming sidebar has id="sidebar"
     const siteContainer = document.querySelector('.site-container');
+    let isAnimating = false; // Flag to prevent multiple animations
 
     // Helper function to manage sidebar state
     function setSidebarState(isOpen) {
-        if (!sidebar || !siteContainer || !openSidebarButton) return; // Guard clause
+        if (!sidebar || !siteContainer || !openSidebarButton || typeof anime === 'undefined') {
+            if (typeof anime === 'undefined') console.warn('anime.js not loaded');
+            return; // Guard clause
+        }
+        if (isAnimating) return; // Prevent starting new animation if one is in progress
+
+        isAnimating = true;
 
         if (isOpen) {
-            sidebar.classList.add('active');
-            siteContainer.classList.add('sidebar-active');
+            sidebar.classList.add('active'); // For visibility and box-shadow
+            // siteContainer.classList.add('sidebar-active'); // Removed for now
             openSidebarButton.setAttribute('aria-expanded', 'true');
             openSidebarButton.classList.add('is-hidden'); // Hide the open button
+
+            anime({
+                targets: sidebar,
+                translateX: ['-100%', '0%'],
+                duration: 350,
+                easing: 'easeInOutQuad',
+                begin: function() {
+                    sidebar.style.visibility = 'visible'; // Ensure visible before animation
+                },
+                complete: function() {
+                    isAnimating = false;
+                }
+            });
         } else {
-            sidebar.classList.remove('active');
-            siteContainer.classList.remove('sidebar-active');
+            // openSidebarButton.classList.remove('is-hidden'); // Show the open button - moved to animation complete
             openSidebarButton.setAttribute('aria-expanded', 'false');
-            openSidebarButton.classList.remove('is-hidden'); // Show the open button
+            
+            anime({
+                targets: sidebar,
+                translateX: ['0%', '-100%'],
+                duration: 350,
+                easing: 'easeInOutQuad',
+                complete: function() {
+                    sidebar.classList.remove('active'); // For visibility and box-shadow
+                    // siteContainer.classList.remove('sidebar-active'); // Removed for now
+                    openSidebarButton.classList.remove('is-hidden'); // Show the open button after animation
+                    sidebar.style.visibility = 'hidden'; // Ensure hidden after animation
+                    isAnimating = false;
+                }
+            });
         }
     }
 
