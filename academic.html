@@ -48,70 +48,62 @@
         <div id="password-container" style="text-align: center; padding: 40px 20px; color: #f0f0f0; margin: 20px auto; max-width: 600px; background-color: #2a2a2a; border-radius: 8px; border: 1px solid #444;">
             <h2 style="font-family: 'Quicksand', sans-serif; color: #f0f0f0; margin-bottom: 20px;">Unlock Content</h2>
             <div style="text-align: left; margin-bottom: 25px; background-color:#303030; padding: 15px; border-radius: 5px; font-size: 0.9em; color: #f0f0f0; line-height: 1.6;">
-                <h4 style="font-family: 'Quicksand', sans-serif; color: #e87722; margin-top:0; margin-bottom:10px;">Part 1: The Integral Key</h4>
-                <p style="text-align:center; margin-bottom:15px;"><em>Unlock the six-character key K = C<sub>1</sub>C<sub>2</sub>C<sub>3</sub>C<sub>4</sub>C<sub>5</sub>C<sub>6</sub>. Each character C<sub>n</sub> is determined by the corresponding integral I<sub>n</sub>.</em></p>
-
-                <h5 style="color: #e87722; margin-bottom:5px;">Character C<sub>1</sub> (Uppercase English Letter)</h5>
-                <p>Let I<sub>1</sub> = &int;<sub>0</sub><sup>1</sup> &int;<sub>0</sub><sup>1</sup> (x+y)<sup>2</sup> dx dy.</p>
-                <p>Then C<sub>1</sub> = Letter(&lfloor;(I<sub>1</sub> + 5/6) &sdot; 3 + 0.5&rfloor;).</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>2</sub> (Arabic Digit 0-9)</h5>
-                <p>Let I<sub>2</sub> = &int;<sub>0</sub><sup>&infin;</sup> dx / ((x+1)&radic;x).</p>
-                <p>Then C<sub>2</sub> = &lfloor;I<sub>2</sub><sup>2</sup>&rfloor; mod 10.</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>3</sub> (Uppercase English Letter)</h5>
-                <p>Let I<sub>3</sub> = &int;<sub>0</sub><sup>1</sup> arcsin(x) dx.</p>
-                <p>Then C<sub>3</sub> = Letter(&lfloor;(I<sub>3</sub> + 2 - &pi;/2) &sdot; 10 + 0.5&rfloor;).</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>4</sub> (Arabic Digit 0-9)</h5>
-                <p>Let I<sub>4</sub> = (1/&pi;) &int;<sub>-&infin;</sub><sup>&infin;</sup> (sin<sup>2</sup>(x)/x<sup>2</sup>) dx.</p>
-                <p>Then C<sub>4</sub> = (I<sub>4</sub> + 4)<sup>2</sup> mod 10.</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>5</sub> (Uppercase English Letter)</h5>
-                <p>Let I<sub>5</sub> = &int;<sub>0</sub><sup>&infin;</sup> x<sup>2</sup> e<sup>-x</sup> dx.</p>
-                <p>Then C<sub>5</sub> = Letter((I<sub>5</sub> + 1)<sup>2</sup> + 2).</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>6</sub> (Arabic Digit 0-9)</h5>
-                <p>Let I<sub>6</sub> = &int;<sub>0</sub><sup>ln(2)</sup> (e<sup>x</sup> - 1) / (e<sup>x</sup> + 1) dx.</p>
-                <p>Then C<sub>6</sub> = &lfloor;e<sup>I<sub>6</sub></sup> &sdot; 8&rfloor; mod 10.</p>
-
-                <h6 style="color: #e87722; margin-top:20px; margin-bottom:5px;">Notes for Part 1:</h6>
-                <ul style="margin-top:0; padding-left: 20px; list-style-type: disc;">
-                    <li>&lfloor;&sdot;&rfloor; denotes the floor function.</li>
-                    <li>Letter(n) refers to the n-th uppercase letter of the English alphabet (e.g., A=1, B=2, ..., Z=26).</li>
-                    <li>The digits C<sub>2</sub>, C<sub>4</sub>, C<sub>6</sub> should be Arabic numerals from 0 to 9.</li>
-                    <li>mod 10 denotes the modulo 10 operation.</li>
-                </ul>
-
-                <hr style="border: 0; height: 1px; background-color: #444; margin: 25px 0;">
-
-                <h4 style="font-family: 'Quicksand', sans-serif; color: #e87722; margin-top:0; margin-bottom:10px;">Part 2: Extension of the Integral Key</h4>
-                <p style="text-align:center; margin-bottom:15px;"><em>After successfully finding the key K=C<sub>1</sub>C<sub>2</sub>C<sub>3</sub>C<sub>4</sub>C<sub>5</sub>C<sub>6</sub>, you discover a hidden compartment. It requires an advanced three-character key K' = C<sub>7</sub>C<sub>8</sub>C<sub>9</sub> to unlock. The instructions are below, referencing your previously calculated results (i.e., I<sub>1</sub>=7/6, I<sub>2</sub>=&pi;, I<sub>3</sub>=&pi;/2-1, I<sub>4</sub>=1, I<sub>5</sub>=2, I<sub>6</sub>=ln(9/8) and C<sub>1</sub>=F (numerical value 6), C<sub>2</sub>=9, C<sub>3</sub>=J (numerical value 10), C<sub>4</sub>=5, C<sub>5</sub>=K (numerical value 11), C<sub>6</sub>=9):</em></p>
-
-                <h5 style="color: #e87722; margin-bottom:5px;">Character C<sub>7</sub> (Uppercase English Letter)</h5>
-                <p>Let I<sub>7</sub> = &int;<sub>0</sub><sup>1</sup> ln(1+x)/(1+x<sup>2</sup>) dx.</p>
-                <p>Let N<sub>1</sub> = Value(C<sub>1</sub>) be the numerical value of C<sub>1</sub> from the previous key (A=1, B=2, ...).</p>
-                <p>Then C<sub>7</sub> = Letter(&lfloor;(I<sub>7</sub> / (&pi; ln(2<sup>1/N<sub>1</sub></sup>))) &sdot; 24 + C<sub>2</sub>/30&rfloor;). (Here C<sub>2</sub> is the digit from the previous key).</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>8</sub> (Arabic Digit 0-9)</h5>
-                <p>Let f(t) = I<sub>5</sub> t<sup>2</sup> + I<sub>4</sub> t + C<sub>6</sub>, where I<sub>4</sub>, I<sub>5</sub> are the integral values from the previous puzzle, and C<sub>6</sub> is the digit from the previous key.</p>
-                <p>Let I<sub>8</sub> = &int;<sub>0</sub><sup>&infin;</sup> 1/f(t) dt.</p>
-                <p>Then C<sub>8</sub> = &lfloor;(I<sub>8</sub> &sdot; &radic;(4I<sub>5</sub>C<sub>6</sub> - I<sub>4</sub><sup>2</sup>))/(2&pi;) &sdot; (C<sub>4</sub>+C<sub>2</sub>-1)&rfloor; mod 10. (Here C<sub>2</sub>, C<sub>4</sub> are digits from the previous key).</p>
-                <p style="font-size:0.85em; opacity:0.8;">(Note: The formula for C<sub>8</sub> was slightly modified to ensure its reasonableness. The originally derived factor was &radic;(I<sub>5</sub>C<sub>6</sub> - I<sub>4</sub><sup>2</sup>/4), which equals (1/2)&radic;(4I<sub>5</sub>C<sub>6</sub> - I<sub>4</sub><sup>2</sup>). The term (C<sub>4</sub>+C<sub>2</sub>) was changed to (C<sub>4</sub>+C<sub>2</sub>-1) to adjust the final value.)</p>
-
-                <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>9</sub> (Uppercase English Letter)</h5>
-                <p>Let I<sub>9</sub>(a) = &int;<sub>0</sub><sup>&infin;</sup> e<sup>-x</sup> sin(ax) dx.</p>
-                <p>Let I<sub>9A</sub> = I<sub>9</sub>(Value(C<sub>3</sub>)) and I<sub>9B</sub> = I<sub>9</sub>(Value(C<sub>5</sub>)), where C<sub>3</sub>, C<sub>5</sub> are letters from the previous key.</p>
-                <p>Then C<sub>9</sub> = Letter(&lfloor;(I<sub>9A</sub> &sdot; Value(C<sub>3</sub>) + I<sub>9B</sub> &sdot; Value(C<sub>5</sub>)) &sdot; I<sub>1</sub> + I<sub>6</sub>/ln(1.125) + 0.5&rfloor; mod 26). If the result of the floor function modulo 26 is 0, then take Z (which corresponds to 26). (Here I<sub>1</sub>, I<sub>6</sub> are integral values from the previous puzzle. 0.5 was added to fine-tune the result).</p>
-
-                <h6 style="color: #e87722; margin-top:20px; margin-bottom:5px;">Notes for Part 2:</h6>
-                <ul style="margin-top:0; padding-left: 20px; list-style-type: disc;">
-                    <li>&lfloor;&sdot;&rfloor; denotes the floor function.</li>
-                    <li>Letter(n) refers to the n-th uppercase letter of the English alphabet (e.g., A=1, B=2, ..., Z=26).</li>
-                    <li>Value(L) refers to the numerical value of the letter L (A=1, ..., Z=26).</li>
-                    <li>mod m denotes the modulo m operation.</li>
-                    <li>All previous integral values and character values are as initially given in the problem or as you have already calculated.</li>
-                </ul>
+                <div id="puzzle-part-1">
+                    <h4 style="font-family: 'Quicksand', sans-serif; color: #e87722; margin-top:0; margin-bottom:10px;">Part 1: The Integral Key</h4>
+                    <p style="text-align:center; margin-bottom:15px;"><em>Unlock the six-character key K = C<sub>1</sub>C<sub>2</sub>C<sub>3</sub>C<sub>4</sub>C<sub>5</sub>C<sub>6</sub>. Each character C<sub>n</sub> is determined by the corresponding integral I<sub>n</sub>.</em></p>
+                    <h5 style="color: #e87722; margin-bottom:5px;">Character C<sub>1</sub> (Uppercase English Letter)</h5>
+                    <p>Let I<sub>1</sub> = &int;<sub>0</sub><sup>1</sup> &int;<sub>0</sub><sup>1</sup> (x+y)<sup>2</sup> dx dy.</p>
+                    <p>Then C<sub>1</sub> = Letter(&lfloor;(I<sub>1</sub> + 5/6) &sdot; 3 + 0.5&rfloor;).</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>2</sub> (Arabic Digit 0-9)</h5>
+                    <p>Let I<sub>2</sub> = &int;<sub>0</sub><sup>&infin;</sup> dx / ((x+1)&radic;x).</p>
+                    <p>Then C<sub>2</sub> = &lfloor;I<sub>2</sub><sup>2</sup>&rfloor; mod 10.</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>3</sub> (Uppercase English Letter)</h5>
+                    <p>Let I<sub>3</sub> = &int;<sub>0</sub><sup>1</sup> arcsin(x) dx.</p>
+                    <p>Then C<sub>3</sub> = Letter(&lfloor;(I<sub>3</sub> + 2 - &pi;/2) &sdot; 10 + 0.5&rfloor;).</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>4</sub> (Arabic Digit 0-9)</h5>
+                    <p>Let I<sub>4</sub> = (1/&pi;) &int;<sub>-&infin;</sub><sup>&infin;</sup> (sin<sup>2</sup>(x)/x<sup>2</sup>) dx.</p>
+                    <p>Then C<sub>4</sub> = (I<sub>4</sub> + 4)<sup>2</sup> mod 10.</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>5</sub> (Uppercase English Letter)</h5>
+                    <p>Let I<sub>5</sub> = &int;<sub>0</sub><sup>&infin;</sup> x<sup>2</sup> e<sup>-x</sup> dx.</p>
+                    <p>Then C<sub>5</sub> = Letter((I<sub>5</sub> + 1)<sup>2</sup> + 2).</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>6</sub> (Arabic Digit 0-9)</h5>
+                    <p>Let I<sub>6</sub> = &int;<sub>0</sub><sup>ln(2)</sup> (e<sup>x</sup> - 1) / (e<sup>x</sup> + 1) dx.</p>
+                    <p>Then C<sub>6</sub> = &lfloor;e<sup>I<sub>6</sub></sup> &sdot; 8&rfloor; mod 10.</p>
+                    <h6 style="color: #e87722; margin-top:20px; margin-bottom:5px;">Notes for Part 1:</h6>
+                    <ul style="margin-top:0; padding-left: 20px; list-style-type: disc; margin-bottom: 15px;">
+                        <li>&lfloor;&sdot;&rfloor; denotes the floor function.</li>
+                        <li>Letter(n) refers to the n-th uppercase letter of the English alphabet (e.g., A=1, B=2, ..., Z=26).</li>
+                        <li>The digits C<sub>2</sub>, C<sub>4</sub>, C<sub>6</sub> should be Arabic numerals from 0 to 9.</li>
+                        <li>mod 10 denotes the modulo 10 operation.</li>
+                    </ul>
+                    <button id="show-part-2-btn" style="background:none; border:none; color:#e87722; cursor:pointer; padding:5px 0; text-decoration:underline; font-size:1em; display:block; margin:10px auto 0;">View Part 2 &rarr;</button>
+                </div>
+                <div id="puzzle-part-2" style="display:none;">
+                    <button id="show-part-1-btn" style="background:none; border:none; color:#e87722; cursor:pointer; padding:5px 0; text-decoration:underline; font-size:1em; display:block; margin:0 auto 10px;">&larr; View Part 1</button>
+                    <h4 style="font-family: 'Quicksand', sans-serif; color: #e87722; margin-top:0; margin-bottom:10px;">Part 2: Extension of the Integral Key</h4>
+                    <p style="text-align:center; margin-bottom:15px;"><em>After successfully finding the key K=C<sub>1</sub>C<sub>2</sub>C<sub>3</sub>C<sub>4</sub>C<sub>5</sub>C<sub>6</sub>, you discover a hidden compartment. It requires an advanced three-character key K' = C<sub>7</sub>C<sub>8</sub>C<sub>9</sub> to unlock. The instructions are below, referencing your previously calculated results (i.e., I<sub>1</sub>=7/6, I<sub>2</sub>=&pi;, I<sub>3</sub>=&pi;/2-1, I<sub>4</sub>=1, I<sub>5</sub>=2, I<sub>6</sub>=ln(9/8) and C<sub>1</sub>=F (numerical value 6), C<sub>2</sub>=9, C<sub>3</sub>=J (numerical value 10), C<sub>4</sub>=5, C<sub>5</sub>=K (numerical value 11), C<sub>6</sub>=9):</em></p>
+                    <h5 style="color: #e87722; margin-bottom:5px;">Character C<sub>7</sub> (Uppercase English Letter)</h5>
+                    <p>Let I<sub>7</sub> = &int;<sub>0</sub><sup>1</sup> ln(1+x)/(1+x<sup>2</sup>) dx.</p>
+                    <p>Let N<sub>1</sub> = Value(C<sub>1</sub>) be the numerical value of C<sub>1</sub> from the previous key (A=1, B=2, ...).</p>
+                    <p>Then C<sub>7</sub> = Letter(&lfloor;(I<sub>7</sub> / (&pi; ln(2<sup>1/N<sub>1</sub></sup>))) &sdot; 24 + C<sub>2</sub>/30&rfloor;). (Here C<sub>2</sub> is the digit from the previous key).</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>8</sub> (Arabic Digit 0-9)</h5>
+                    <p>Let f(t) = I<sub>5</sub> t<sup>2</sup> + I<sub>4</sub> t + C<sub>6</sub>, where I<sub>4</sub>, I<sub>5</sub> are the integral values from the previous puzzle, and C<sub>6</sub> is the digit from the previous key.</p>
+                    <p>Let I<sub>8</sub> = &int;<sub>0</sub><sup>&infin;</sup> 1/f(t) dt.</p>
+                    <p>Then C<sub>8</sub> = &lfloor;(I<sub>8</sub> &sdot; &radic;(4I<sub>5</sub>C<sub>6</sub> - I<sub>4</sub><sup>2</sup>))/(2&pi;) &sdot; (C<sub>4</sub>+C<sub>2</sub>-1)&rfloor; mod 10. (Here C<sub>2</sub>, C<sub>4</sub> are digits from the previous key).</p>
+                    <p style="font-size:0.85em; opacity:0.8;">(Note: The formula for C<sub>8</sub> was slightly modified to ensure its reasonableness. The originally derived factor was &radic;(I<sub>5</sub>C<sub>6</sub> - I<sub>4</sub><sup>2</sup>/4), which equals (1/2)&radic;(4I<sub>5</sub>C<sub>6</sub> - I<sub>4</sub><sup>2</sup>). The term (C<sub>4</sub>+C<sub>2</sub>) was changed to (C<sub>4</sub>+C<sub>2</sub>-1) to adjust the final value.)</p>
+                    <h5 style="color: #e87722; margin-top:15px; margin-bottom:5px;">Character C<sub>9</sub> (Uppercase English Letter)</h5>
+                    <p>Let I<sub>9</sub>(a) = &int;<sub>0</sub><sup>&infin;</sup> e<sup>-x</sup> sin(ax) dx.</p>
+                    <p>Let I<sub>9A</sub> = I<sub>9</sub>(Value(C<sub>3</sub>)) and I<sub>9B</sub> = I<sub>9</sub>(Value(C<sub>5</sub>)), where C<sub>3</sub>, C<sub>5</sub> are letters from the previous key.</p>
+                    <p>Then C<sub>9</sub> = Letter(&lfloor;(I<sub>9A</sub> &sdot; Value(C<sub>3</sub>) + I<sub>9B</sub> &sdot; Value(C<sub>5</sub>)) &sdot; I<sub>1</sub> + I<sub>6</sub>/ln(1.125) + 0.5&rfloor; mod 26). If the result of the floor function modulo 26 is 0, then take Z (which corresponds to 26). (Here I<sub>1</sub>, I<sub>6</sub> are integral values from the previous puzzle. 0.5 was added to fine-tune the result).</p>
+                    <h6 style="color: #e87722; margin-top:20px; margin-bottom:5px;">Notes for Part 2:</h6>
+                    <ul style="margin-top:0; padding-left: 20px; list-style-type: disc;">
+                        <li>&lfloor;&sdot;&rfloor; denotes the floor function.</li>
+                        <li>Letter(n) refers to the n-th uppercase letter of the English alphabet (e.g., A=1, B=2, ..., Z=26).</li>
+                        <li>Value(L) refers to the numerical value of the letter L (A=1, ..., Z=26).</li>
+                        <li>mod m denotes the modulo m operation.</li>
+                        <li>All previous integral values and character values are as initially given in the problem or as you have already calculated.</li>
+                    </ul>
+                </div>
             </div>
             <input type="password" id="password-input" placeholder="Enter password" style="padding: 12px; margin-bottom: 15px; width: 100%; max-width:300px; border-radius: 4px; border: 1px solid #444; background-color: #383838; color: #f0f0f0; box-sizing: border-box;">
             <button id="password-submit" class="button" style="padding: 12px 25px; background-color: #e87722; color: #fff; border: none; width: 100%; max-width:300px; box-sizing: border-box;">Submit</button>
@@ -208,6 +200,26 @@
     <script src="js/components/navigation/sidebar-toggle.js" defer></script>
     <script src="js/utils/page-animations.js" defer></script>
     <script src="js/features/password-protect.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const part1 = document.getElementById('puzzle-part-1');
+            const part2 = document.getElementById('puzzle-part-2');
+            const showPart2Btn = document.getElementById('show-part-2-btn');
+            const showPart1Btn = document.getElementById('show-part-1-btn');
+
+            if (part1 && part2 && showPart2Btn && showPart1Btn) {
+                showPart2Btn.addEventListener('click', () => {
+                    part1.style.display = 'none';
+                    part2.style.display = 'block';
+                });
+
+                showPart1Btn.addEventListener('click', () => {
+                    part2.style.display = 'none';
+                    part1.style.display = 'block';
+                });
+            }
+        });
+    </script>
     <script>
     // Script for details/summary animation
     document.addEventListener('DOMContentLoaded', function () {
