@@ -27,14 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Ensure content is hidden initially if not unlocked
-    pageContent.style.display = 'none';
-    passwordContainer.style.display = 'flex'; // Or 'block', depending on desired layout
+    // pageContent.style.display = 'none'; // Content is now part of the main flow
+    // passwordContainer.style.display = 'flex'; // Or 'block', depending on desired layout
+    // The password container will be visible by default, and hidden if unlocked.
+    // The page content (portfolio grid etc) is inside a div that is hidden by default.
+
+    if (unlockedPages[currentPage]) {
+        passwordContainer.style.display = 'none';
+        if (pageContent) pageContent.style.display = 'block'; // Show main content
+    } else {
+        if (passwordContainer) passwordContainer.style.display = 'flex'; // Or 'block'
+        if (pageContent) pageContent.style.display = 'none'; // Hide main content
+    }
 
     const checkPassword = () => {
         const enteredPassword = passwordInput.value;
         if (enteredPassword === masterPassword || puzzlePasswords.includes(enteredPassword)) {
-            passwordContainer.style.display = 'none';
-            pageContent.style.display = 'block';
+            if (passwordContainer) passwordContainer.style.display = 'none';
+            if (pageContent) pageContent.style.display = 'block';
             if (passwordMessage) passwordMessage.textContent = '';
             
             // Mark page as unlocked in session storage
