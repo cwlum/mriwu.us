@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const masterPassword = 'cervanteswu';
-    const puzzlePasswords = ["74391", "72301", "75311"]; // Individual correct puzzle answers
+    const puzzlePasswords = ["F9J5K9R6C"]; // Main puzzle key
     
     const pageContent = document.getElementById('page-content');
     const passwordContainer = document.getElementById('password-container');
