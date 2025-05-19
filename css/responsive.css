@@ -28,7 +28,7 @@
         right: 0; /* Align with the content edge (defined by body padding) */
         top: 50%;
         transform: translateY(-50%);
-        z-index: 1002; /* Above .site-navigation's z-index if it also becomes an overlay */
+        z-index: 1010; /* Ensure toggle is above its menu, and matches sidebar level */
     }
 
     .site-navigation {
@@ -51,7 +51,7 @@
         background-color: rgba(40, 40, 40, 0.75); /* Match sidebar panel: More transparent */
         backdrop-filter: blur(12px); /* Match sidebar panel: Slightly more blur */
         -webkit-backdrop-filter: blur(12px); /* For Safari */
-        z-index: 1000;
+        z-index: 1009; /* Below sidebar (1010), but above general content */
         padding: 0; /* No padding when closed */
         border-top: 1px solid #424242;
         max-height: 0;

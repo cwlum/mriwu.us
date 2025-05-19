@@ -2,6 +2,8 @@
     padding: 15px 0;
     border-bottom: 1px solid #424242; /* Subtle border */
     margin-bottom: 25px;
+    position: relative; /* Ensure header creates a stacking context */
+    z-index: 1008; /* Below mobile menu (1009) and sidebar (1010), but above general content */
 }
 
 .header-content {
