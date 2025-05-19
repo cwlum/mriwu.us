@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const masterPassword = 'cervanteswu';
-    const puzzlePasswords = ["74391783517230175311"]; // All features combined
+    const puzzlePasswords = ["74391", "72301", "75311"]; // Individual correct puzzle answers
     
     const pageContent = document.getElementById('page-content');
     const passwordContainer = document.getElementById('password-container');
@@ -34,7 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (unlockedPages[currentPage]) {
         passwordContainer.style.display = 'none';
-        if (pageContent) pageContent.style.display = 'block'; // Show main content
+        if (pageContent) {
+            pageContent.style.display = 'block'; // Show main content
+            // Potentially trigger animations or ensure they can run
+            // For now, just ensuring it's visible. Animations are handled by page-animations.js
+        }
     } else {
         if (passwordContainer) passwordContainer.style.display = 'flex'; // Or 'block'
         if (pageContent) pageContent.style.display = 'none'; // Hide main content
@@ -44,7 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const enteredPassword = passwordInput.value;
         if (enteredPassword === masterPassword || puzzlePasswords.includes(enteredPassword)) {
             if (passwordContainer) passwordContainer.style.display = 'none';
-            if (pageContent) pageContent.style.display = 'block';
+            if (pageContent) {
+                pageContent.style.display = 'block'; // Make content visible
+                // The page-animations.js script should handle the actual animation sequences
+                // Ensure any initial styles set by this script don't conflict with animation starting states.
+                // For example, page-animations.js might set opacity to 0 and then animate to 1.
+            }
             if (passwordMessage) passwordMessage.textContent = '';
             
             // Mark page as unlocked in session storage
