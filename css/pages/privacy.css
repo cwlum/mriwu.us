@@ -1,0 +1,111 @@
+/* Styles for the Privacy Policy Page - Dark Theme, consistent with Academic Page */
+
+/* Styling for details/summary */
+details.content-section {
+    background-color: #2a2a2a; /* Slightly lighter than body background */
+    border: 1px solid #444444; /* Darker border */
+    border-radius: 8px; 
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Adjusted shadow for dark theme */
+}
+
+details.content-section summary {
+    padding: 18px 20px;
+    cursor: pointer;
+    color: #f0f0f0; /* Light text */
+    background-color: #303030; /* Default summary background */
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid transparent; 
+}
+
+details.content-section:not([open]) summary {
+   border-bottom-color: transparent;
+   border-radius: 8px; 
+}
+
+details.content-section[open] summary {
+     border-bottom: 1px solid #444444; /* Border when open */
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
+}
+
+details.content-section summary:hover {
+    background-color: #383838; /* Hover effect for summary */
+}
+
+/* Titles within summary, if any (e.g., if we wrap summary text in a span or h-tag) */
+/* For privacy.html, the summary text is directly in summary, so this might not be directly used unless HTML is changed */
+details.content-section summary > * { /* General styling for direct children of summary if needed */
+    margin: 0;
+    font-size: 1.2em; /* Adjusted for privacy page titles, can be fine-tuned */
+    font-family: 'Quicksand', sans-serif; 
+    color: #f0f0f0;
+    font-weight: 700;
+}
+
+
+details.content-section summary .details-marker {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 9px solid #e87722; /* Accent color */
+    margin-right: 15px;
+    transition: transform 0.25s ease-in-out;
+}
+
+details.content-section[open] summary .details-marker {
+    transform: rotate(90deg);
+}
+
+/* Content inside the details tag */
+details.content-section div {
+    padding: 15px 20px; /* Consistent with academic page's animation target padding */
+    background-color: #2a2a2a; 
+    color: #cccccc; /* Text color for content inside details */
+    line-height: 1.6;
+}
+
+details.content-section div p,
+details.content-section div ul {
+    margin-bottom: 1em;
+}
+details.content-section div p:last-child,
+details.content-section div ul:last-child {
+    margin-bottom: 0;
+}
+
+details.content-section div ul {
+    list-style: disc; /* Standard disc for privacy policy lists */
+    padding-left: 20px; /* Indent list items */
+}
+
+details.content-section div ul li {
+    margin-bottom: 0.5em;
+}
+
+details.content-section div a {
+    color: #e87722; /* Accent color for links */
+    text-decoration: underline;
+}
+details.content-section div a:hover {
+    text-decoration: none;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    details.content-section summary {
+        padding: 15px;
+    }
+    details.content-section summary > * { /* For summary titles */
+        font-size: 1.1em;
+    }
+    details.content-section div {
+        padding: 15px;
+    }
+}
