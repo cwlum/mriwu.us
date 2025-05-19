@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cervantes Wu - Portfolio">
-    <title>Portfolio &bull; Cervantes Wu</title>
+    <meta name="description" content="Cervantes Wu - Academic">
+    <title>Academic &bull; Cervantes Wu</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/portfolio/grid.css">
-    <link rel="stylesheet" href="css/portfolio/modal.css">
     <link rel="stylesheet" href="css/components/buttons.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/contact-form.css">
+    <link rel="stylesheet" href="css/academic.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="icon" href="asset/logo.PNG" sizes="32x32">
 </head>
@@ -58,18 +57,48 @@
         <div id="page-content" style="display:none;">
             <div class="main-content-area-wrapper"> <!-- Wrapper for main content and sidebar -->
                 <main class="site-main">
-                    <h1 class="site-heading">Portfolio Showcase</h1>
-                    <p class="site-subheading">A visual collection of my work and projects.</p>
-                    <div class="portfolio-controls">
-                        <div id="category-filters" class="category-filters">
-                            <!-- Filter buttons will be dynamically inserted here -->
-                        </div>
-                        <div class="search-bar-container">
-                            <input type="search" id="portfolio-search" placeholder="Search portfolio...">
-                        </div>
-                    </div>
-                    <div class="masonry-grid">
-                        <!-- Portfolio items will be dynamically inserted here by JavaScript -->
+                    <h1 class="site-heading">Academic Profile</h1>
+                    <p class="site-subheading">An overview of my academic achievements and research.</p>
+                    <section id="academic-content">
+                        <details class="academic-section">
+                            <summary><span class="details-marker"></span><h2>Education</h2></summary>
+                            <div>
+                                <ul>
+                                    <li><strong>MIT Sloan School of Management</strong><br>Bachelor's degree, Business Analytics (September 2024 - July 2027)</li>
+                                    <li><strong>Massachusetts Institute of Technology</strong><br>Bachelor's degree, Physics (Transferred from Stanford University, 2024 - July 2027)</li>
+                                    <li><strong>Stanford University</strong><br>Bachelor's degree, Physics (Attended until June 2024, transferred to MIT)</li>
+                                </ul>
+                            </div>
+                        </details>
+                        <details class="academic-section">
+                            <summary><span class="details-marker"></span><h2>Research Experience</h2></summary>
+                            <div>
+                                <ul>
+                                    <li><strong>Cornell University</strong><br>Research Aide (Part-time, December 2024 - May 2025)</li>
+                                    <li><strong>Princeton University</strong><br>Research Assistant (Part-time, February 2024 - July 2024)</li>
+                                </ul>
+                            </div>
+                        </details>
+                        <details class="academic-section">
+                            <summary><span class="details-marker"></span><h2>Research Interests</h2></summary>
+                            <div>
+                                <ul id="research-interests-list">
+                                    <li>Sterile Neutrino Searches</li>
+                                    <li>High-Energy Neutrino Event Reconstruction & Ice Models</li>
+                                    <li>Neutrino Emission from Astrophysical Sources (e.g., Galactic Plane, Novae, GRBs, AGN, Seyfert Galaxies)</li>
+                                    <li>Neutrino Coincidence with Gravitational Wave Events</li>
+                                    <li>Dark Matter Searches with Neutrinos</li>
+                                    <li>Cosmic Ray Anisotropy & Composition Studies</li>
+                                    <li>Neutrino Oscillation Physics</li>
+                                    <li>IceCube Detector Development, Calibration & Upgrades (e.g., Optical Modules)</li>
+                                    <li>Multi-messenger Astrophysics</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </section>
+                    <div class="action-buttons" style="margin-top: 30px;">
+                        <a class="button" href="contact.html" aria-label="Contact me or Get in Touch">Contact me / Get in Touch</a>
+                        <a class="button" href="portfolio.html" aria-label="See my portfolio">See my portfolio</a>
                     </div>
                 </main>
                 <aside class="sidebar" id="sidebar">
@@ -118,18 +147,55 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
     <script src="js/sidebar-toggle.js" defer></script>
     <script src="js/page-animations.js" defer></script>
-    <script src="js/portfolio/data.js" defer></script>
-    <script src="js/portfolio/modal.js" defer></script> 
-    <script src="js/portfolio/page.js" defer></script>
     <script src="js/password-protect.js" defer></script>
-
-    <!-- Image Modal Structure -->
-    <div id="imageModal" class="modal">
-        <span class="close-modal-btn">&times;</span>
-        <span class="prev-modal-btn modal-nav-btn">&#10094;</span>
-        <span class="next-modal-btn modal-nav-btn">&#10095;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="modalCaption"></div>
-    </div>
+    <script>
+    // Script for details/summary animation
+    document.addEventListener('DOMContentLoaded', function () {
+        const detailsElements = document.querySelectorAll('details.academic-section');
+        if (typeof anime === 'undefined') {
+            console.warn('anime.js not loaded, details animations will not run.');
+            return;
+        }
+        detailsElements.forEach(details => {
+            const summary = details.querySelector('summary');
+            const content = details.querySelector('div');
+            let isDetailsAnimating = false;
+            if (!details.hasAttribute('open')) {
+                if (content) {
+                    content.style.height = '0';
+                    content.style.opacity = '0';
+                    content.style.paddingTop = '0';
+                    content.style.paddingBottom = '0';
+                    content.style.overflow = 'hidden';
+                }
+            } else {
+                 if (content) { content.style.overflow = 'hidden'; }
+            }
+            if (summary && content) {
+                summary.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (isDetailsAnimating) return;
+                    isDetailsAnimating = true;
+                    if (details.open) {
+                        anime({
+                            targets: content,
+                            height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0,
+                            duration: 300, easing: 'easeOutQuad',
+                            complete: () => { details.open = false; isDetailsAnimating = false; }
+                        });
+                    } else {
+                        details.open = true;
+                        anime({
+                            targets: content,
+                            height: [0, content.scrollHeight], opacity: [0, 1], paddingTop: [0, '15px'], paddingBottom: [0, '15px'],
+                            duration: 300, easing: 'easeOutQuad',
+                            complete: () => { content.style.height = ''; isDetailsAnimating = false; }
+                        });
+                    }
+                });
+            }
+        });
+    });
+    </script>
 </body>
 </html>

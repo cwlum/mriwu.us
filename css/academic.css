@@ -1,0 +1,124 @@
+/* Styles for the Academic Page - Dark Theme */
+
+#academic-content {
+    padding: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Inter', Arial, sans-serif; /* From global.css */
+    color: #f0f0f0; /* Light text from global.css */
+}
+
+/* Styling for details/summary */
+details.academic-section {
+    background-color: #2a2a2a; /* Slightly lighter than body background */
+    border: 1px solid #444444; /* Darker border */
+    border-radius: 8px; 
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Adjusted shadow for dark theme */
+}
+
+details.academic-section summary {
+    padding: 18px 20px;
+    cursor: pointer;
+    color: #f0f0f0; /* Light text */
+    background-color: #303030; /* Default summary background */
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */ /* Keep marker on left by default */
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid transparent; 
+}
+
+details.academic-section:not([open]) summary {
+   border-bottom-color: transparent;
+   border-radius: 8px; 
+}
+
+details.academic-section[open] summary {
+     border-bottom: 1px solid #444444; /* Border when open */
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
+}
+
+details.academic-section summary:hover {
+    background-color: #383838; /* Hover effect for summary */
+}
+
+details.academic-section summary h2 {
+    margin: 0;
+    font-size: 1.4em;
+    font-family: 'Quicksand', sans-serif; /* Assuming Quicksand is desired for headings */
+    color: #f0f0f0; /* Light text for heading */
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 700; /* Quicksand is often bold by default */
+}
+
+details.academic-section summary .details-marker {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 9px solid #e87722; /* Accent color from global.css */
+    margin-right: 15px;
+    transition: transform 0.25s ease-in-out;
+}
+
+details.academic-section[open] summary .details-marker {
+    transform: rotate(90deg);
+}
+
+/* Content inside the details tag */
+details.academic-section div {
+    padding: 20px; 
+    background-color: #2a2a2a; /* Same as section background or slightly different if needed */
+    /* border-top: 1px solid #444444; */ /* Optional top border for content area */
+}
+
+#academic-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0; 
+}
+
+#academic-content ul li {
+    background-color: transparent;
+    border-left: 4px solid #e87722; /* Accent color for list item border */
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    line-height: 1.7; 
+    color: #cccccc; /* Slightly dimmer text for list items for contrast */
+}
+#academic-content ul li:last-child {
+    margin-bottom: 0;
+}
+
+#academic-content ul li strong {
+    color: #f0f0f0; /* Main light text for strong elements */
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1.15em; 
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    details.academic-section summary h2 {
+        font-size: 1.25em;
+    }
+    details.academic-section summary {
+        padding: 15px;
+    }
+    details.academic-section div {
+        padding: 15px;
+    }
+    #academic-content ul li {
+        padding: 10px 12px;
+        margin-bottom: 10px;
+    }
+}
