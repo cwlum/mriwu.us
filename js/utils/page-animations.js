@@ -271,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
             targets: siteFooter,
             translateY: [50, 0],
             opacity: [0, 1],
-            duration: 800
-        }, '+=200'); // Add a slight delay after other animations might have finished
+            duration: 700 // Shorten duration for a quicker feel
+        }, '-=600'); // Keep significant overlap
     }
 
     // Enhanced button animations for .action-buttons (if they exist on the current page)
