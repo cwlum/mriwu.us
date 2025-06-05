@@ -104,7 +104,3 @@ Contributions, issues, and feature requests are welcome. If you have any suggest
 ## License
 
 This project is licensed under the AGPLv3 License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-You can reach out via the contact form on the website or through other channels listed there.
