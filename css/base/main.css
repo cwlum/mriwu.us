@@ -1,21 +1,10 @@
 /* Initial states for page load animations */
 .site-header,
-.profile-image-container,
-.site-heading,
-.site-subheading,
-.social-links li,
-.site-main .vgen-button-container, /* Target VGen button specifically in main content */
-.action-buttons {
+.site-footer-bottom,
+.site-main > *:not(script):not(style) {
     opacity: 0;
     visibility: hidden;
 }
-
-/* Ensure direct children of social-links are targeted if li itself is animated */
-.social-links > li {
-    opacity: 0;
-    visibility: hidden;
-}
-
 
 .site-main {
     text-align: center;

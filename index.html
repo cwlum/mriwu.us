@@ -19,9 +19,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/components/background-animations.css">
     <link rel="icon" href="asset/images/logo.PNG" sizes="32x32" /> <!-- Updated favicon path -->
 </head>
 <body>
+    <div id="background-animation"></div>
     <button id="sidebar-toggle" class="sidebar-toggle-button" aria-label="Toggle sidebar" aria-expanded="false" aria-controls="sidebar">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6L8.59 16.34z"/></svg>
         <!-- SIDEBAR text removed -->
@@ -142,5 +144,6 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
     <script src="js/components/navigation/sidebar-toggle.js"></script> <!-- Added sidebar toggle script -->
     <script src="js/utils/page-animations.js"></script> <!-- Added page load animations -->
+    <script src="js/features/background-animations.js" defer></script>
 </body>
 </html>

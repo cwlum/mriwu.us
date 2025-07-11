@@ -16,9 +16,11 @@
     <link rel="stylesheet" href="css/components/buttons.css"> <!-- Optional: if buttons are needed on this page -->
     <link rel="stylesheet" href="css/layout/footer.css">
     <link rel="stylesheet" href="css/base/responsive.css">
+    <link rel="stylesheet" href="css/components/background-animations.css">
     <link rel="icon" href="asset/images/logo.PNG" sizes="32x32"> <!-- Placeholder path -->
 </head>
 <body>
+    <div id="background-animation"></div>
     <button id="sidebar-toggle" class="sidebar-toggle-button" aria-label="Toggle sidebar" aria-expanded="false" aria-controls="sidebar">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6L8.59 16.34z"/></svg>
     </button>
@@ -112,6 +114,7 @@
     </div>
     <!-- Scripts can be added here if needed for this page -->
     <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+    <script src="js/features/background-animations.js" defer></script>
     <script src="js/components/navigation/nav-toggle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
     <script src="js/components/navigation/sidebar-toggle.js" defer></script>
