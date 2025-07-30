@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredData.forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('carousel-item');
+            itemElement.setAttribute('role', 'group');
+            itemElement.setAttribute('aria-label', `${index + 1} of ${filteredData.length}`);
             // Use original index for modal functionality
             itemElement.dataset.originalIndex = portfolioData.indexOf(item);
             itemElement.dataset.filteredIndex = index;
@@ -60,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const image = document.createElement('img');
             image.src = item.src;
             image.alt = item.title;
-            image.loading = 'lazy';
+            image.loading = index === 0 ? 'eager' : 'lazy'; // First image loads eagerly
 
             const caption = document.createElement('div');
             caption.classList.add('caption');
@@ -73,62 +75,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentIndex = 0; // Reset to the first item of the new set
         updateCarousel();
+        setupIntersectionObserver();
     }
 
     function updateCarousel() {
         const items = document.querySelectorAll('.carousel-item');
-        const carouselContainer = document.querySelector('.carousel-container');
-        if (items.length === 0) {
-            anime({
-                targets: carouselContainer,
-                height: '100px',
-                duration: 600,
-                easing: 'easeInOutQuad'
-            });
-            return;
-        }
+        if (items.length === 0) return;
 
         if (currentIndex >= items.length) currentIndex = items.length - 1;
         if (currentIndex < 0) currentIndex = 0;
 
         const activeItem = items[currentIndex];
-        const activeImg = activeItem.querySelector('img');
 
-        const performAnimation = () => {
-            const captionHeight = activeItem.querySelector('.caption')?.offsetHeight || 0;
-            const imageHeight = activeImg.offsetHeight;
-            const targetHeight = imageHeight > 0 ? `${imageHeight + captionHeight + 20}px` : '300px';
+        activeItem.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
 
-            const containerWidth = carouselContainer.offsetWidth;
-            const offset = (containerWidth / 2) - (activeItem.offsetWidth / 2) - activeItem.offsetLeft;
-
-            // Use anime.js for a synchronized, smooth animation
-            anime.timeline({
-                duration: 800,
-                easing: 'easeInOutQuint' // A very smooth easing function
-            }).add({
-                targets: carouselContainer,
-                height: targetHeight,
-            }).add({
-                targets: carouselWrapper,
-                translateX: offset,
-            }, '-=800'); // Start at the same time as the height animation
-
-            // Update active classes for all items
-            items.forEach((item, index) => {
-                item.classList.toggle('active', index === currentIndex);
-            });
-        };
-
-        if (activeImg.complete && activeImg.naturalHeight > 0) {
-            performAnimation();
-        } else {
-            activeImg.onload = performAnimation;
-            activeImg.onerror = () => {
-                console.error(`Image failed to load: ${activeImg.src}`);
-                performAnimation(); // Try to animate even if image fails
-            };
-        }
+        items.forEach((item, index) => {
+            item.classList.toggle('active', index === currentIndex);
+        });
     }
 
     window.updateCarouselFromModal = function(newOriginalIndex) {
@@ -140,23 +107,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function showNext() {
-        const itemsCount = filteredData.length;
-        if (itemsCount > 0) {
-            currentIndex = (currentIndex + 1) % itemsCount;
-            updateCarousel();
-        }
+        const items = document.querySelectorAll('.carousel-item');
+        if (items.length === 0) return;
+        const nextIndex = (currentIndex + 1) % items.length;
+        items[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     function showPrev() {
-        const itemsCount = filteredData.length;
-        if (itemsCount > 0) {
-            currentIndex = (currentIndex - 1 + itemsCount) % itemsCount;
-            updateCarousel();
-        }
+        const items = document.querySelectorAll('.carousel-item');
+        if (items.length === 0) return;
+        const prevIndex = (currentIndex - 1 + items.length) % items.length;
+        items[prevIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     nextButton.addEventListener('click', showNext);
     prevButton.addEventListener('click', showPrev);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            showPrev();
+        } else if (e.key === 'ArrowRight') {
+            showNext();
+        }
+    });
 
     carouselWrapper.addEventListener('click', (e) => {
         const targetItem = e.target.closest('.carousel-item');
@@ -183,8 +156,31 @@ document.addEventListener('DOMContentLoaded', () => {
         carouselWrapper.innerHTML = '<p>No portfolio items to display.</p>';
     }
     
+    function setupIntersectionObserver() {
+        const items = document.querySelectorAll('.carousel-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = parseInt(entry.target.dataset.filteredIndex, 10);
+                    if (!isNaN(index)) {
+                        currentIndex = index;
+                        items.forEach((item, i) => {
+                            item.classList.toggle('active', i === currentIndex);
+                        });
+                    }
+                }
+            });
+        }, {
+            root: document.querySelector('.carousel-container'),
+            threshold: 0.5
+        });
+
+        items.forEach(item => {
+            observer.observe(item);
+        });
+    }
+
     window.addEventListener('resize', () => {
-        // Debounce resize events for better performance
         requestAnimationFrame(updateCarousel);
     });
 });
