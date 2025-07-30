@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // This script assumes 'portfolioItems' is globally available from portfolio-data.js
-
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     const modalCaption = document.getElementById('modalCaption');
@@ -8,93 +6,88 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevModalBtn = document.querySelector('.prev-modal-btn');
     const nextModalBtn = document.querySelector('.next-modal-btn');
 
-    let currentModalItemIndex = 0;
-    let openTimeout, closeTimeout; // Separate timeouts for opening and closing
+    let currentModalIndex = 0;
+    let openTimeout, closeTimeout;
 
     if (!modal || !modalImage || !modalCaption || !closeModalBtn || !prevModalBtn || !nextModalBtn) {
-        console.error('Modal elements (including nav buttons) not found. Ensure they are in portfolio.html and correctly IDed/classed.');
-        return; // Stop execution if essential modal elements are missing
+        console.error('Modal elements not found.');
+        return;
     }
 
     function closeModal() {
-        // Clear any pending animations to prevent conflicts
         clearTimeout(openTimeout);
         clearTimeout(closeTimeout);
-
         modal.classList.remove('modal-opening');
         modal.classList.add('modal-closing');
-
         closeTimeout = setTimeout(() => {
             modal.style.display = 'none';
-            modal.classList.remove('modal-closing'); // Clean up class after animation
-        }, 400); // Match CSS animation duration
+            modal.classList.remove('modal-closing');
+        }, 400);
     }
 
-    // Public function to show an item in the modal
-    window.showPortfolioItemInModal = function(index) {
-        // Clear any pending animations to ensure a clean start
+    // Expose openModal to the global scope
+    window.openModal = function(index) {
         clearTimeout(openTimeout);
         clearTimeout(closeTimeout);
 
-        if (typeof portfolioItems === 'undefined' || !Array.isArray(portfolioItems) || index < 0 || index >= portfolioItems.length) {
-            console.error('Portfolio items not available or index out of bounds:', index);
+        if (typeof portfolioData === 'undefined' || index < 0 || index >= portfolioData.length) {
+            console.error('portfolioData not available or index out of bounds:', index);
             return;
         }
-        currentModalItemIndex = index;
-        const item = portfolioItems[index];
-        
-        modalImage.src = item.imgSrc;
-        modalCaption.textContent = item.caption || item.altText || 'Artwork';
-        
-        modal.classList.remove('modal-closing'); // Immediately remove closing class
-        modal.style.display = 'block'; // Make modal visible
-        modal.classList.add('modal-opening'); // Start opening animation
+        currentModalIndex = index;
+        const item = portfolioData[index];
 
-        // Use a timeout to remove the opening class after animation completes
+        modalImage.src = item.src;
+        modalCaption.textContent = item.title;
+
+        modal.classList.remove('modal-closing');
+        modal.style.display = 'block';
+        modal.classList.add('modal-opening');
+
         openTimeout = setTimeout(() => {
             modal.classList.remove('modal-opening');
-        }, 400); // Match CSS animation duration
+        }, 400);
 
-        // Update nav button visibility
-        prevModalBtn.classList.toggle('hidden', currentModalItemIndex === 0);
-        nextModalBtn.classList.toggle('hidden', currentModalItemIndex === portfolioItems.length - 1);
+        updateNavButtons();
+    };
+
+    function updateNavButtons() {
+        prevModalBtn.style.display = currentModalIndex === 0 ? 'none' : 'block';
+        nextModalBtn.style.display = currentModalIndex === portfolioData.length - 1 ? 'none' : 'block';
+    }
+
+    function showPrev() {
+        if (currentModalIndex > 0) {
+            currentModalIndex--;
+            window.openModal(currentModalIndex);
+            if (window.updateCarouselFromModal) {
+                window.updateCarouselFromModal(currentModalIndex);
+            }
+        }
+    }
+
+    function showNext() {
+        if (currentModalIndex < portfolioData.length - 1) {
+            currentModalIndex++;
+            window.openModal(currentModalIndex);
+            if (window.updateCarouselFromModal) {
+                window.updateCarouselFromModal(currentModalIndex);
+            }
+        }
     }
 
     closeModalBtn.addEventListener('click', closeModal);
-    
-    modal.addEventListener('click', function(event) {
-        if (event.target === modal) { // Clicked on the modal background
-            closeModal();
-        }
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
     });
+    prevModalBtn.addEventListener('click', showPrev);
+    nextModalBtn.addEventListener('click', showNext);
 
-    prevModalBtn.addEventListener('click', function() {
-        if (currentModalItemIndex > 0) {
-            window.showPortfolioItemInModal(currentModalItemIndex - 1);
-        }
-    });
-
-    nextModalBtn.addEventListener('click', function() {
-        if (currentModalItemIndex < portfolioItems.length - 1) {
-            window.showPortfolioItemInModal(currentModalItemIndex + 1);
-        }
-    });
-    
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', (event) => {
         if (modal.style.display === 'block') {
-            if (event.key === 'Escape') {
-                closeModal();
-            } else if (event.key === 'ArrowLeft') {
-                // Ensure prevModalBtn is not hidden before trying to navigate
-                if (!prevModalBtn.classList.contains('hidden') && currentModalItemIndex > 0) {
-                    window.showPortfolioItemInModal(currentModalItemIndex - 1);
-                }
-            } else if (event.key === 'ArrowRight') {
-                 // Ensure nextModalBtn is not hidden
-                if (!nextModalBtn.classList.contains('hidden') && currentModalItemIndex < portfolioItems.length - 1) {
-                    window.showPortfolioItemInModal(currentModalItemIndex + 1);
-                }
-            }
+            if (event.key === 'Escape') closeModal();
+            if (event.key === 'ArrowLeft') showPrev();
+            if (event.key === 'ArrowRight') showNext();
         }
     });
 });

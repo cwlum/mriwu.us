@@ -9,8 +9,8 @@
     <link rel="canonical" href="https://cwlum.github.io/portfolio.html" />
     <title>Portfolio &bull; Cervantes Wu - Freelance Artist</title>
     <link rel="stylesheet" href="css/style.bundle.css">
-    <link rel="stylesheet" href="css/portfolio/grid.css">
     <link rel="stylesheet" href="css/portfolio/modal.css">
+    <link rel="stylesheet" href="css/portfolio/carousel.css">
     <link rel="icon" href="asset/images/logo.PNG" sizes="32x32">
 </head>
 <body>
@@ -48,12 +48,13 @@
                         <div id="category-filters" class="category-filters">
                             <!-- Filter buttons will be dynamically inserted here -->
                         </div>
-                        <div class="search-bar-container">
-                            <input type="search" id="portfolio-search" placeholder="Search portfolio...">
-                        </div>
                     </div>
-                    <div class="masonry-grid">
-                        <!-- Portfolio items will be dynamically inserted here by JavaScript -->
+                    <div class="carousel-container">
+                        <div class="carousel-wrapper">
+                            <!-- Portfolio items will be dynamically inserted here -->
+                        </div>
+                        <button class="carousel-nav carousel-prev" aria-label="Previous slide">&#10094;</button>
+                        <button class="carousel-nav carousel-next" aria-label="Next slide">&#10095;</button>
                     </div>
                 </main>
                 <!-- Sidebar is now outside page-content to be available on password page -->
@@ -101,8 +102,8 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
     <script src="js/app.bundle.js" defer></script>
     <script src="js/portfolio/data.js" defer></script>
-    <script src="js/portfolio/modal.js" defer></script> 
-    <script src="js/portfolio/page.js" defer></script>
+    <script src="js/portfolio/modal.js" defer></script>
+    <script src="js/portfolio/carousel.js" defer></script>
 
     <!-- Image Modal Structure -->
     <div id="imageModal" class="modal">
