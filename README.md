@@ -62,7 +62,7 @@ The repository is organized as follows:
 │       ├── data.js
 │       ├── page.js
 │       └── modal.js
-│   └── orientation-check.js
+├── js/orientation-check.js
 ├── js/app.bundle.js
 ├── asset/
 │   ├── images/
