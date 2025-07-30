@@ -12,7 +12,8 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
     align-items: center;
-    height: 100%;
+    /* Height will be set dynamically by JavaScript */
+    transition: height 0.4s ease-in-out;
 }
 
 /* This selector is now part of the .carousel-wrapper rule above */
@@ -26,6 +27,11 @@
     box-sizing: border-box;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease;
     cursor: pointer;
+    display: flex;
+    flex-direction: column; /* Stack image and caption vertically */
+    align-items: center; /* Horizontally center */
+    justify-content: center; /* Vertically center */
+    height: 100%;
 }
 
 .carousel-item.active {
@@ -34,9 +40,12 @@
 }
 
 .carousel-item img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
-    border-radius: 12px;
+    object-fit: contain; /* Fit image within the bounds, maintaining aspect ratio */
+    border-radius: 16px; /* Increased border-radius */
     /* A softer, more diffused shadow for a natural look */
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0,0,0,0.07);
     /* A more subtle reflection */
@@ -47,6 +56,7 @@
     margin-top: 10px;
     font-size: 0.9rem;
     color: #ccc;
+    flex-shrink: 0; /* Prevent caption from shrinking */
 }
 
 .carousel-nav {
@@ -133,9 +143,11 @@
 }
 
 @media (max-width: 480px) {
+    /* Height is now dynamic, so fixed height is removed */
+
     .carousel-item {
-        width: 200px;
-        margin: 0 10px;
+        flex: 0 0 100%; /* Ensure it takes full width */
+        padding: 0 5vw; /* Adjust padding */
     }
 
     .carousel-nav {

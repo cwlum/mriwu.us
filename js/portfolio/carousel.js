@@ -33,6 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function calculateAndSetHeight() {
+        const items = carouselWrapper.querySelectorAll('.carousel-item');
+        if (items.length === 0) {
+            carouselWrapper.style.height = '100px'; // A small default height
+            return;
+        }
+
+        // Temporarily reset wrapper height to measure children accurately
+        carouselWrapper.style.height = 'auto';
+
+        let maxHeight = 0;
+        items.forEach(item => {
+            if (item.offsetHeight > maxHeight) {
+                maxHeight = item.offsetHeight;
+            }
+        });
+
+        if (maxHeight > 0) {
+            carouselWrapper.style.height = `${maxHeight}px`;
+        }
+    }
+
     function populateCarousel() {
         filteredData = currentFilter === 'All' 
             ? [...portfolioData] 
@@ -44,25 +66,33 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselWrapper.innerHTML = '<p>No items in this category.</p>';
             prevButton.style.display = 'none';
             nextButton.style.display = 'none';
+            calculateAndSetHeight(); // Set height even for empty state
             return;
         }
         
         prevButton.style.display = 'flex';
         nextButton.style.display = 'flex';
 
+        const imageLoadPromises = [];
+
         filteredData.forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('carousel-item');
             itemElement.setAttribute('role', 'group');
             itemElement.setAttribute('aria-label', `${index + 1} of ${filteredData.length}`);
-            // Use original index for modal functionality
             itemElement.dataset.originalIndex = portfolioData.indexOf(item);
             itemElement.dataset.filteredIndex = index;
 
             const image = document.createElement('img');
             image.src = item.src;
             image.alt = item.title;
-            image.loading = index === 0 ? 'eager' : 'lazy'; // First image loads eagerly
+            image.loading = index === 0 ? 'eager' : 'lazy';
+
+            const imageLoadPromise = new Promise((resolve) => {
+                image.onload = resolve;
+                image.onerror = resolve; // Resolve even on error to not block the process
+            });
+            imageLoadPromises.push(imageLoadPromise);
 
             const caption = document.createElement('div');
             caption.classList.add('caption');
@@ -73,24 +103,28 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselWrapper.appendChild(itemElement);
         });
 
-        currentIndex = 0; // Reset to the first item of the new set
-        updateCarousel();
-        setupIntersectionObserver();
+        // Wait for all images to load before calculating height
+        Promise.all(imageLoadPromises).then(() => {
+            calculateAndSetHeight();
+            currentIndex = 0; // Reset to the first item
+            updateCarousel(false); // Update without smooth scroll initially
+            setupIntersectionObserver();
+        });
     }
 
-    function updateCarousel() {
+    function updateCarousel(smooth = true) {
         const items = document.querySelectorAll('.carousel-item');
         if (items.length === 0) return;
 
         if (currentIndex >= items.length) currentIndex = items.length - 1;
         if (currentIndex < 0) currentIndex = 0;
 
-        const activeItem = items[currentIndex];
+        const itemWidth = items[0].offsetWidth;
+        const scrollPosition = currentIndex * itemWidth;
 
-        activeItem.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center'
+        carouselWrapper.scrollTo({
+            left: scrollPosition,
+            behavior: smooth ? 'smooth' : 'auto'
         });
 
         items.forEach((item, index) => {
@@ -109,15 +143,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function showNext() {
         const items = document.querySelectorAll('.carousel-item');
         if (items.length === 0) return;
-        const nextIndex = (currentIndex + 1) % items.length;
-        items[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        currentIndex = (currentIndex + 1) % items.length;
+        updateCarousel();
     }
 
     function showPrev() {
         const items = document.querySelectorAll('.carousel-item');
         if (items.length === 0) return;
-        const prevIndex = (currentIndex - 1 + items.length) % items.length;
-        items[prevIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateCarousel();
     }
 
     nextButton.addEventListener('click', showNext);
@@ -181,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('resize', () => {
-        requestAnimationFrame(updateCarousel);
+        // On resize, recalculate height and then update the carousel position
+        calculateAndSetHeight();
+        requestAnimationFrame(() => updateCarousel(false));
     });
 });

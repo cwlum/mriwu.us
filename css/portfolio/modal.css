@@ -19,7 +19,7 @@
     max-height: 80vh; /* Max height relative to viewport height */
     width: auto; /* Maintain aspect ratio */
     height: auto; /* Maintain aspect ratio */
-    border-radius: 8px;
+    border-radius: 16px; /* Increased border-radius */
     border: 2px solid #ddd; /* Subtle border around the image */
     background-color: #111; /* Fallback if image is transparent/fails to load */
 }
