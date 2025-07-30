@@ -12,6 +12,7 @@ This website serves as a central hub to showcase projects, share information, an
 *   **Automatic Sorting:** The portfolio is automatically sorted to display the newest work first.
 *   **Engaging Animations:** Utilizes the `anime.js` library to provide smooth, meaningful animations for page transitions, item filtering, and interactive elements.
 *   **Interactive Image Modal:** A custom-built modal window for viewing artwork, complete with keyboard navigation (arrow keys and Escape).
+*   **Site-Wide Orientation Lock:** Prompts users on landscape-oriented devices to switch to portrait mode for a better viewing experience, implemented across all pages.
 *   **Responsive Design:** A mobile-first approach ensures a seamless experience across all device sizes.
 
 ## Technologies Used
@@ -61,6 +62,7 @@ The repository is organized as follows:
 │       ├── data.js
 │       ├── page.js
 │       └── modal.js
+│   └── orientation-check.js
 ├── js/app.bundle.js
 ├── asset/
 │   ├── images/
