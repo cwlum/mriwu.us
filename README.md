@@ -6,13 +6,22 @@ This repository contains the source code for the personal website and portfolio 
 
 This website serves as a central hub to showcase projects, share information, and provide contact details. It is designed to be a clean, responsive, and easily navigable platform.
 
+## Features
+
+*   **Dynamic Portfolio Grid:** Portfolio items are loaded dynamically from a central data source. The grid supports filtering by category and a real-time search function.
+*   **Automatic Sorting:** The portfolio is automatically sorted to display the newest work first.
+*   **Engaging Animations:** Utilizes the `anime.js` library to provide smooth, meaningful animations for page transitions, item filtering, and interactive elements.
+*   **Interactive Image Modal:** A custom-built modal window for viewing artwork, complete with keyboard navigation (arrow keys and Escape).
+*   **Responsive Design:** A mobile-first approach ensures a seamless experience across all device sizes.
+
 ## Technologies Used
 
-The website is built using fundamental web technologies:
+The website is built using a combination of modern and fundamental web technologies:
 
-*   **HTML5:** For the structure and content of the web pages.
-*   **CSS3:** For styling and layout, including responsive design techniques.
-*   **JavaScript (ES6+):** For interactive elements and dynamic content, such as the contact form.
+*   **HTML5:** For the semantic structure and content of the web pages.
+*   **CSS3:** For styling, layout, and animations. Key features include Flexbox, Grid, and custom properties for maintainable theming.
+*   **JavaScript (ES6+):** For all interactive functionality, including the portfolio grid, animations, and form handling.
+*   **anime.js:** A lightweight and powerful animation library used for creating engaging user interface animations.
 
 ## Project Structure
 
@@ -44,15 +53,15 @@ The repository is organized as follows:
 │   │       ├── nav-toggle.js
 │   │       └── sidebar-toggle.js
 │   ├── features/
+│   │   ├── background-animations.js
 │   │   └── password-protect.js
 │   ├── buttons/
-│   │   ├── patreon-button.js
-│   │   ├── twitter-button.js
-│   │   └── vgen-button.js
+│   │   └── ripple-effect.js
 │   └── portfolio/
 │       ├── data.js
 │       ├── page.js
 │       └── modal.js
+├── js/app.bundle.js
 ├── asset/
 │   ├── images/
 │   │   ├── logo.PNG

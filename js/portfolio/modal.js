@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevModalBtn = document.querySelector('.prev-modal-btn');
     const nextModalBtn = document.querySelector('.next-modal-btn');
 
-    let currentModalItemIndex = 0; 
+    let currentModalItemIndex = 0;
+    let openTimeout, closeTimeout; // Separate timeouts for opening and closing
 
     if (!modal || !modalImage || !modalCaption || !closeModalBtn || !prevModalBtn || !nextModalBtn) {
         console.error('Modal elements (including nav buttons) not found. Ensure they are in portfolio.html and correctly IDed/classed.');
@@ -16,17 +17,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeModal() {
+        // Clear any pending animations to prevent conflicts
+        clearTimeout(openTimeout);
+        clearTimeout(closeTimeout);
+
+        modal.classList.remove('modal-opening');
         modal.classList.add('modal-closing');
-        setTimeout(() => {
+
+        closeTimeout = setTimeout(() => {
             modal.style.display = 'none';
-            modal.classList.remove('modal-closing');
+            modal.classList.remove('modal-closing'); // Clean up class after animation
         }, 400); // Match CSS animation duration
     }
 
     // Public function to show an item in the modal
     window.showPortfolioItemInModal = function(index) {
-        if (typeof portfolioItems === 'undefined' || index < 0 || index >= portfolioItems.length) {
-            console.warn('Portfolio items not available or index out of bounds:', index);
+        // Clear any pending animations to ensure a clean start
+        clearTimeout(openTimeout);
+        clearTimeout(closeTimeout);
+
+        if (typeof portfolioItems === 'undefined' || !Array.isArray(portfolioItems) || index < 0 || index >= portfolioItems.length) {
+            console.error('Portfolio items not available or index out of bounds:', index);
             return;
         }
         currentModalItemIndex = index;
@@ -35,11 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
         modalImage.src = item.imgSrc;
         modalCaption.textContent = item.caption || item.altText || 'Artwork';
         
-        modal.classList.remove('modal-closing');
-        modal.style.display = 'block';
-        modal.classList.add('modal-opening');
+        modal.classList.remove('modal-closing'); // Immediately remove closing class
+        modal.style.display = 'block'; // Make modal visible
+        modal.classList.add('modal-opening'); // Start opening animation
 
-        setTimeout(() => {
+        // Use a timeout to remove the opening class after animation completes
+        openTimeout = setTimeout(() => {
             modal.classList.remove('modal-opening');
         }, 400); // Match CSS animation duration
 

@@ -231,6 +231,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Sort portfolio items by date (newest first)
+        portfolioItems.sort((a, b) => {
+            const dateA = new Date(a.caption.match(/\d{4}-\d{2}-\d{2}/) || 0);
+            const dateB = new Date(b.caption.match(/\d{4}-\d{2}-\d{2}/) || 0);
+            return dateB - dateA;
+        });
+
         renderPortfolioItems();
         setupControls();
         setupEventListeners();

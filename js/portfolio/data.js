@@ -4,6 +4,12 @@ const portfolioItems = [
         altText: "Fanart piece from 2025-01-04",
         caption: "Fanart, 2025-01-04",
         category: "Fanart"
+    },
+    {
+        imgSrc: "asset/ portfolio/2025-04-12.PNG",
+        altText: "OC piece from 2025-04-12",
+        caption: "OC, 2025-04-12",
+        category: "OC"
     }
     // Removed item:
     // {
