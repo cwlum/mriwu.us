@@ -1,78 +1,39 @@
-// js/buttons/vgen-button.js
-document.querySelectorAll('.vgen-button').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
-        return;
-    }
-    var rect = btn.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
-    var ripple = document.createElement('span');
-    ripple.classList.add('ripple');
-    ripple.style.left = (x - 10) + 'px'; 
-    ripple.style.top = (y - 10) + 'px'; 
-    var existingRipple = btn.querySelector('.ripple');
-    if (existingRipple) {
-        existingRipple.remove();
-    }
-    btn.appendChild(ripple);
-    setTimeout(() => {
-      ripple.remove();
-    }, 600); 
-  });
-});
+// js/buttons/ripple-effect.js
+function initializeRippleEffects() {
+    const rippleButtons = document.querySelectorAll('.vgen-button, .patreon-button, .twitter-follow-button');
 
-// js/buttons/patreon-button.js
-document.querySelectorAll('.patreon-button').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
-        return;
-    }
-    var rect = btn.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
-    ['patreon-ripple', 'patreon-ripple2'].forEach((rippleClass, i) => {
-      var circle = document.createElement('span');
-      circle.classList.add(rippleClass);
-      circle.style.left = (x - 10) + 'px';
-      circle.style.top = (y - 10) + 'px';
-      var existingPatreonRipple = btn.querySelector('.' + rippleClass);
-      if (existingPatreonRipple) {
-          existingPatreonRipple.remove();
-      }
-      btn.appendChild(circle);
-      setTimeout(() => {
-        circle.remove();
-      }, (rippleClass === 'patreon-ripple' ? 600 : 900));
+    rippleButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
+                return;
+            }
+
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Remove any existing ripples to prevent overlap
+            const existingRipples = btn.querySelectorAll('.ripple');
+            existingRipples.forEach(r => r.remove());
+
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            // Adjust position to center the ripple
+            ripple.style.transform = `translate(-50%, -50%)`;
+
+            btn.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 700); // Match the duration of the CSS animation
+        });
     });
-  });
-});
+}
 
-// js/buttons/twitter-button.js
-document.querySelectorAll('.twitter-follow-button').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    if (!btn.contains(e.target) || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) {
-        return;
-    }
-    let rect = btn.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    let y = e.clientY - rect.top;
-    let ripple = document.createElement('span');
-    ripple.classList.add('twitter-ripple-effect');
-    ripple.style.left = (x - 10) + 'px';
-    ripple.style.top = (y - 10) + 'px';
-    let existingRipple = btn.querySelector('.twitter-ripple-effect');
-    if (existingRipple) {
-        existingRipple.remove();
-    }
-    btn.appendChild(ripple);
-    setTimeout(() => {
-      if (ripple.parentNode) {
-        ripple.remove();
-      }
-    }, 700);
-  });
-});
+document.addEventListener('DOMContentLoaded', initializeRippleEffects);
 
 // js/components/navigation/nav-toggle.js
 document.addEventListener('DOMContentLoaded', () => {

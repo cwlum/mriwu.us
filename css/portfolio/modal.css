@@ -54,27 +54,43 @@
     cursor: pointer;
 }
 
-/* Add Animation (optional) */
-.modal { /* Added animation for the modal overlay itself */
-    animation-name: fadeInOverlay;
-    animation-duration: 0.3s;
-    animation-timing-function: ease-out;
+/* Animations */
+.modal.modal-opening {
+    animation: fadeInOverlay 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.modal-content, #modalCaption {
-    animation-name: zoomInContent;
-    animation-duration: 0.4s;
-    animation-timing-function: ease-out; /* Ensure content zoom feels smooth */
+.modal.modal-closing {
+    animation: fadeOutOverlay 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.modal.modal-opening .modal-content,
+.modal.modal-opening #modalCaption {
+    animation: zoomInContent 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.modal.modal-closing .modal-content,
+.modal.modal-closing #modalCaption {
+    animation: zoomOutContent 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 @keyframes fadeInOverlay {
-    from {opacity: 0}
-    to {opacity: 1}
+    from { background-color: rgba(0,0,0,0); }
+    to { background-color: rgba(0,0,0,0.8); }
 }
 
-@keyframes zoomInContent { /* Renamed for clarity */
-    from {transform:scale(0.8); opacity: 0.5;} /* Start slightly transparent too */
-    to {transform:scale(1); opacity: 1;}
+@keyframes fadeOutOverlay {
+    from { background-color: rgba(0,0,0,0.8); }
+    to { background-color: rgba(0,0,0,0); }
+}
+
+@keyframes zoomInContent {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes zoomOutContent {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(0.85); opacity: 0; }
 }
 
 /* Modal Navigation Buttons */

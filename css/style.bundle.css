@@ -351,7 +351,7 @@ div.action-buttons a.button:hover {
     position: relative;
     overflow: hidden;
     font-family: 'Inter', Arial, sans-serif;
-    animation: refined-swing-pop 3.5s infinite ease-in-out;
+    animation: subtle-pulse 2.5s infinite ease-in-out;
 }
 .vgen-button:before {
     content: '';
@@ -361,7 +361,7 @@ div.action-buttons a.button:hover {
     width: 100%;
     height: 100%;
     background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shine 3s infinite;
+    animation: shine 3.5s infinite;
 }
 .vgen-button:hover {
     transform: translateY(-3px) scale(1.02);
@@ -375,45 +375,52 @@ div.action-buttons a.button:hover {
 .vgen-button img {
     width: 20px;
     height: 20px;
-    animation: bounce 2s infinite;
+    animation: icon-bounce 2.5s infinite ease-in-out;
 }
 .vgen-button span {
     letter-spacing: 0.5px;
     color: #ffffff;
 }
-@keyframes refined-swing-pop {
-    0% { transform: scale(1) rotate(0deg); }
-    10% { transform: scale(1.02) rotate(1deg); }
-    20% { transform: scale(1.04) rotate(-2deg); }
-    30% { transform: scale(1.05) rotate(3deg); }
-    40% { transform: scale(1.04) rotate(-2deg); }
-    50% { transform: scale(1.03) rotate(1deg); }
-    60% { transform: scale(1.025) rotate(0deg); }
-    80% { transform: scale(1.01) rotate(0deg); }
-    100% { transform: scale(1) rotate(0deg); }
+@keyframes subtle-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(232, 119, 34, 0.3);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(232, 119, 34, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(232, 119, 34, 0.3);
+    }
 }
 @keyframes shine {
-    0% { left: -100%; }
-    20% { left: 100%; }
-    100% { left: 100%; }
+    0% {
+        left: -150%;
+    }
+    50% {
+        left: 150%;
+    }
+    100% {
+        left: 150%;
+    }
 }
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-2px); }
-}
-.vgen-button .ripple {
+/* Unified ripple effect */
+.ripple {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    width: 20px;
-    height: 20px;
+    background: rgba(255, 255, 255, 0.4);
     transform: scale(0);
     pointer-events: none;
-    animation: ripple-effect 0.6s linear;
+    animation: ripple-effect 0.7s linear;
 }
+
 @keyframes ripple-effect {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(15); opacity: 0; }
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }
 .patreon-button-container {
     display: flex;
@@ -435,7 +442,7 @@ div.action-buttons a.button:hover {
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(232, 119, 34, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease, font-weight 0.3s ease;
-    animation: glow-pulse 2.5s infinite ease-in-out;
+    animation: subtle-pulse 2.5s infinite ease-in-out;
     overflow: hidden;
     font-family: 'Inter', Arial, sans-serif;
 }
@@ -448,20 +455,24 @@ div.action-buttons a.button:hover {
     display: block;
     fill: white;
     transition: transform 0.3s ease-in-out;
-    animation: logo-bounce 4s infinite ease-in-out alternate-reverse;
+    animation: icon-bounce 2.5s infinite ease-in-out;
 }
 .patreon-text {
     letter-spacing: -0.5px;
 }
-@keyframes glow-pulse {
+/* This is now replaced by subtle-pulse */
+/* @keyframes glow-pulse {
     0% { transform: scale(1); box-shadow: 0 0 8px rgba(232, 119, 34, 0.4); }
     50% { transform: scale(1.02); box-shadow: 0 0 16px rgba(232, 119, 34, 0.6); }
     100% { transform: scale(1); box-shadow: 0 0 8px rgba(232, 119, 34, 0.4); }
-}
-@keyframes logo-bounce {
-    0%   { transform: translateY(0); }
-    50%  { transform: translateY(-2px); }
-    100% { transform: translateY(0); }
+} */
+@keyframes icon-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
 }
 .patreon-button[data-tooltip]:hover::after {
     content: attr(data-tooltip);
@@ -500,34 +511,7 @@ div.action-buttons a.button:hover {
     50% { transform: scale(1.05); opacity: 0.8; }
     100% { transform: scale(1.1); opacity: 0; }
 }
-.patreon-button .patreon-ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    width: 20px;
-    height: 20px;
-    transform: scale(0);
-    pointer-events: none;
-    animation: patreon-ripple-effect 0.6s linear;
-}
-.patreon-button .patreon-ripple2 {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    width: 20px;
-    height: 20px;
-    transform: scale(0);
-    pointer-events: none;
-    animation: patreon-ripple-effect2 0.9s linear;
-}
-@keyframes patreon-ripple-effect {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(15); opacity: 0; }
-}
-@keyframes patreon-ripple-effect2 {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(20); opacity: 0; }
-}
+/* These are now replaced by the unified .ripple class and ripple-effect keyframes */
 .twitter-follow-button-container {
     text-align: center;
     margin: 30px auto;
@@ -560,26 +544,7 @@ div.action-buttons a.button:hover {
     box-shadow: 0 0 calc(8px + 0.8vw) rgba(232, 119, 34, 0.7);
     font-weight: 700;
 }
-.twitter-follow-button .twitter-ripple-effect {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    width: 20px;
-    height: 20px;
-    transform: scale(0);
-    pointer-events: none;
-    animation: twitter-ripple-animation 0.7s linear;
-}
-@keyframes twitter-ripple-animation {
-    0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(15);
-        opacity: 0;
-    }
-}
+/* This is now replaced by the unified .ripple class and ripple-effect keyframes */
 
 /* css/layout/footer.css */
 .site-footer-bottom {
@@ -981,8 +946,9 @@ div.action-buttons a.button:hover {
     list-style: none;
     display: block;
     background-color: rgba(150, 150, 150, 0.15);
-    animation: float 20s linear infinite;
+    animation: float 25s ease-in-out infinite;
     bottom: -150px;
+    will-change: transform, opacity;
 }
 .shape.circle {
     border-radius: 50%;
@@ -1000,11 +966,15 @@ div.action-buttons a.button:hover {
 }
 @keyframes float {
     0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-60vh) rotate(360deg) scale(1.1);
+        opacity: 0.4;
     }
     100% {
-        transform: translateY(-120vh) rotate(720deg);
+        transform: translateY(-120vh) rotate(720deg) scale(1);
         opacity: 0;
     }
 }

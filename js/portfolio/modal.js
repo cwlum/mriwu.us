@@ -16,11 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeModal() {
-        modal.style.display = 'none';
+        modal.classList.add('modal-closing');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            modal.classList.remove('modal-closing');
+        }, 400); // Match CSS animation duration
     }
 
     // Public function to show an item in the modal
-    // Make it global so portfolio-page.js can call it
     window.showPortfolioItemInModal = function(index) {
         if (typeof portfolioItems === 'undefined' || index < 0 || index >= portfolioItems.length) {
             console.warn('Portfolio items not available or index out of bounds:', index);
@@ -31,7 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         modalImage.src = item.imgSrc;
         modalCaption.textContent = item.caption || item.altText || 'Artwork';
+        
+        modal.classList.remove('modal-closing');
         modal.style.display = 'block';
+        modal.classList.add('modal-opening');
+
+        setTimeout(() => {
+            modal.classList.remove('modal-opening');
+        }, 400); // Match CSS animation duration
 
         // Update nav button visibility
         prevModalBtn.classList.toggle('hidden', currentModalItemIndex === 0);
