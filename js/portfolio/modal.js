@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         modalCaption.textContent = item.title;
 
         modal.classList.remove('modal-closing');
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         modal.classList.add('modal-opening');
 
         openTimeout = setTimeout(() => {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     nextModalBtn.addEventListener('click', showNext);
 
     document.addEventListener('keydown', (event) => {
-        if (modal.style.display === 'block') {
+        if (modal.style.display === 'flex') {
             if (event.key === 'Escape') closeModal();
             if (event.key === 'ArrowLeft') showPrev();
             if (event.key === 'ArrowRight') showNext();

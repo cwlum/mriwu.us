@@ -9,11 +9,14 @@
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-    padding-top: 60px; /* Location of the box */
+    /* padding-top: 60px; -- Replaced by flexbox for centering */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content { /* This is the <img> tag */
-    margin: auto;
+    /* margin: auto; -- Replaced by flexbox for centering */
     display: block;
     max-width: 90vw; /* Max width relative to viewport width */
     max-height: 80vh; /* Max height relative to viewport height */
