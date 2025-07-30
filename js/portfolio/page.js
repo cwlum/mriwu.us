@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // This script assumes 'portfolioItems' is globally available from portfolio-data.js
-    // and 'window.showPortfolioItemInModal' is available from portfolio-modal.js
-
     const grid = document.querySelector('.masonry-grid');
     const categoryFiltersContainer = document.getElementById('category-filters');
     const searchInput = document.getElementById('portfolio-search');
+
+    // Clear existing content in case of re-initialization (e.g., via Turbo, etc.)
+    if (grid) grid.innerHTML = '';
+    if (categoryFiltersContainer) categoryFiltersContainer.innerHTML = '';
 
     // Check if portfolioItems is defined (should be by portfolio-data.js)
     if (typeof portfolioItems === 'undefined' || !Array.isArray(portfolioItems)) {
