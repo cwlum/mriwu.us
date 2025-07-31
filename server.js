@@ -144,9 +144,24 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 app.get('/admin/portfolio', requireLogin, async (req, res) => {
     try {
-        const portfolio = await cache.getPortfolio();
-        res.render('manage-portfolio', { portfolio, title: 'Manage Portfolio' });
+        const allPortfolio = await cache.getPortfolio();
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 8; // Items per page
+        const totalItems = allPortfolio.length;
+        const totalPages = Math.ceil(totalItems / perPage);
+        const start = (page - 1) * perPage;
+        const end = page * perPage;
+        const portfolio = allPortfolio.slice(start, end);
+
+        res.render('manage-portfolio', {
+            portfolio,
+            title: 'Manage Portfolio',
+            currentPage: page,
+            totalPages,
+            totalItems
+        });
     } catch (error) {
+        console.error("Error getting portfolio for admin:", error);
         res.status(500).send("Error reading portfolio data.");
     }
 });
@@ -301,6 +316,7 @@ const staticOptions = {
 app.use('/css', express.static(path.join(__dirname, 'css'), staticOptions));
 app.use('/js', express.static(path.join(__dirname, 'js'), staticOptions));
 app.use('/asset', express.static(path.join(__dirname, 'asset'), staticOptions));
+app.use('/admin', express.static(path.join(__dirname, 'admin'), staticOptions));
 
 
 // --- Server ---

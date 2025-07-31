@@ -1,8 +1,9 @@
-<% layout('layout') -%>
+<%- include('partials/header', { title: 'Edit Portfolio Item' }) %>
 
-<div class="card">
-    <h5 class="card-title">Edit Portfolio Item</h5>
-    <form action="/admin/portfolio/edit/<%= item.id %>" method="POST" enctype="multipart/form-data" class="form-card">
+<div class="card" style="max-width: 800px; margin: auto;">
+    <h5 class="card-title">Edit: <%= item.title %></h5>
+
+    <form action="/admin/portfolio/edit/<%= item.id %>" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" class="form-control" value="<%= item.title %>" required>
@@ -13,25 +14,24 @@
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" class="form-control"><%= item.description %></textarea>
+            <textarea id="description" name="description" class="form-control" rows="5"><%= item.description %></textarea>
         </div>
         <div class="form-group">
-            <label for="image">Current Image</label>
+            <label>Current Image</label>
             <div>
-                <img src="/<%= item.src %>" alt="<%= item.title %>" width="150">
+                <img src="/<%= item.src %>" alt="<%= item.title %>" style="width: 150px; height: auto; border-radius: 8px; margin-bottom: 10px;">
                 <input type="hidden" name="existingImage" value="<%= item.src %>">
             </div>
         </div>
         <div class="form-group">
-            <label for="image">Upload New Image (optional)</label>
+            <label for="image">Upload New Image (optional, will replace the current one)</label>
             <input type="file" id="image" name="image" class="form-control" accept="image/webp">
         </div>
-        <button type="submit" class="btn btn-primary">Update Item</button>
-        <a href="/admin/portfolio" class="btn">Cancel</a>
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Update Item</button>
+            <a href="/admin/portfolio" class="btn" style="margin-left: 10px;">Cancel</a>
+        </div>
     </form>
 </div>
 
-<style>
-    .form-card { padding: 20px; background-color: #2c2c2c; border-radius: 8px; }
-    .form-control { width: 100%; padding: 10px; background-color: #333; color: #f0f0f0; border: 1px solid #555; border-radius: 4px; box-sizing: border-box; }
-</style>
+<%- include('partials/footer') %>

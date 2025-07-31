@@ -1,4 +1,4 @@
-<% layout('layout') -%>
+<%- include('partials/header', { title: 'Dashboard' }) %>
 
 <div class="dashboard-grid">
     <div class="card">
@@ -13,3 +13,5 @@
         <a href="/admin/backup" class="btn">Backup Website</a>
     </div>
 </div>
+
+<%- include('partials/footer') %>
