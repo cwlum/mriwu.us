@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
     let currentFilter = 'All';
     let filteredData = [];
+    let portfolioData = [];
 
     function setupCategoryFilters() {
         const categories = ['All', ...new Set(portfolioData.map(item => item.category))];
@@ -36,20 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateAndSetHeight() {
         const items = carouselWrapper.querySelectorAll('.carousel-item');
         if (items.length === 0) {
-            carouselWrapper.style.height = '100px'; // A small default height
+            carouselWrapper.style.height = '100px';
             return;
         }
-
-        // Temporarily reset wrapper height to measure children accurately
         carouselWrapper.style.height = 'auto';
-
         let maxHeight = 0;
         items.forEach(item => {
             if (item.offsetHeight > maxHeight) {
                 maxHeight = item.offsetHeight;
             }
         });
-
         if (maxHeight > 0) {
             carouselWrapper.style.height = `${maxHeight}px`;
         }
@@ -60,26 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
             ? [...portfolioData] 
             : portfolioData.filter(item => item.category === currentFilter);
 
-        carouselWrapper.innerHTML = ''; // Clear existing items
+        carouselWrapper.innerHTML = '';
 
         if (filteredData.length === 0) {
             carouselWrapper.innerHTML = '<p>No items in this category.</p>';
-            prevButton.style.display = 'none';
-            nextButton.style.display = 'none';
-            calculateAndSetHeight(); // Set height even for empty state
+            updateNavButtons();
+            calculateAndSetHeight();
             return;
         }
         
-        prevButton.style.display = 'flex';
-        nextButton.style.display = 'flex';
-
         const imageLoadPromises = [];
 
         filteredData.forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('carousel-item');
-            itemElement.setAttribute('role', 'group');
-            itemElement.setAttribute('aria-label', `${index + 1} of ${filteredData.length}`);
             itemElement.dataset.originalIndex = portfolioData.indexOf(item);
             itemElement.dataset.filteredIndex = index;
 
@@ -90,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const imageLoadPromise = new Promise((resolve) => {
                 image.onload = resolve;
-                image.onerror = resolve; // Resolve even on error to not block the process
+                image.onerror = resolve;
             });
             imageLoadPromises.push(imageLoadPromise);
 
@@ -103,21 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselWrapper.appendChild(itemElement);
         });
 
-        // Wait for all images to load before calculating height
         Promise.all(imageLoadPromises).then(() => {
             calculateAndSetHeight();
-            currentIndex = 0; // Reset to the first item
-            updateCarousel(false); // Update without smooth scroll initially
-            setupIntersectionObserver();
+            currentIndex = 0;
+            updateCarousel(false);
+            updateNavButtons();
         });
     }
 
     function updateCarousel(smooth = true) {
-        const items = document.querySelectorAll('.carousel-item');
+        const items = carouselWrapper.querySelectorAll('.carousel-item');
         if (items.length === 0) return;
-
-        if (currentIndex >= items.length) currentIndex = items.length - 1;
-        if (currentIndex < 0) currentIndex = 0;
 
         const itemWidth = items[0].offsetWidth;
         const scrollPosition = currentIndex * itemWidth;
@@ -131,38 +118,50 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.toggle('active', index === currentIndex);
         });
     }
+    
+    function updateNavButtons() {
+        if (filteredData.length <= 1) {
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+        } else {
+            prevButton.style.display = 'flex';
+            nextButton.style.display = 'flex';
+            prevButton.disabled = currentIndex === 0;
+            nextButton.disabled = currentIndex === filteredData.length - 1;
+        }
+    }
 
     window.updateCarouselFromModal = function(newOriginalIndex) {
         const newFilteredIndex = filteredData.findIndex(item => portfolioData.indexOf(item) === newOriginalIndex);
         if (newFilteredIndex !== -1) {
             currentIndex = newFilteredIndex;
             updateCarousel();
+            updateNavButtons();
         }
     };
 
     function showNext() {
-        const items = document.querySelectorAll('.carousel-item');
-        if (items.length === 0) return;
-        currentIndex = (currentIndex + 1) % items.length;
-        updateCarousel();
+        if (currentIndex < filteredData.length - 1) {
+            currentIndex++;
+            updateCarousel();
+            updateNavButtons();
+        }
     }
 
     function showPrev() {
-        const items = document.querySelectorAll('.carousel-item');
-        if (items.length === 0) return;
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        updateCarousel();
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+            updateNavButtons();
+        }
     }
 
     nextButton.addEventListener('click', showNext);
     prevButton.addEventListener('click', showPrev);
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            showPrev();
-        } else if (e.key === 'ArrowRight') {
-            showNext();
-        }
+        if (e.key === 'ArrowLeft') showPrev();
+        else if (e.key === 'ArrowRight') showNext();
     });
 
     carouselWrapper.addEventListener('click', (e) => {
@@ -177,45 +176,35 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 currentIndex = filteredIndex;
                 updateCarousel();
+                updateNavButtons();
             }
         }
     });
 
-    // Initial setup
-    if (typeof portfolioData !== 'undefined' && portfolioData.length > 0) {
-        setupCategoryFilters();
-        populateCarousel();
-    } else {
-        categoryFiltersContainer.innerHTML = '<p>No data to generate filters.</p>';
-        carouselWrapper.innerHTML = '<p>No portfolio items to display.</p>';
+    async function initializeCarousel() {
+        try {
+            const response = await fetch('/api/portfolio');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            portfolioData = await response.json();
+            window.portfolioData = portfolioData;
+            
+            if (portfolioData && portfolioData.length > 0) {
+                setupCategoryFilters();
+                populateCarousel();
+            } else {
+                categoryFiltersContainer.innerHTML = '<p>No data to generate filters.</p>';
+                carouselWrapper.innerHTML = '<p>No portfolio items to display.</p>';
+            }
+        } catch (error) {
+            console.error("Failed to load portfolio data:", error);
+            carouselWrapper.innerHTML = '<p>Error loading portfolio items.</p>';
+        }
     }
+
+    initializeCarousel();
     
-    function setupIntersectionObserver() {
-        const items = document.querySelectorAll('.carousel-item');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = parseInt(entry.target.dataset.filteredIndex, 10);
-                    if (!isNaN(index)) {
-                        currentIndex = index;
-                        items.forEach((item, i) => {
-                            item.classList.toggle('active', i === currentIndex);
-                        });
-                    }
-                }
-            });
-        }, {
-            root: document.querySelector('.carousel-container'),
-            threshold: 0.5
-        });
-
-        items.forEach(item => {
-            observer.observe(item);
-        });
-    }
-
     window.addEventListener('resize', () => {
-        // On resize, recalculate height and then update the carousel position
         calculateAndSetHeight();
         requestAnimationFrame(() => updateCarousel(false));
     });

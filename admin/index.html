@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-    <link rel="stylesheet" href="/admin/style.css">
+    <link rel="stylesheet" href="/css/style.bundle.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #login-form {
+            max-width: 450px;
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <form action="/admin/login" method="POST">
-            <h2>Admin Login</h2>
+    <div class="site-container">
+        <form id="login-form" class="contact-form" action="/admin/login" method="POST">
+            <h2 class="site-heading">Admin Login</h2>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -18,7 +30,9 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="button">Login</button>
+            <div class="form-group">
+                <button type="submit" class="button">Login</button>
+            </div>
         </form>
     </div>
 </body>

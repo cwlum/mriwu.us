@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(openTimeout);
         clearTimeout(closeTimeout);
 
-        if (typeof portfolioData === 'undefined' || index < 0 || index >= portfolioData.length) {
+        if (typeof window.portfolioData === 'undefined' || index < 0 || index >= window.portfolioData.length) {
             console.error('portfolioData not available or index out of bounds:', index);
             return;
         }
         currentModalIndex = index;
-        const item = portfolioData[index];
+        const item = window.portfolioData[index];
 
         modalImage.src = item.src;
         modalCaption.textContent = item.title;
@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     function updateNavButtons() {
+        if (typeof window.portfolioData === 'undefined') return;
         prevModalBtn.style.display = currentModalIndex === 0 ? 'none' : 'block';
-        nextModalBtn.style.display = currentModalIndex === portfolioData.length - 1 ? 'none' : 'block';
+        nextModalBtn.style.display = currentModalIndex === window.portfolioData.length - 1 ? 'none' : 'block';
     }
 
     function showPrev() {
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showNext() {
-        if (currentModalIndex < portfolioData.length - 1) {
+        if (typeof window.portfolioData !== 'undefined' && currentModalIndex < window.portfolioData.length - 1) {
             currentModalIndex++;
             window.openModal(currentModalIndex);
             if (window.updateCarouselFromModal) {

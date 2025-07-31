@@ -1,116 +1,75 @@
-# Personal Website & Portfolio - cwlum.github.io
+# Personal Website & Portfolio - Dynamic Version
 
-This repository contains the source code for the personal website and portfolio of cwlum, accessible at [https://cwlum.github.io/](https://cwlum.github.io/).
+This repository contains the source code for the personal website and portfolio of cwlum. This version has been migrated from a static GitHub Pages site to a dynamic web application powered by Node.js and Express.
 
 ## About This Project
 
-This website serves as a central hub to showcase projects, share information, and provide contact details. It is designed to be a clean, responsive, and easily navigable platform.
+This website serves as a central hub to showcase projects, share information, and provide contact details. The dynamic backend allows for easier content management through a private admin panel.
 
 ## Features
 
-*   **Dynamic Portfolio Grid:** Portfolio items are loaded dynamically from a central data source. The grid supports filtering by category and a real-time search function.
-*   **Automatic Sorting:** The portfolio is automatically sorted to display the newest work first.
-*   **Engaging Animations:** Utilizes the `anime.js` library to provide smooth, meaningful animations for page transitions, item filtering, and interactive elements.
-*   **Interactive Image Modal:** A custom-built modal window for viewing artwork, complete with keyboard navigation (arrow keys and Escape).
-*   **Site-Wide Orientation Lock:** Prompts users on landscape-oriented devices to switch to portrait mode for a better viewing experience, implemented across all pages.
+*   **Dynamic Portfolio:** Portfolio items are now managed via a JSON file and served through an API, allowing for real-time updates without redeploying code.
+*   **Admin Control Panel:** A secure admin dashboard to manage portfolio content (CRUD - Create, Read, Update, Delete) and perform other administrative tasks.
+*   **Backend Server:** Built with Node.js and Express, providing robust routing, API endpoints, and content management logic.
+*   **Server-Side Rendering:** Uses EJS templating for rendering admin pages.
+*   **Process Management:** Ready to be managed by PM2 for production deployment, ensuring the application stays alive.
 *   **Responsive Design:** A mobile-first approach ensures a seamless experience across all device sizes.
 
 ## Technologies Used
 
-The website is built using a combination of modern and fundamental web technologies:
-
-*   **HTML5:** For the semantic structure and content of the web pages.
-*   **CSS3:** For styling, layout, and animations. Key features include Flexbox, Grid, and custom properties for maintainable theming.
-*   **JavaScript (ES6+):** For all interactive functionality, including the portfolio grid, animations, and form handling.
-*   **anime.js:** A lightweight and powerful animation library used for creating engaging user interface animations.
-
-## Project Structure
-
-The repository is organized as follows:
-
-```
-├── css/
-│   ├── base/
-│   │   ├── global.css
-│   │   ├── main.css
-│   │   └── responsive.css
-│   ├── layout/
-│   │   ├── footer.css
-│   │   ├── header.css
-│   │   └── sidebar.css
-│   ├── pages/
-│   │   ├── academic.css
-│   │   └── contact-form.css
-│   ├── components/
-│   │   └── buttons.css
-│   └── portfolio/
-│       ├── grid.css
-│       └── modal.css
-├── js/
-│   ├── utils/
-│   │   └── page-animations.js
-│   ├── components/
-│   │   └── navigation/
-│   │       ├── nav-toggle.js
-│   │       └── sidebar-toggle.js
-│   ├── features/
-│   │   ├── background-animations.js
-│   │   └── password-protect.js
-│   ├── buttons/
-│   │   └── ripple-effect.js
-│   └── portfolio/
-│       ├── data.js
-│       ├── page.js
-│       └── modal.js
-├── js/orientation-check.js
-├── js/app.bundle.js
-├── asset/
-│   ├── images/
-│   │   ├── logo.PNG
-│   │   └── profile-picture.JPG
-│   └── portfolio/
-│       └── ...
-├── academic.html
-├── CNAME
-├── contact.html
-├── index.html
-├── LICENSE
-├── portfolio.html
-├── privacy.html
-└── README.md
-```
+*   **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+*   **Backend:** Node.js, Express.js
+*   **Templating Engine:** EJS (Embedded JavaScript)
+*   **Dependencies:**
+    *   `express`: Web framework
+    *   `ejs`: Templating engine
+    *   `bcrypt`: Password hashing for admin login
+    *   `multer`: Handling file uploads (portfolio images)
+    *   `pm2`: (Recommended for production) Process manager
 
 ## Getting Started
 
-To view or work on this project locally:
+To run this project locally, you will need Node.js and npm installed.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/cwlum/cwlum.github.io.git
+    git clone https://github.com/cwlum/mriwu.us.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
-    cd cwlum.github.io
+    cd mriwu.us
     ```
-3.  **Open `index.html` in your browser:**
-    You can simply open the `index.html` file directly in your web browser to view the site. For a more robust local development experience, you can use a local web server. Many code editors (like VS Code with the "Live Server" extension) offer this functionality, or you can use Python's built-in HTTP server:
+3.  **Install dependencies:**
     ```bash
-    python -m http.server
+    npm install
     ```
-    Or for Python 3:
-    ```bash
-    python3 -m http.server
-    ```
-    Then, open `http://localhost:8000` (or the port indicated by the server) in your browser.
+4.  **Run the server:**
+    *   **For development:**
+        ```bash
+        node server.js
+        ```
+    *   **For production (recommended):**
+        Use PM2 to keep the server running in the background.
+        ```bash
+        # Install PM2 globally if you haven't already
+        npm install pm2 -g
+        
+        # Start the application
+        pm2 start server.js --name mriwu-website
+        ```
+    The application will be running at `http://localhost:3000`.
 
-## Viewing the Live Site
+## Admin Panel
 
-The live version of this website is hosted on GitHub Pages and can be accessed at:
-[https://cwlum.github.io/](https://cwlum.github.io/)
+The admin panel is located at `/admin`.
+- **Login:** Use the credentials configured in `server.js` to log in.
+- **Features:**
+    - **Portfolio Management:** Add, edit, and delete portfolio items. Uploaded images are automatically handled.
+    - **Website Backup:** Download a `.zip` archive of the entire website.
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome. If you have any suggestions or find a bug, please open an issue in the [GitHub Issues](https://github.com/cwlum/cwlum.github.io/issues) section of this repository.
+Contributions, issues, and feature requests are welcome. If you have any suggestions or find a bug, please open an issue in the [GitHub Issues](https://github.com/cwlum/mriwu.us/issues) section of this repository.
 
 ## License
 

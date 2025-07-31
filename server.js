@@ -65,59 +65,102 @@ app.get('/admin/logout', (req, res) => {
     res.redirect('/admin');
 });
 
-// --- Page Content Routes ---
-app.get('/admin/edit', requireLogin, (req, res) => {
-    const page = req.query.page;
-    const filePath = path.join(__dirname, page);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    res.render('edit', { page, content });
-});
-
-app.post('/admin/edit', requireLogin, (req, res) => {
-    const { page, content } = req.body;
-    const filePath = path.join(__dirname, page);
-    fs.writeFileSync(filePath, content);
-    res.redirect('/admin/dashboard');
-});
-
 // --- Portfolio Management ---
+const portfolioDataPath = path.join(__dirname, 'data', 'portfolio.json');
+
+const readPortfolioData = () => {
+    const data = fs.readFileSync(portfolioDataPath, 'utf-8');
+    return JSON.parse(data);
+};
+
+const writePortfolioData = (data) => {
+    fs.writeFileSync(portfolioDataPath, JSON.stringify(data, null, 2));
+};
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'asset/images/portfolio')
+        cb(null, 'asset/portfolio')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+        cb(null, Date.now() + path.extname(file.originalname))
     }
 });
 
 const upload = multer({ storage: storage });
 
 app.get('/admin/portfolio', requireLogin, (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin', 'portfolio.html'));
+    const portfolio = readPortfolioData();
+    res.render('portfolio', { portfolio, title: 'Manage Portfolio' });
 });
 
 app.post('/admin/portfolio/add', requireLogin, upload.single('image'), (req, res) => {
+    const portfolio = readPortfolioData();
     const { title, category, description } = req.body;
-    const image = req.file.path;
+    
+    const newItem = {
+        id: Date.now().toString(),
+        title,
+        category,
+        description,
+        src: req.file ? req.file.path.replace(/\\/g, '/') : ''
+    };
 
-    const portfolioDataPath = path.join(__dirname, 'js', 'portfolio', 'data.js');
-    const portfolioData = fs.readFileSync(portfolioDataPath, 'utf8');
+    portfolio.unshift(newItem);
+    writePortfolioData(portfolio);
+    res.redirect('/admin/portfolio');
+});
 
-    const newItem = `
-    {
-        "title": "${title}",
-        "category": "${category}",
-        "description": "${description}",
-        "imageUrl": "${image.replace(/\\/g, '/')}",
-        "thumbnailUrl": "${image.replace(/\\/g, '/')}"
-    },
-];`;
+app.get('/admin/portfolio/edit/:id', requireLogin, (req, res) => {
+    const portfolio = readPortfolioData();
+    const item = portfolio.find(p => p.id === req.params.id);
+    if (item) {
+        res.render('edit-portfolio', { item, title: 'Edit Portfolio Item' });
+    } else {
+        res.status(404).send('Item not found');
+    }
+});
 
-    const updatedPortfolioData = portfolioData.replace(/\n];/, newItem);
+app.post('/admin/portfolio/edit/:id', requireLogin, upload.single('image'), (req, res) => {
+    const portfolio = readPortfolioData();
+    const { title, category, description, existingImage } = req.body;
+    const index = portfolio.findIndex(p => p.id === req.params.id);
 
-    fs.writeFileSync(portfolioDataPath, updatedPortfolioData);
+    if (index !== -1) {
+        const updatedItem = {
+            ...portfolio[index],
+            title,
+            category,
+            description,
+            src: req.file ? req.file.path.replace(/\\/g, '/') : existingImage
+        };
+        portfolio[index] = updatedItem;
+        writePortfolioData(portfolio);
+        res.redirect('/admin/portfolio');
+    } else {
+        res.status(404).send('Item not found');
+    }
+});
 
-    res.redirect('/admin/dashboard');
+app.post('/admin/portfolio/delete/:id', requireLogin, (req, res) => {
+    let portfolio = readPortfolioData();
+    const itemToDelete = portfolio.find(p => p.id === req.params.id);
+
+    if (itemToDelete && itemToDelete.src) {
+        const imagePath = path.join(__dirname, itemToDelete.src);
+        if (fs.existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+        }
+    }
+    
+    portfolio = portfolio.filter(p => p.id !== req.params.id);
+    writePortfolioData(portfolio);
+    res.redirect('/admin/portfolio');
+});
+
+// --- Public API Routes ---
+app.get('/api/portfolio', (req, res) => {
+    const portfolio = readPortfolioData();
+    res.json(portfolio);
 });
 
 // --- Website Backup ---
@@ -144,11 +187,11 @@ app.get('/admin/backup', requireLogin, (req, res) => {
 });
 
 // --- Default Route ---
+app.use(express.static(__dirname));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
-
-app.use(express.static(__dirname));
 
 // --- Server ---
 app.listen(port, () => {
