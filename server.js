@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'admin'));
 
 // --- User Configuration ---
 const users = {
-    "admin": "$2b$10$NZHUGCTuY8UJ0tIa3yeYNOanf2InFL7Wxiu10yVDybecYG4ymA1yG"
+    "admin": "$2b$10$R0iznQvxDDhfZLDKRV/iZuFOOFmrp.rJ2VCglgjQLtM1LhZtU7jSi"
 };
 
 // --- Middleware ---
@@ -44,16 +44,50 @@ app.get('/admin', (req, res) => {
 });
 
 app.post('/admin/login', (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, 'remember-me': rememberMe } = req.body;
     const hashedPassword = users[username];
 
     if (hashedPassword && bcrypt.compareSync(password, hashedPassword)) {
         req.session.loggedin = true;
         req.session.username = username;
+        if (rememberMe) {
+            req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+        }
         res.redirect('/admin/dashboard');
     } else {
         res.send('Incorrect Username and/or Password!');
     }
+});
+
+app.get('/admin/change-password', requireLogin, (req, res) => {
+    res.render('change-password', { title: 'Change Password', error: null, success: null });
+});
+
+app.post('/admin/change-password', requireLogin, (req, res) => {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const username = req.session.username;
+    const hashedPassword = users[username];
+
+    if (!bcrypt.compareSync(currentPassword, hashedPassword)) {
+        return res.render('change-password', { title: 'Change Password', error: 'Incorrect current password.', success: null });
+    }
+
+    if (newPassword !== confirmPassword) {
+        return res.render('change-password', { title: 'Change Password', error: 'New passwords do not match.', success: null });
+    }
+
+    const newHashedPassword = bcrypt.hashSync(newPassword, 10);
+    users[username] = newHashedPassword;
+
+    // Note: This change is in-memory and will be lost on server restart.
+    // A persistent storage mechanism (DB, file) would be needed for production.
+    console.log(`Password for user '${username}' has been changed.`);
+    
+    res.render('change-password', { title: 'Change Password', error: null, success: 'Password changed successfully!' });
+});
+
+app.get('/admin/forgot-password', (req, res) => {
+    res.render('forgot-password', { title: 'Forgot Password' });
 });
 
 app.get('/admin/dashboard', requireLogin, (req, res) => {

@@ -11,17 +11,94 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background-color: #232323;
+            color: #f0f0f0;
+            font-family: 'Inter', Arial, sans-serif;
         }
         #login-form {
-            max-width: 450px;
+            max-width: 400px;
+            width: 100%;
             margin-top: 0;
+            padding: 2.5rem;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .site-heading {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #f0f0f0;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #f0f0f0;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #333333;
+            color: #f0f0f0;
+            border: 1px solid #555555;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: #e87722;
+            box-shadow: 0 0 8px rgba(232, 119, 34, 0.3);
+            outline: none;
+        }
+        .form-group .button {
+            width: 100%;
+            background-color: #e87722;
+            color: #ffffff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .form-group .button:hover {
+            background-color: #d46a1f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(232, 119, 34, 0.4);
+        }
+        .form-group label[for="remember-me"] {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            color: #f0f0f0;
+            cursor: pointer;
+        }
+        .form-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #e87722;
+        }
+        .form-group a {
+            color: #e87722;
+            text-decoration: none;
+        }
+        .form-group a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="site-container">
-        <form id="login-form" class="contact-form" action="/admin/login" method="POST">
-            <h2 class="site-heading">Admin Login</h2>
+    <form id="login-form" class="contact-form" action="/admin/login" method="POST">
+        <h2 class="site-heading">Admin Login</h2>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -31,9 +108,16 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
+                <label for="remember-me">
+                    <input type="checkbox" id="remember-me" name="remember-me"> Remember Me
+                </label>
+            </div>
+            <div class="form-group">
                 <button type="submit" class="button">Login</button>
             </div>
+            <div class="form-group" style="text-align: center;">
+                <a href="/admin/forgot-password">Forgot Password?</a>
+            </div>
         </form>
-    </div>
 </body>
 </html>
