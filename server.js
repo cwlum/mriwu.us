@@ -9,6 +9,8 @@ const archiver = require('archiver');
 const fs = require('fs').promises; // Use promises for async operations
 const ejs = require('ejs');
 const engine = require('ejs-mate');
+const compression = require('compression');
+const cache = require('./cache');
 
 const app = express();
 const port = 3000;
@@ -17,32 +19,9 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', [path.join(__dirname, 'admin'), path.join(__dirname, 'views')]);
 
-// --- File Paths ---
-const portfolioDataPath = path.join(__dirname, 'data', 'portfolio.json');
-const usersDataPath = path.join(__dirname, 'data', 'users.json');
-
-// --- Data Handling ---
-const readJsonFile = async (filePath) => {
-    try {
-        const data = await fs.readFile(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error(`Error reading file from path: ${filePath}`, error);
-        throw error; // Rethrow or handle as needed
-    }
-};
-
-const writeJsonFile = async (filePath, data) => {
-    try {
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-    } catch (error) {
-        console.error(`Error writing file to path: ${filePath}`, error);
-        throw error;
-    }
-};
-
 
 // --- Middleware ---
+app.use(compression());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
     store: new FileStore({
@@ -77,7 +56,7 @@ app.post('/admin/login', async (req, res) => {
     const { username, password, 'remember-me': rememberMe } = req.body;
     
     try {
-        const users = await readJsonFile(usersDataPath);
+        const users = await cache.getUsers();
         const user = users[username];
 
         if (user && bcrypt.compareSync(password, user.password)) {
@@ -102,7 +81,7 @@ app.post('/admin/change-password', requireLogin, async (req, res) => {
     const username = req.session.username;
 
     try {
-        const users = await readJsonFile(usersDataPath);
+        const users = await cache.getUsers();
         const user = users[username];
 
         if (!user || !bcrypt.compareSync(currentPassword, user.password)) {
@@ -116,7 +95,7 @@ app.post('/admin/change-password', requireLogin, async (req, res) => {
         const newHashedPassword = bcrypt.hashSync(newPassword, 10);
         users[username].password = newHashedPassword;
 
-        await writeJsonFile(usersDataPath, users);
+        await cache.updateUsers(users);
         
         console.log(`Password for user '${username}' has been changed.`);
         res.render('change-password', { title: 'Change Password', error: null, success: 'Password changed successfully!' });
@@ -155,7 +134,7 @@ const upload = multer({ storage: storage });
 
 app.get('/admin/portfolio', requireLogin, async (req, res) => {
     try {
-        const portfolio = await readJsonFile(portfolioDataPath);
+        const portfolio = await cache.getPortfolio();
         res.render('manage-portfolio', { portfolio, title: 'Manage Portfolio' });
     } catch (error) {
         res.status(500).send("Error reading portfolio data.");
@@ -164,7 +143,7 @@ app.get('/admin/portfolio', requireLogin, async (req, res) => {
 
 app.post('/admin/portfolio/add', requireLogin, upload.single('image'), async (req, res) => {
     try {
-        const portfolio = await readJsonFile(portfolioDataPath);
+        const portfolio = await cache.getPortfolio();
         const { title, category, description } = req.body;
         
         const newItem = {
@@ -176,7 +155,7 @@ app.post('/admin/portfolio/add', requireLogin, upload.single('image'), async (re
         };
 
         portfolio.unshift(newItem);
-        await writeJsonFile(portfolioDataPath, portfolio);
+        await cache.updatePortfolio(portfolio);
         res.redirect('/admin/portfolio');
     } catch (error) {
         res.status(500).send("Error adding portfolio item.");
@@ -185,7 +164,7 @@ app.post('/admin/portfolio/add', requireLogin, upload.single('image'), async (re
 
 app.get('/admin/portfolio/edit/:id', requireLogin, async (req, res) => {
     try {
-        const portfolio = await readJsonFile(portfolioDataPath);
+        const portfolio = await cache.getPortfolio();
         const item = portfolio.find(p => p.id === req.params.id);
         if (item) {
             res.render('edit-portfolio', { item, title: 'Edit Portfolio Item' });
@@ -199,7 +178,7 @@ app.get('/admin/portfolio/edit/:id', requireLogin, async (req, res) => {
 
 app.post('/admin/portfolio/edit/:id', requireLogin, upload.single('image'), async (req, res) => {
     try {
-        const portfolio = await readJsonFile(portfolioDataPath);
+        const portfolio = await cache.getPortfolio();
         const { title, category, description, existingImage } = req.body;
         const index = portfolio.findIndex(p => p.id === req.params.id);
 
@@ -212,7 +191,7 @@ app.post('/admin/portfolio/edit/:id', requireLogin, upload.single('image'), asyn
                 src: req.file ? req.file.path.replace(/\\/g, '/') : existingImage
             };
             portfolio[index] = updatedItem;
-            await writeJsonFile(portfolioDataPath, portfolio);
+            await cache.updatePortfolio(portfolio);
             res.redirect('/admin/portfolio');
         } else {
             res.status(404).send('Item not found');
@@ -224,7 +203,7 @@ app.post('/admin/portfolio/edit/:id', requireLogin, upload.single('image'), asyn
 
 app.post('/admin/portfolio/delete/:id', requireLogin, async (req, res) => {
     try {
-        let portfolio = await readJsonFile(portfolioDataPath);
+        let portfolio = await cache.getPortfolio();
         const itemToDelete = portfolio.find(p => p.id === req.params.id);
 
         if (itemToDelete && itemToDelete.src) {
@@ -238,7 +217,7 @@ app.post('/admin/portfolio/delete/:id', requireLogin, async (req, res) => {
         }
         
         portfolio = portfolio.filter(p => p.id !== req.params.id);
-        await writeJsonFile(portfolioDataPath, portfolio);
+        await cache.updatePortfolio(portfolio);
         res.redirect('/admin/portfolio');
     } catch (error) {
         res.status(500).send("Error deleting portfolio item.");
@@ -248,7 +227,7 @@ app.post('/admin/portfolio/delete/:id', requireLogin, async (req, res) => {
 // --- Public API Routes ---
 app.get('/api/portfolio', async (req, res) => {
     try {
-        const portfolio = await readJsonFile(portfolioDataPath);
+        const portfolio = await cache.getPortfolio();
         res.json(portfolio);
     } catch (error) {
         res.status(500).json({ error: "Failed to retrieve portfolio data." });
@@ -266,7 +245,7 @@ app.get('/contact', (req, res) => {
 
 app.get('/portfolio', async (req, res) => {
     try {
-        const portfolio = await readJsonFile(portfolioDataPath);
+        const portfolio = await cache.getPortfolio();
         res.render('portfolio', { portfolio, title: 'Portfolio' });
     } catch (error) {
         res.status(500).send("Error loading portfolio page.");
@@ -302,10 +281,24 @@ app.get('/', (req, res) => {
 });
 
 // --- Static Files Middleware ---
-// This should be the last middleware to be registered.
-app.use(express.static(__dirname));
+const staticOptions = {
+    maxAge: '1d', // Cache static assets for 1 day
+    setHeaders: (res, path, stat) => {
+        res.set('x-timestamp', Date.now());
+    }
+};
+
+app.use('/css', express.static(path.join(__dirname, 'css'), staticOptions));
+app.use('/js', express.static(path.join(__dirname, 'js'), staticOptions));
+app.use('/asset', express.static(path.join(__dirname, 'asset'), staticOptions));
+
 
 // --- Server ---
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+const startServer = async () => {
+    await cache.initializeCache();
+    app.listen(port, () => {
+        console.log(`Server is running at http://localhost:${port}`);
+    });
+};
+
+startServer();

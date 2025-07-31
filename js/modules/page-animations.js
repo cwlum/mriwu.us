@@ -1,68 +1,64 @@
-// js/utils/page-animations.js
+// js/modules/page-animations.js
+
 function initializePageAnimations() {
-    const mainTimeline = anime.timeline({});
-    const siteHeader = document.querySelector('.site-header');
-    if (siteHeader) {
-        siteHeader.style.visibility = 'visible';
-        mainTimeline.add({
-            targets: siteHeader,
-            translateY: [-20, 0],
-            opacity: [0, 1],
-            duration: 550,
-            easing: 'easeOutExpo'
+    const mainTimeline = anime.timeline({
+        easing: 'easeOutCubic', // A slightly faster easing
+        duration: 650, // Faster overall duration
+        complete: (anim) => {
+            // Clean up inline styles after animation is complete for all targets
+            anim.animatables.forEach(animatable => {
+                const el = animatable.target;
+                el.style.transform = '';
+                el.style.opacity = '';
+                el.style.visibility = '';
+            });
+        }
+    });
+
+    const makeVisible = (anim) => {
+        anim.animatables.forEach(animatable => {
+            animatable.target.style.visibility = 'visible';
         });
-    }
-    const mainContentElements = document.querySelectorAll('.site-main > *:not(script):not(style)');
-    if (mainContentElements.length > 0) {
-        const animationPresets = [
-            { translateX: [-30, 0], opacity: [0, 1], scale: [0.95, 1] },
-            { translateX: [30, 0], opacity: [0, 1], scale: [0.95, 1] },
-            { translateY: [30, 0], opacity: [0, 1], scale: [0.95, 1] },
-            { opacity: [0, 1], scale: [0.8, 1] }
-        ];
-        mainContentElements.forEach((el, i) => {
-            el.style.visibility = 'visible';
-            const preset = animationPresets[i % animationPresets.length];
-            mainTimeline.add({
-                targets: el,
-                ...preset,
-                duration: 550,
-                easing: 'easeOutExpo'
-            }, `-=${380 - i * 20}`);
-        });
-    }
-    const siteFooter = document.querySelector('.site-footer-bottom');
-    if (siteFooter) {
-        siteFooter.style.visibility = 'visible';
-        mainTimeline.add({
-            targets: siteFooter,
-            translateY: [30, 0],
-            opacity: [0, 1],
-            duration: 550,
-            easing: 'easeOutExpo'
-        }, '-=350');
-    }
+    };
+
+    // Animate Header
+    mainTimeline.add({
+        targets: '.site-header',
+        translateY: [-20, 0],
+        opacity: [0, 1],
+        duration: 500, // Faster
+        begin: makeVisible
+    });
+
+    // Animate Main Content and Footer together
+    mainTimeline.add({
+        targets: '.site-main > *:not(script):not(style), .footer-content-wrapper',
+        translateY: [20, 0],
+        opacity: [0, 1],
+        delay: anime.stagger(70), // Apply stagger to all elements
+        begin: makeVisible
+    }, '-=300'); // Overlap slightly more
+
+    // Optimized Button Animations
     const allButtons = document.querySelectorAll('.button');
-    if (allButtons.length > 0) {
-        allButtons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                anime.remove(button);
-                anime({ targets: button, scale: 1.05, duration: 250, easing: 'easeOutQuad' });
-            });
-            button.addEventListener('mouseleave', () => {
-                anime.remove(button);
-                anime({ targets: button, scale: 1.0, duration: 400, easing: 'easeOutQuad' });
-            });
-            button.addEventListener('mousedown', () => {
-                anime.remove(button);
-                anime({ targets: button, scale: 0.95, duration: 150, easing: 'easeOutQuad' });
-            });
-            button.addEventListener('mouseup', () => {
-                anime.remove(button);
-                anime({ targets: button, scale: 1.0, duration: 200, easing: 'easeOutQuad' });
-            });
-        });
-    }
+    allButtons.forEach(button => {
+        const hoverAnimation = {
+            targets: button,
+            scale: 1.05,
+            duration: 300,
+            easing: 'easeOutQuad'
+        };
+
+        const leaveAnimation = {
+            targets: button,
+            scale: 1.0,
+            duration: 300,
+            easing: 'easeOutQuad'
+        };
+
+        button.addEventListener('mouseenter', () => anime(hoverAnimation));
+        button.addEventListener('mouseleave', () => anime(leaveAnimation));
+    });
 }
 
 export { initializePageAnimations };
