@@ -20,6 +20,12 @@
   },
   "homepage": "https://github.com/cwlum/cwlum.github.io#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "archiver": "^5.3.1",
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.1.0",
+    "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1"
   }
 }
