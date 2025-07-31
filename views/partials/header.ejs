@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Cervantes Wu - Freelance Artist. Explore my portfolio, and contact me for commissions.' %>">
+    <meta name="keywords" content="<%= typeof keywords !== 'undefined' ? keywords : 'Cervantes Wu, LUM, freelance artist, digital art, commissions, portfolio, contact' %>">
+    <meta name="author" content="Cervantes Wu">
+    <title><%= title %> &bull; Cervantes Wu - Freelance Artist</title>
+    <link rel="stylesheet" href="/css/style.bundle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/asset/images/logo.PNG" sizes="32x32" />
+    <% if (typeof extraCss !== 'undefined') { %>
+        <% extraCss.forEach(function(sheet){ %>
+            <link rel="stylesheet" href="<%= sheet %>">
+        <% }); %>
+    <% } %>
+</head>
+<body>
+    <div id="background-animation"></div>
+    <button id="sidebar-toggle" class="sidebar-toggle-button" aria-label="Toggle sidebar" aria-expanded="false" aria-controls="sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6L8.59 16.34z"/></svg>
+    </button>
+    <div class="site-container">
+        <header class="site-header">
+            <div class="header-content">
+                <div class="site-title"><a href="/">LUM</a></div>
+                <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav-list">
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                    <span class="hamburger-icon-bar"></span>
+                </button>
+                <nav class="site-navigation" aria-label="Main navigation">
+                    <ul role="menubar" id="main-nav-list">
+                        <li role="presentation"><a href="/" role="menuitem">Home</a></li>
+                        <li role="presentation"><a href="/portfolio" role="menuitem">Portfolio</a></li>
+                        <li role="presentation"><a href="/contact" role="menuitem">Contact</a></li>
+                        <li role="presentation"><a href="/privacy" role="menuitem">Privacy Policy</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="main-content-area-wrapper">
+            <main class="site-main">

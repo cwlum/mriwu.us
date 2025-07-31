@@ -1,0 +1,37 @@
+<%- include('partials/header', { 
+    title: 'Portfolio',
+    description: 'Portfolio of Cervantes Wu, a freelance artist. View a collection of digital art and creative projects.',
+    extraCss: ['/css/portfolio/modal.css', '/css/portfolio/carousel.css']
+}) %>
+
+<h1 class="site-heading">Portfolio Showcase</h1>
+<p class="site-subheading">A visual collection of my work and projects.</p>
+<div class="portfolio-controls">
+    <div id="category-filters" class="category-filters">
+        <!-- Filter buttons will be dynamically inserted here by carousel.js -->
+    </div>
+</div>
+<div class="carousel-container" role="region" aria-roledescription="carousel" aria-labelledby="carousel-heading">
+    <h2 id="carousel-heading" class="visually-hidden">Portfolio Carousel</h2>
+    <div class="carousel-wrapper">
+        <% portfolio.forEach(item => { %>
+            <div class="carousel-item" data-category="<%= item.category %>">
+                <img src="/<%= item.src %>" alt="<%= item.title %>" data-description="<%= item.description %>">
+            </div>
+        <% }); %>
+    </div>
+    <button class="carousel-nav carousel-prev" aria-label="Previous slide">&#10094;</button>
+    <button class="carousel-nav carousel-next" aria-label="Next slide">&#10095;</button>
+</div>
+
+<!-- Image Modal Structure -->
+<div id="imageModal" class="modal">
+    <span class="close-modal-btn">&times;</span>
+    <span class="prev-modal-btn modal-nav-btn">&#10094;</span>
+    <span class="next-modal-btn modal-nav-btn">&#10095;</span>
+    <img class="modal-content" id="modalImage">
+    <div id="modalCaption"></div>
+</div>
+
+<%- include('partials/sidebar') %>
+<%- include('partials/footer', { extraJs: ['/js/portfolio/modal.js', '/js/portfolio/carousel.js'] }) %>
