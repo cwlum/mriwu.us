@@ -1,0 +1,25 @@
+{
+  "name": "cwlum.github.io",
+  "version": "1.0.0",
+  "description": "This repository contains the source code for the personal website and portfolio of cwlum, accessible at [https://cwlum.github.io/](https://cwlum.github.io/).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwlum/cwlum.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cwlum/cwlum.github.io/issues"
+  },
+  "homepage": "https://github.com/cwlum/cwlum.github.io#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
