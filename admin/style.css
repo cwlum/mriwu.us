@@ -133,3 +133,57 @@ body {
     background-color: #d46a1f;
     border-color: #d46a1f;
 }
+
+/* Responsive Styles */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #f0f0f0;
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 260px; /* Or your desired width */
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: -260px; /* Hide off-screen */
+        z-index: 1000;
+        transition: left 0.3s ease-in-out;
+        padding-top: 60px;
+        overflow-y: auto;
+    }
+
+    .admin-sidebar.active {
+        left: 0; /* Show sidebar */
+    }
+
+    .admin-main-content {
+        padding: 20px;
+        padding-top: 70px; /* Adjust for header/menu toggle */
+        margin-left: 0;
+    }
+
+    .admin-header h1 {
+        font-size: 1.8em;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .admin-wrapper {
+        flex-direction: column;
+    }
+}

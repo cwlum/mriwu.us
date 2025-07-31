@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const archiver = require('archiver');
@@ -44,10 +45,18 @@ const writeJsonFile = async (filePath, data) => {
 // --- Middleware ---
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
+    store: new FileStore({
+        path: './sessions',
+        ttl: 86400, // 1 day in seconds
+        retries: 0
+    }),
     secret: process.env.SESSION_SECRET || 'default_secret_key',
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using HTTPS
+    saveUninitialized: false, // Set to false for file store
+    cookie: { 
+        secure: false, // Set to true if using HTTPS
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    }
 }));
 
 // --- Authentication Middleware ---
@@ -61,7 +70,7 @@ function requireLogin(req, res, next) {
 
 // --- Admin Routes ---
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+    res.render('login', { title: 'Admin Login', message: null });
 });
 
 app.post('/admin/login', async (req, res) => {
@@ -74,15 +83,13 @@ app.post('/admin/login', async (req, res) => {
         if (user && bcrypt.compareSync(password, user.password)) {
             req.session.loggedin = true;
             req.session.username = username;
-            if (rememberMe) {
-                req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-            }
+            // The maxAge is now set in the main session config
             res.redirect('/admin/dashboard');
         } else {
-            res.send('Incorrect Username and/or Password!');
+            res.render('login', { title: 'Admin Login', message: 'Incorrect Username and/or Password!' });
         }
     } catch (error) {
-        res.status(500).send("Server error during login.");
+        res.status(500).render('login', { title: 'Admin Login', message: 'Server error during login.' });
     }
 });
 
