@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const multer = require('multer');
 const archiver = require('archiver');
 const fs = require('fs').promises; // Use promises for async operations
+const { exec } = require('child_process');
 const ejs = require('ejs');
 const engine = require('ejs-mate');
 const compression = require('compression');
@@ -37,6 +38,35 @@ app.use(session({
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     }
 }));
+
+// --- Git Sync Function ---
+const syncWithGithub = (commitMessage) => {
+    return new Promise((resolve, reject) => {
+        const commands = [
+            'git add .',
+            `git commit -m "${commitMessage}"`,
+            'git push'
+        ].join(' && ');
+
+        exec(commands, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Git sync error: ${error.message}`);
+                // Don't reject the promise for commit errors like "nothing to commit"
+                if (error.message.includes('nothing to commit')) {
+                    console.log('Nothing to commit, skipping push.');
+                    return resolve(stdout);
+                }
+                return reject(error);
+            }
+            if (stderr) {
+                // Handle cases where there are warnings but not errors
+                console.warn(`Git sync stderr: ${stderr}`);
+            }
+            console.log(`Git sync stdout: ${stdout}`);
+            resolve(stdout);
+        });
+    });
+};
 
 // --- Authentication Middleware ---
 function requireLogin(req, res, next) {
@@ -181,6 +211,14 @@ app.post('/admin/portfolio/add', requireLogin, upload.single('image'), async (re
 
         portfolio.unshift(newItem);
         await cache.updatePortfolio(portfolio);
+        
+        try {
+            await syncWithGithub(`Add portfolio: ${title}`);
+        } catch (gitError) {
+            console.error("Failed to sync with GitHub after adding item.", gitError);
+            // Decide if you want to inform the user of the sync failure
+        }
+
         res.redirect('/admin/portfolio');
     } catch (error) {
         res.status(500).send("Error adding portfolio item.");
@@ -217,6 +255,13 @@ app.post('/admin/portfolio/edit/:id', requireLogin, upload.single('image'), asyn
             };
             portfolio[index] = updatedItem;
             await cache.updatePortfolio(portfolio);
+
+            try {
+                await syncWithGithub(`Edit portfolio: ${title}`);
+            } catch (gitError) {
+                console.error("Failed to sync with GitHub after editing item.", gitError);
+            }
+
             res.redirect('/admin/portfolio');
         } else {
             res.status(404).send('Item not found');
@@ -241,8 +286,16 @@ app.post('/admin/portfolio/delete/:id', requireLogin, async (req, res) => {
             }
         }
         
+        const deletedItemTitle = itemToDelete ? itemToDelete.title : `ID ${req.params.id}`;
         portfolio = portfolio.filter(p => p.id !== req.params.id);
         await cache.updatePortfolio(portfolio);
+
+        try {
+            await syncWithGithub(`Delete portfolio: ${deletedItemTitle}`);
+        } catch (gitError) {
+            console.error("Failed to sync with GitHub after deleting item.", gitError);
+        }
+
         res.redirect('/admin/portfolio');
     } catch (error) {
         res.status(500).send("Error deleting portfolio item.");
