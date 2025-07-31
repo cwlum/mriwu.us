@@ -126,11 +126,21 @@ const storage = multer.diskStorage({
         cb(null, 'asset/portfolio')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
+        // Ensure the file is saved with a .webp extension
+        cb(null, Date.now() + '.webp');
     }
 });
 
-const upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+    // Accept only webp files
+    if (path.extname(file.originalname).toLowerCase() === '.webp') {
+        cb(null, true);
+    } else {
+        cb(new Error('Only .webp files are allowed!'), false);
+    }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 app.get('/admin/portfolio', requireLogin, async (req, res) => {
     try {
