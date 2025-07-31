@@ -16,7 +16,7 @@
     <div class="carousel-wrapper">
         <% portfolio.forEach(item => { %>
             <div class="carousel-item" data-category="<%= item.category %>">
-                <img src="/<%= item.src %>" alt="<%= item.title %>" data-description="<%= item.description %>">
+                <img data-src="/<%= item.src %>" src="" alt="<%= item.title %>" data-description="<%= item.description %>" class="lazy" loading="lazy">
             </div>
         <% }); %>
     </div>
@@ -34,4 +34,4 @@
 </div>
 
 <%- include('partials/sidebar') %>
-<%- include('partials/footer', { extraJs: ['/js/portfolio/modal.js', '/js/portfolio/carousel.js'] }) %>
+<%- include('partials/footer', { extraJs: ['/js/portfolio/modal.js', '/js/portfolio/carousel.js', '/js/portfolio/lazy-load.js'] }) %>
