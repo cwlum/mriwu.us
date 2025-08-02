@@ -14,6 +14,18 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// --- Static Files Middleware ---
+const staticOptions = {
+    maxAge: '1d', // Cache static assets for 1 day
+    setHeaders: (res, path, stat) => {
+        res.set('x-timestamp', Date.now());
+    }
+};
+
+app.use('/css', express.static(path.join(__dirname, 'css'), staticOptions));
+app.use('/js', express.static(path.join(__dirname, 'js'), staticOptions));
+app.use('/asset', express.static(path.join(__dirname, 'asset'), staticOptions));
+
 
 // --- Middleware ---
 app.use(compression());
@@ -50,19 +62,6 @@ app.get('/portfolio', async (req, res) => {
 app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
-
-// --- Static Files Middleware ---
-const staticOptions = {
-    maxAge: '1d', // Cache static assets for 1 day
-    setHeaders: (res, path, stat) => {
-        res.set('x-timestamp', Date.now());
-    }
-};
-
-app.use('/css', express.static(path.join(__dirname, 'css'), staticOptions));
-app.use('/js', express.static(path.join(__dirname, 'js'), staticOptions));
-app.use('/asset', express.static(path.join(__dirname, 'asset'), staticOptions));
-
 
 // --- Server ---
 const startServer = async () => {
