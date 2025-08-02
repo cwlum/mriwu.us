@@ -32,7 +32,7 @@ function initializePageAnimations() {
 
     // Animate Main Content and Footer together
     mainTimeline.add({
-        targets: '.site-main > *:not(script):not(style), .footer-content-wrapper',
+        targets: '.site-main > *:not(script):not(style), .site-footer-bottom',
         translateY: [20, 0],
         opacity: [0, 1],
         delay: anime.stagger(70), // Apply stagger to all elements

@@ -459,6 +459,7 @@ div.action-buttons a.button:hover {
 }
 .patreon-text {
     letter-spacing: -0.5px;
+    color: #ffffff;
 }
 /* This is now replaced by subtle-pulse */
 /* @keyframes glow-pulse {
@@ -553,15 +554,10 @@ div.action-buttons a.button:hover {
     margin-top: 30px;
     border-top: 1px solid #424242;
     width: 100%;
-    /* The container itself is visible to reserve space */
-    opacity: 1;
-    visibility: visible;
 }
 
 .footer-content-wrapper {
     /* This wrapper will be animated */
-    opacity: 0;
-    visibility: hidden;
 }
 
 .copyright {
